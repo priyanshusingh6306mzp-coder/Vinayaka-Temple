@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light Theme (Default: Sandstone & Lamp-light) */
+    --background: 40 48% 93%; /* #F6F0E4 */
+    --foreground: 33 20% 7%; /* #16130F */
+
+    --card: 40 40% 96%;
+    --card-foreground: 33 20% 7%;
+
+    --popover: 40 48% 93%;
+    --popover-foreground: 33 20% 7%;
+
+    --primary: 6 66% 37%; /* Kumkum Red #9B2D20 */
+    --primary-foreground: 40 48% 95%;
+
+    --secondary: 38 51% 48%; /* Temple Gold #B8893B */
+    --secondary-foreground: 33 20% 7%;
+
+    --muted: 40 25% 85%;
+    --muted-foreground: 30 5% 37%; /* Warm Grey #635E59 */
+
+    --accent: 38 51% 48%; /* Gold Accent */
+    --accent-foreground: 33 20% 7%;
+
+    --destructive: 6 75% 42%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 33 15% 82%;
+    --input: 33 15% 82%;
+    --ring: 38 51% 48%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Dark Theme (Charcoal Black Stone & Gold Flame) */
+    --background: 33 20% 7%; /* #16130F */
+    --foreground: 40 48% 93%; /* #F6F0E4 */
+
+    --card: 33 16% 12%; /* #221E19 */
+    --card-foreground: 40 48% 93%;
+
+    --popover: 33 16% 12%;
+    --popover-foreground: 40 48% 93%;
+
+    --primary: 6 66% 40%;
+    --primary-foreground: 40 48% 95%;
+
+    --secondary: 38 51% 48%;
+    --secondary-foreground: 40 48% 93%;
+
+    --muted: 33 15% 18%;
+    --muted-foreground: 40 20% 70%;
+
+    --accent: 38 51% 48%;
+    --accent-foreground: 33 20% 7%;
+
+    --destructive: 6 70% 45%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 33 15% 20%;
+    --input: 33 15% 20%;
+    --ring: 38 51% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    min-height: 100vh;
+  }
+}
+
+/* Custom Temple Utility Classes */
+.gold-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(184, 137, 59, 0.4) 30%,
+    rgba(184, 137, 59, 0.8) 50%,
+    rgba(184, 137, 59, 0.4) 70%,
+    transparent 100%
+  );
+}
+
+.tap-target-min {
+  min-height: 48px;
+  min-width: 48px;
+}
