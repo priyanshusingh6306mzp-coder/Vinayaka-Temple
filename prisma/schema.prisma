@@ -11,36 +11,8 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-// User model for Admin / Priest authentication
-model User {
-  id                 String   @id @default(cuid())
-  email              String   @unique
-  passwordHash       String
-  role               String   @default("ADMIN")
-  mustChangePassword Boolean  @default(true)
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
-
-  @@map("users")
-}
-
-// Devotee Pooja Booking Requests
-model PoojaRequest {
-  id             String      @id @default(cuid())
-  name           String
-  phone          String
-  email          String?
-  poojaType      String
-  dateRequested  DateTime
-  notes          String?
-  status         PoojaStatus @default(PENDING)
-  adminNotes     String?
-  createdAt      DateTime    @default(now())
-  updatedAt      DateTime    @updatedAt
-
-  @@index([status, createdAt])
-  @@index([phone])
-  @@map("pooja_requests")
+enum Role {
+  ADMIN
 }
 
 enum PoojaStatus {
@@ -50,16 +22,46 @@ enum PoojaStatus {
   CANCELLED
 }
 
+// User model for Admin / Priest authentication
+model User {
+  id                 String   @id @default(uuid())
+  email              String   @unique
+  passwordHash       String
+  role               Role     @default(ADMIN)
+  mustChangePassword Boolean  @default(true)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@map("users")
+}
+
+// Devotee Pooja Booking Requests
+model PoojaRequest {
+  id            String      @id @default(uuid())
+  name          String
+  phone         String
+  email         String?
+  poojaType     String
+  dateRequested DateTime
+  notes         String?
+  status        PoojaStatus @default(PENDING)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@index([phone])
+  @@index([status])
+  @@index([createdAt])
+  @@map("pooja_requests")
+}
+
 // Temple Photo Gallery Images (Cloudinary)
 model GalleryImage {
-  id         String   @id @default(cuid())
+  id         String   @id @default(uuid())
   imageUrl   String
   publicId   String   @unique
   title      String
   caption    String?
   sortOrder  Int      @default(0)
-  width      Int?
-  height     Int?
   uploadedAt DateTime @default(now())
 
   @@index([sortOrder, uploadedAt])
@@ -69,8 +71,8 @@ model GalleryImage {
 // Postgres-backed sliding window rate limiter
 model RateLimit {
   key         String   @id
-  windowStart BigInt
-  count       Int      @default(1)
+  windowStart DateTime
+  count       Int
 
   @@map("rate_limits")
 }
