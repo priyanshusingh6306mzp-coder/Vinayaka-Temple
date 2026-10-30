@@ -102,41 +102,31 @@ export const SITE_CONFIG = {
     atmosphere: "Clean, pristine, stone-scented, peaceful and uncrowded",
   },
 
+  /**
+   * [PLACEHOLDER - NEEDS CONFIRMATION FROM THE PRIEST]
+   * Generic, canonical pooja offerings. The client and temple priest will review
+   * and provide the exact list of ritual services offered at the temple.
+   */
   poojaTypes: [
     {
-      id: "sankashti_ganapathi_homam",
-      name: "Sankashti Ganapathi Homam / Pooja",
-      nameHindi: "संकष्टी गणपति होम / पूजा",
-      description: "Special prayer offered for removing obstacles, career growth, and academic success.",
-      durationApprox: "45 mins",
-      suggestedOffering: "Modak, Durva grass, and red hibiscus garland",
+      id: "ganapathi_homam_placeholder",
+      name: "[PLACEHOLDER] Ganapathi Homam / Sankalpa",
+      nameHindi: "गणपति होम / संकल्प",
+      description: "[PLACEHOLDER] Devotional prayer offering for peace, auspicious beginnings, and well-being.",
+      durationApprox: "30-45 mins",
     },
     {
-      id: "nitya_archana",
-      name: "Nitya Sahasranama Archana",
-      nameHindi: "नित्य सहस्रनाम अर्चना",
-      description: "Chanting of sacred 1008 or 108 names of Lord Ganesha with kumkum and akshata.",
-      durationApprox: "20 mins",
+      id: "archana_placeholder",
+      name: "[PLACEHOLDER] Ganesha Archana / Ashtothram",
+      nameHindi: "गणेश अर्चना / अष्टोत्तरम्",
+      description: "[PLACEHOLDER] Chanting of sacred names with floral and kumkum offerings.",
+      durationApprox: "15-20 mins",
     },
     {
-      id: "panchamrutha_abhishekam",
-      name: "Panchamrutha Abhishekam",
-      nameHindi: "पंचामृत अभिषेक",
-      description: "Sacred bath of the deity with milk, curd, honey, ghee, and jaggery/fruit.",
-      durationApprox: "35 mins",
-    },
-    {
-      id: "vehicle_pooja",
-      name: "Vahana Pooja (Vehicle Blessing)",
-      nameHindi: "वाहन पूजा",
-      description: "Consecration and safety blessing for new two-wheelers and four-wheelers on campus.",
-      durationApprox: "15 mins",
-    },
-    {
-      id: "special_darshan_family",
-      name: "Special Family Darshan & Sankalpa",
-      nameHindi: "विशेष पारिवारिक दर्शन व संकल्प",
-      description: "Family sankalpa for health, longevity, and child education.",
+      id: "abhishekam_placeholder",
+      name: "[PLACEHOLDER] Nitya Abhishekam",
+      nameHindi: "नित्य अभिषेक",
+      description: "[PLACEHOLDER] Sacred ceremonial ablution of the deity.",
       durationApprox: "30 mins",
     },
   ] as PoojaTypeOption[],

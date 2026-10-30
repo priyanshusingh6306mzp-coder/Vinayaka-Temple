@@ -188,6 +188,32 @@ export async function updatePoojaStatus(id: string, newStatus: PoojaStatus) {
     data: { status: newStatus },
   });
 
-  revalidatePath("/admin/requests");
+  try {
+    revalidatePath("/admin/requests");
+  } catch {
+    // safe ignore outside request lifecycle
+  }
+  return { success: true, updated };
+}
+
+// Admin Action: Update priest notes for a pooja request
+export async function updatePoojaNotes(id: string, notes: string) {
+  const session = await auth();
+  if (!session || !session.user || (session.user as { role?: string }).role !== "ADMIN") {
+    throw new Error("Unauthorized");
+  }
+
+  const cleanNotes = sanitizeText(notes);
+
+  const updated = await db.poojaRequest.update({
+    where: { id },
+    data: { notes: cleanNotes || null },
+  });
+
+  try {
+    revalidatePath("/admin/requests");
+  } catch {
+    // safe ignore outside request lifecycle
+  }
   return { success: true, updated };
 }

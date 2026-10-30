@@ -77,6 +77,7 @@ export default function ChangePasswordPage() {
             <input
               name="currentPassword"
               type="password"
+              autoComplete="current-password"
               required
               placeholder="••••••••••••"
               className="w-full px-3 py-2.5 rounded-lg border border-temple-stoneBorder text-sm focus:outline-none focus:ring-2 focus:ring-temple-gold"
@@ -90,6 +91,7 @@ export default function ChangePasswordPage() {
             <input
               name="newPassword"
               type="password"
+              autoComplete="new-password"
               required
               minLength={10}
               placeholder="••••••••••••"
@@ -104,6 +106,7 @@ export default function ChangePasswordPage() {
             <input
               name="confirmPassword"
               type="password"
+              autoComplete="new-password"
               required
               minLength={10}
               placeholder="••••••••••••"

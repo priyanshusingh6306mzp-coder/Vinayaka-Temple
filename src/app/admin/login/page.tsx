@@ -68,13 +68,15 @@ function LoginForm() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-1">
-          <label className="text-xs font-semibold uppercase tracking-wider text-temple-warmGrey">
+          <label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-temple-warmGrey">
             Email Address
           </label>
           <div className="relative">
             <Mail className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-temple-warmGrey" />
             <input
+              id="email"
               type="email"
+              autoComplete="username"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -85,13 +87,15 @@ function LoginForm() {
         </div>
 
         <div className="space-y-1">
-          <label className="text-xs font-semibold uppercase tracking-wider text-temple-warmGrey">
+          <label htmlFor="password" className="text-xs font-semibold uppercase tracking-wider text-temple-warmGrey">
             Password
           </label>
           <div className="relative">
             <Lock className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-temple-warmGrey" />
             <input
+              id="password"
               type="password"
+              autoComplete="current-password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}

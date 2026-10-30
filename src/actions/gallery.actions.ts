@@ -14,6 +14,36 @@ const saveImageSchema = z.object({
   sortOrder: z.number().int().default(0),
 });
 
+const updateImageDetailsSchema = z.object({
+  id: z.string().uuid(),
+  title: z.string().trim().min(1, "Title is required").max(100),
+  caption: z.string().trim().max(250).optional().or(z.literal("")),
+});
+
+export async function updateGalleryImageDetails(input: z.infer<typeof updateImageDetailsSchema>) {
+  const session = await auth();
+  if (!session || !session.user || (session.user as { role?: string }).role !== "ADMIN") {
+    throw new Error("Unauthorized");
+  }
+
+  const parsed = updateImageDetailsSchema.parse(input);
+
+  const updated = await db.galleryImage.update({
+    where: { id: parsed.id },
+    data: {
+      title: parsed.title,
+      caption: parsed.caption || null,
+    },
+  });
+
+  try {
+    revalidatePath("/");
+    revalidatePath("/admin/gallery");
+  } catch {}
+
+  return { success: true, updated };
+}
+
 export async function saveGalleryImage(input: z.infer<typeof saveImageSchema>) {
   const session = await auth();
   if (!session || !session.user || (session.user as { role?: string }).role !== "ADMIN") {
