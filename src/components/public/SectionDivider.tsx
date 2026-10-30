@@ -2,7 +2,7 @@ interface SectionDividerProps {
   className?: string;
 }
 
-export function SectionDivider({ className = "my-4 max-w-xs mx-auto" }: SectionDividerProps) {
+export function SectionDivider({ className = "my-1 w-full max-w-sm mr-auto" }: SectionDividerProps) {
   return (
     <div
       className={`flex items-center justify-center gap-3 ${className}`}

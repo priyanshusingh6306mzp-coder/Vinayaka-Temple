@@ -8,7 +8,7 @@ export function HeroSection() {
       {/* Subtle traditional South Indian Chola-style decorative elements (watermark gold #B8893B, purely visual, desktop-only) */}
       {/* 1. Hanging temple bell (toran) motif along the top edge */}
       <div
-        className="absolute top-0 inset-x-0 hidden lg:block pointer-events-none overflow-hidden h-9 opacity-20 text-[#B8893B]"
+        className="absolute top-0 inset-x-0 hidden lg:block pointer-events-none overflow-hidden h-9 opacity-50 text-[#B8893B]"
         aria-hidden="true"
       >
         <svg
@@ -62,7 +62,7 @@ export function HeroSection() {
 
       {/* 2. Subtle stone-carved Chola pillar motif framing left margin */}
       <div
-        className="absolute left-2 xl:left-8 top-1/2 -translate-y-1/2 hidden lg:block pointer-events-none opacity-20 text-[#B8893B]"
+        className="absolute left-2 xl:left-8 bottom-4 hidden lg:block pointer-events-none opacity-50 text-[#B8893B]"
         aria-hidden="true"
       >
         <svg
@@ -117,7 +117,7 @@ export function HeroSection() {
 
       {/* 3. Subtle stone-carved Chola pillar motif framing right margin (mirrored) */}
       <div
-        className="absolute right-2 xl:right-8 top-1/2 -translate-y-1/2 hidden lg:block pointer-events-none opacity-20 text-[#B8893B] scale-x-[-1]"
+        className="absolute right-2 xl:right-8 bottom-4 hidden lg:block pointer-events-none opacity-50 text-[#B8893B] scale-x-[-1]"
         aria-hidden="true"
       >
         <svg
