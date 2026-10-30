@@ -178,8 +178,8 @@ export function HeroSection() {
         {/* 2. Idol Photo (DOM 2nd: mobile row 2, desktop col 2 rows 1-6 vertically centered) */}
         <div className="relative flex justify-center items-center my-1 lg:my-0 lg:col-start-2 lg:row-start-1 lg:row-span-6 lg:justify-end">
           <Image
-            src="/images/hero-ganesha.webp"
-            alt="Black stone idol of Lord Ganesha at Shri Vinayaka Temple"
+            src="/images/temple.jpg"
+            alt="Temple image"
             width={960}
             height={1280}
             priority
@@ -187,7 +187,7 @@ export function HeroSection() {
             placeholder="blur"
             blurDataURL="data:image/webp;base64,UklGRpoAAABXRUJQVlA4II4AAAAwBACdASoQABUAPzmEuVOvKKWisAgB4CcJbACdMoACjbb9wMGEUoCGOoAA/i42TFIZiGQKCsqs7cewQwkThY3/Aex5z99XKag2BRyKxlSBoSbwv+V2+wLmR1C4qMewLkqeIMsYrjXO0Ew2fUls7tfUsAlXV4fu1iDwAXUNaFv8hn3PjepXf3cdNWNcgAAA"
             sizes="(max-width: 640px) 75vw, (max-width: 1024px) 50vw, 480px"
-            className="max-h-[46vh] sm:max-h-[48vh] lg:max-h-[min(540px,calc(100svh-120px))] w-auto h-auto object-contain rounded-2xl border border-[#B8893B]/25"
+            className=" lg:mt-14 max-h-[46vh] sm:max-h-[48vh] lg:max-h-[min(540px,calc(100svh-120px))] w-auto h-auto object-contain rounded-2xl border border-[#B8893B]/25"
           />
         </div>
 

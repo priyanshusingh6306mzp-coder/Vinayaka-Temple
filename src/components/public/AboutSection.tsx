@@ -7,22 +7,19 @@ import { SectionDivider } from "./SectionDivider";
 export function AboutSection() {
   return (
     <section id="about" className="bg-temple-ivory text-temple-charcoal">
-      {/* Divider between Hero and Actions */}
       <SectionDivider className="pt-2 pb-1 max-w-xs mx-auto" />
 
-      {/* Intro Action Bar directly below Hero on Ivory */}
       <div className="py-4 sm:py-6 px-4">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
           <div className="flex items-center gap-2 text-sm text-temple-charcoal font-medium">
             <MapPin className="w-4 h-4 text-temple-kumkum shrink-0" aria-hidden="true" />
-            <span>Inside the JSS Academy campus, Sector 62, Noida</span>
+            <span>Inside the JSS University campus, Sector 62, Noida</span>
           </div>
           <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-center">
             <Button
               asChild
               variant="default"
-              size="default"
-              className="bg-temple-kumkum hover:bg-temple-kumkum/90 text-white font-medium shadow-sm h-11 px-5 focus-visible:ring-2 focus-visible:ring-temple-charcoal"
+              className="bg-temple-kumkum hover:bg-temple-kumkum/90 text-white font-medium shadow-sm h-11 px-5"
             >
               <a href="#pooja-form" className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" aria-hidden="true" />
@@ -32,8 +29,7 @@ export function AboutSection() {
             <Button
               asChild
               variant="outline"
-              size="default"
-              className="border border-temple-charcoal hover:bg-stone-200/50 text-temple-charcoal font-medium h-11 px-5 focus-visible:ring-2 focus-visible:ring-temple-charcoal"
+              className="border border-temple-charcoal hover:bg-stone-200/50 text-temple-charcoal font-medium h-11 px-5"
             >
               <a href="#location" className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-stone-600" aria-hidden="true" />
@@ -45,7 +41,6 @@ export function AboutSection() {
       </div>
 
       <div className="py-14 sm:py-20 md:py-24 px-4 max-w-5xl mx-auto">
-        {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14 space-y-2">
           <p className="text-xs uppercase font-semibold tracking-widest text-temple-goldText block">
             Sacred Sanctuary &amp; Heritage
@@ -59,12 +54,13 @@ export function AboutSection() {
           </p>
         </div>
 
-        {/* Two-Column Grid (Image + Text) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Column 1: Deity Photo on Ivory */}
+        {/* items-stretch forces both columns to be exactly the same height */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+          
+          {/* Column 1: Deity Photo */}
           <div className="lg:col-span-5 relative w-full aspect-[3/4] rounded-xl overflow-hidden border border-[#B8893B]/25 bg-white/70">
             <Image
-              src="/images/hero-ganesha.webp"
+              src="/images/ganesha.jpg"
               alt="Black stone Ganesha idol at Shri Vinayaka Temple Noida"
               fill
               sizes="(max-width: 1024px) 100vw, 40vw"
@@ -72,28 +68,21 @@ export function AboutSection() {
             />
           </div>
 
-          {/* Column 2: Dignified Text (Restrained measure <65 chars/line, 17-18px) */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="space-y-4 text-base sm:text-lg leading-[1.7] text-temple-charcoal max-w-prose">
-              <p>
-                <strong className="font-serif text-xl font-bold text-temple-charcoal block mb-1">
-                  A Quiet Sanctuary for Prayer and Darshan
-                </strong>
-                Situated inside the campus of JSS Academy of Technical Education, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida,
-                <strong> {SITE_CONFIG.name}</strong> offers a calm, clean, and uncrowded place of worship.
-              </p>
-
-              <p>
-                The temple enshrines a <strong>black stone Ganesha idol</strong>, sculpted in the traditional style of <strong>South Indian Chola architecture</strong>.
-              </p>
-
-              <p>
-                Devotees visit for its <strong>calm, clean, and uncrowded atmosphere</strong>, which provides a serene setting for prayer, meditation, and spiritual reflection.
+          {/* Column 2: Flex container pushing everything to the bottom */}
+          <div className="lg:col-span-7 flex flex-col h-full lg:py-2">
+            
+            {/* TEXT: mt-auto pushes this block to the bottom. mb-8 creates the line gap above the boxes. */}
+            <div className="mt-auto mb-8 space-y-4">
+              <h3 className="font-serif text-xl sm:text-2xl font-bold text-temple-charcoal">
+                A Quiet Sanctuary for Prayer and Darshan
+              </h3>
+              <p className="text-base sm:text-lg leading-[1.7] text-temple-charcoal max-w-prose">
+                Situated inside the campus of JSS University, Noida, <strong>{SITE_CONFIG.name}</strong> offers a serene, uncrowded atmosphere perfect for prayer, meditation, and spiritual reflection.
               </p>
             </div>
 
-            {/* Quick Fact Badges */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            {/* BOXES: Sit exactly at the bottom border of the image */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="p-4 rounded-lg bg-white border border-stone-200 shadow-sm">
                 <span className="text-xs uppercase font-bold text-temple-goldText block mb-1">
                   Architectural Style
@@ -112,6 +101,7 @@ export function AboutSection() {
                 </span>
               </div>
             </div>
+
           </div>
         </div>
       </div>
