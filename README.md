@@ -189,3 +189,12 @@ All public facts, address details, timings, and content placeholders are central
 4. **AWS S3 / Cloudflare R2 Storage:**
    - What it fixes: Unlimited photo storage without Cloudinary credit thresholds.
    - Action: Implement `IStorageService` in `src/lib/services/storage/r2.service.ts`.
+
+---
+
+## 11. Known Advisories
+
+The following package advisories are tracked and deferred until post-launch maintenance:
+- **`zod` (`<4.6.6`):** Advisory regarding memory exhaustion on oversized constrained collections. Upgrading requires a breaking major release (`zod@4.x`), which is currently incompatible with `@hookform/resolvers@3.10.0`. Mitigated in application code by enforcing strict `.max()` constraints on all form fields (name max 100, phone max 10, notes max 500).
+- **`postcss` (`<=8.5.22`):** Transitive dependency bundled with Next.js. Remediating requires upgrading to Next.js 16 (`next@16.x`), which introduces breaking framework changes.
+- **Action:** Revisit and upgrade both dependencies in a dedicated post-launch maintenance cycle once ecosystem support stabilizes.

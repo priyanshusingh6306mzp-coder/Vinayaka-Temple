@@ -48,7 +48,7 @@ const poojaOfferingsPendingPriestConfirmation: PoojaTypeOption[] = [
     id: "other_or_call",
     name: "Other / not sure, I will call",
     nameHindi: "अन्य / परामर्श हेतु संपर्क करेंगे",
-    description: "Devotee will discuss pooja rituals directly with the priest via phone call.",
+    description: "The temple will contact you to confirm the pooja and date.",
     durationApprox: "To be confirmed",
   },
 ];

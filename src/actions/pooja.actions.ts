@@ -50,7 +50,7 @@ export async function submitPoojaRequest(
     return {
       success: true,
       message:
-        "Dhanyawad. Your pooja request has been received. The temple priest will contact you to confirm details.",
+        "Dhanyawad. Your pooja request has been received. The temple will contact you to confirm the pooja and date.",
     };
   }
 
@@ -164,7 +164,7 @@ export async function submitPoojaRequest(
     return {
       success: true,
       message:
-        "Dhanyawad. Your pooja request has been received. The temple priest will contact you to confirm details.",
+        "Dhanyawad. Your pooja request has been received. The temple will contact you to confirm the pooja and date.",
     };
   } catch (dbError: unknown) {
     console.error("[Pooja DB Error]", dbError);

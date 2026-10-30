@@ -55,7 +55,7 @@ export function PoojaRequestForm() {
       if (result.success) {
         setServerSuccess(
           result.message ||
-            "Dhanyawad. Your pooja request has been received. The temple priest will contact you to confirm details."
+            "Dhanyawad. Your pooja request has been received. The temple will contact you to confirm the pooja and date."
         );
         reset();
       } else {
@@ -87,7 +87,7 @@ export function PoojaRequestForm() {
           </h2>
           <div className="gold-divider max-w-xs mx-auto my-3" />
           <p className="text-sm sm:text-base text-temple-warmGrey max-w-xl mx-auto">
-            Submit your pooja request below. The temple priest will personally call you to confirm your seva, ritual preparations, and preferred date.
+            Submit your pooja request below. The temple will contact you to confirm the pooja and date.
           </p>
         </div>
 
@@ -107,7 +107,7 @@ export function PoojaRequestForm() {
                 className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-md bg-green-100 hover:bg-green-200 text-green-900 transition-colors"
               >
                 <Phone className="w-3.5 h-3.5" />
-                <span>Call Priest: {SITE_CONFIG.contact.displayPhone}</span>
+                <span>Call Temple: {SITE_CONFIG.contact.displayPhone}</span>
               </a>
               <a
                 href={SITE_CONFIG.contact.whatsappLink}
@@ -275,11 +275,11 @@ export function PoojaRequestForm() {
               </p>
             )}
 
-            {/* Clearly visible note that priest confirms pooja and date by phone */}
+            {/* Clearly visible note that temple confirms pooja and date */}
             <div className="p-3 rounded-lg bg-temple-sandstone/70 border border-temple-gold/30 text-xs text-temple-charcoal flex items-start gap-2.5">
               <Phone className="w-4 h-4 text-temple-kumkum shrink-0 mt-0.5" />
               <p className="leading-relaxed">
-                <strong>Priest Phone Confirmation:</strong> The temple priest will personally call you on your registered mobile number to confirm the pooja rituals, availability, and scheduled date before the seva is performed.
+                The temple will contact you to confirm the pooja and date.
               </p>
             </div>
           </div>
