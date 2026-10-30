@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Camera, Eye } from "lucide-react";
 import { LightboxModal, GalleryPhoto } from "@/components/public/LightboxModal";
+import { SectionDivider } from "./SectionDivider";
 
 interface GallerySectionProps {
   initialPhotos?: GalleryPhoto[];
@@ -16,17 +17,17 @@ export function GallerySection({ initialPhotos = [] }: GallerySectionProps) {
   const displayPhotos: GalleryPhoto[] = initialPhotos;
 
   return (
-    <section id="gallery" className="py-16 sm:py-24 px-4 bg-temple-ivory text-temple-charcoal border-b border-temple-stoneBorder">
-      <div className="max-w-6xl mx-auto space-y-12">
+    <section id="gallery" className="py-14 sm:py-20 md:py-24 px-4 bg-temple-ivory text-temple-charcoal border-b border-temple-stoneBorder">
+      <div className="max-w-5xl mx-auto space-y-10 sm:space-y-12">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto space-y-2">
-          <span className="text-xs uppercase font-semibold tracking-widest text-temple-goldText block">
+          <p className="text-xs uppercase font-semibold tracking-widest text-temple-goldText block">
             Sacred Darshan
-          </span>
+          </p>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-temple-charcoal">
             Temple Gallery
           </h2>
-          <div className="gold-divider max-w-xs mx-auto my-3" />
+          <SectionDivider />
           <p className="font-devanagari text-base text-temple-kumkum font-medium">
             छायाचित्र एवं मंदिर दर्शन
           </p>
@@ -55,7 +56,7 @@ export function GallerySection({ initialPhotos = [] }: GallerySectionProps) {
                   alt={photo.title}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500 motion-reduce:transform-none"
                   loading="lazy"
                 />
 

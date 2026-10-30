@@ -3,11 +3,12 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Calendar, User, Phone, Mail, FileText, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { Calendar, User, Phone, Mail, FileText, CheckCircle2, AlertCircle, Loader2, MessageCircle } from "lucide-react";
 import { poojaRequestSchema, PoojaRequestInput } from "@/schemas/poojaRequest.schema";
 import { submitPoojaRequest } from "@/actions/pooja.actions";
 import { SITE_CONFIG } from "@/content/site";
 import { Button } from "@/components/ui/button";
+import { SectionDivider } from "./SectionDivider";
 
 export function PoojaRequestForm() {
   const [serverSuccess, setServerSuccess] = useState<string | null>(null);
@@ -75,17 +76,17 @@ export function PoojaRequestForm() {
   };
 
   return (
-    <section id="pooja-form" className="py-16 sm:py-24 px-4 bg-temple-sandstone/30 text-temple-charcoal border-b border-temple-stoneBorder">
+    <section id="pooja-form" className="py-14 sm:py-20 md:py-24 px-4 bg-temple-sandstone/30 text-temple-charcoal border-b border-temple-stoneBorder">
       <div className="max-w-3xl mx-auto space-y-10">
         {/* Section Header */}
         <div className="text-center space-y-2">
-          <span className="text-xs uppercase font-semibold tracking-widest text-temple-goldText block">
+          <p className="text-xs uppercase font-semibold tracking-widest text-temple-goldText block">
             Devotional Offerings
-          </span>
+          </p>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-temple-charcoal">
             Request a Sacred Pooja
           </h2>
-          <div className="gold-divider max-w-xs mx-auto my-3" />
+          <SectionDivider />
           <p className="text-sm sm:text-base text-temple-warmGrey max-w-xl mx-auto">
             Submit your pooja request below. The temple will contact you to confirm the pooja and date.
           </p>
@@ -306,22 +307,41 @@ export function PoojaRequestForm() {
             )}
           </div>
 
-          {/* Submit Button */}
-          <Button
-            type="submit"
-            disabled={isSubmitting}
-            variant="default"
-            className="w-full h-13 text-base font-bold shadow-md hover:shadow-lg"
-          >
-            {isSubmitting ? (
-              <span className="flex items-center gap-2">
-                <Loader2 className="w-5 h-5 animate-spin" />
-                <span>Submitting Pooja Request...</span>
-              </span>
-            ) : (
-              <span>Submit Pooja Request</span>
-            )}
-          </Button>
+          {/* Submit Button & WhatsApp Action */}
+          <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              variant="default"
+              className="w-full sm:flex-1 h-12 text-base font-bold shadow-md hover:shadow-lg bg-temple-kumkum hover:bg-temple-kumkum/90 text-white focus-visible:ring-2 focus-visible:ring-temple-gold"
+            >
+              {isSubmitting ? (
+                <span className="flex items-center justify-center gap-2">
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <span>Submitting Pooja Request...</span>
+                </span>
+              ) : (
+                <span>Submit Pooja Request</span>
+              )}
+            </Button>
+
+            <Button
+              asChild
+              type="button"
+              variant="outline"
+              className="w-full sm:w-auto h-12 px-5 text-sm font-semibold border-stone-300 hover:bg-stone-200/60 text-stone-800 focus-visible:ring-2 focus-visible:ring-temple-gold"
+            >
+              <a
+                href={SITE_CONFIG.contact.whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2"
+              >
+                <MessageCircle className="w-4 h-4 text-emerald-600" aria-hidden="true" />
+                <span>Message on WhatsApp</span>
+              </a>
+            </Button>
+          </div>
 
           <p className="text-xs text-center text-temple-warmGrey">
             No advance online payment required. Offerings and dakshina are settled in person at the temple.

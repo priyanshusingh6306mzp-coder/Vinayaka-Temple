@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Calendar, MapPin } from "lucide-react";
 import { SITE_CONFIG } from "@/content/site";
 import { Button } from "@/components/ui/button";
+import { SectionDivider } from "./SectionDivider";
 
 export function AboutSection() {
   return (
@@ -18,7 +19,7 @@ export function AboutSection() {
               asChild
               variant="default"
               size="default"
-              className="bg-temple-kumkum hover:bg-temple-kumkum/90 text-white font-medium shadow-sm h-11 px-5"
+              className="bg-temple-kumkum hover:bg-temple-kumkum/90 text-white font-medium shadow-sm h-11 px-5 focus-visible:ring-2 focus-visible:ring-temple-gold"
             >
               <a href="#pooja-form" className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" aria-hidden="true" />
@@ -29,7 +30,7 @@ export function AboutSection() {
               asChild
               variant="outline"
               size="default"
-              className="border-stone-300 hover:bg-stone-200/60 text-temple-charcoal font-medium h-11 px-5"
+              className="border-stone-300 hover:bg-stone-200/60 text-temple-charcoal font-medium h-11 px-5 focus-visible:ring-2 focus-visible:ring-temple-gold"
             >
               <a href="#location" className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-stone-600" aria-hidden="true" />
@@ -40,16 +41,16 @@ export function AboutSection() {
         </div>
       </div>
 
-      <div className="py-16 sm:py-24 px-4 max-w-6xl mx-auto">
+      <div className="py-14 sm:py-20 md:py-24 px-4 max-w-5xl mx-auto">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 space-y-2">
-          <span className="text-xs uppercase font-semibold tracking-widest text-temple-goldText block">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14 space-y-2">
+          <p className="text-xs uppercase font-semibold tracking-widest text-temple-goldText block">
             Sacred Sanctuary &amp; Heritage
-          </span>
+          </p>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-temple-charcoal">
             About Shri Vinayaka Temple
           </h2>
-          <div className="gold-divider max-w-xs mx-auto my-3" />
+          <SectionDivider />
           <p className="font-devanagari text-base text-temple-kumkum font-medium">
             परम पावन श्री महागणपति दिव्य दर्शन
           </p>
@@ -68,9 +69,9 @@ export function AboutSection() {
             />
           </div>
 
-          {/* Column 2: Dignified Text (Only facts provided by client) */}
+          {/* Column 2: Dignified Text (Restrained measure <65 chars/line, 17-18px) */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="space-y-4 text-base sm:text-lg leading-relaxed text-temple-charcoal/90">
+            <div className="space-y-4 text-base sm:text-lg leading-[1.7] text-temple-charcoal/90 max-w-prose">
               <p>
                 <strong className="font-serif text-xl font-bold text-temple-charcoal block mb-1">
                   A Quiet Sanctuary for Prayer and Darshan
