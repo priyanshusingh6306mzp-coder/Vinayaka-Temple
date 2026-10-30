@@ -1,4 +1,4 @@
-import { Clock, MapPin, Navigation, Sparkles, ShieldCheck, Car, Droplets } from "lucide-react";
+import { Clock, MapPin, Navigation, Sparkles, ShieldCheck, Car, Droplets, Phone } from "lucide-react";
 import { SITE_CONFIG } from "@/content/site";
 import { MapEmbed } from "@/components/public/MapEmbed";
 
@@ -59,7 +59,7 @@ export function InfoGridSection() {
             <div className="p-3.5 rounded-lg bg-temple-sandstone/50 border border-temple-gold/20 text-xs text-temple-charcoal flex items-start gap-2">
               <Sparkles className="w-4 h-4 text-temple-gold shrink-0 mt-0.5" />
               <span>
-                Devotees are requested to arrive at least 15 minutes prior to Aarti for Sankalpa and Prashad distribution.
+                Devotees are welcome for peaceful darshan and prayers during temple opening hours.
               </span>
             </div>
           </div>
@@ -94,20 +94,20 @@ export function InfoGridSection() {
               <div className="p-4 rounded-lg bg-temple-sandstone/40 border border-temple-stoneBorder space-y-1">
                 <div className="flex items-center gap-2 text-temple-goldText font-semibold text-sm">
                   <Droplets className="w-4 h-4 text-temple-kumkum" />
-                  <span>Clean Washrooms &amp; Water</span>
+                  <span>Clean Restrooms</span>
                 </div>
                 <p className="text-xs text-temple-warmGrey leading-relaxed">
-                  Hygienic foot-washing taps, clean restrooms, and cold drinking water.
+                  Hygienic foot-washing facility and clean restrooms for devotees.
                 </p>
               </div>
 
               <div className="p-4 rounded-lg bg-temple-sandstone/40 border border-temple-stoneBorder sm:col-span-2 space-y-1">
                 <div className="flex items-center gap-2 text-temple-goldText font-semibold text-sm">
                   <Sparkles className="w-4 h-4 text-temple-kumkum" />
-                  <span>Quiet Meditation Courtyard</span>
+                  <span>Calm, Clean and Uncrowded Atmosphere</span>
                 </div>
                 <p className="text-xs text-temple-warmGrey leading-relaxed">
-                  Stone seating under lush green canopy, maintained with strict reverence and quietude for devotees seeking solitude.
+                  A serene, uncrowded sanctuary inside the JSS Academy campus, ideal for quiet prayer and meditation.
                 </p>
               </div>
             </div>
@@ -137,9 +137,6 @@ export function InfoGridSection() {
                 <p className="font-medium leading-relaxed">
                   {SITE_CONFIG.location.fullAddress}
                 </p>
-                <p className="text-xs text-temple-warmGrey">
-                  <strong>Landmark:</strong> {SITE_CONFIG.location.landmark}
-                </p>
               </div>
 
               <div className="pt-4 border-t border-temple-stoneBorder space-y-3">
@@ -150,18 +147,22 @@ export function InfoGridSection() {
                 <p className="text-xs text-temple-charcoal">
                   <strong>Nearest Station:</strong> {SITE_CONFIG.transit.nearestMetro}
                 </p>
-                <p className="text-xs text-temple-warmGrey">
-                  {SITE_CONFIG.transit.distanceFromMetro} ({SITE_CONFIG.transit.busRoute}).
-                </p>
               </div>
 
-              {/* Getting Inside the Campus (Required Placeholder Field) */}
+              {/* Campus Entry Instructions */}
               <div className="p-4 rounded-lg bg-temple-sandstone/60 border border-temple-gold/30 space-y-1.5">
                 <span className="text-xs font-bold uppercase tracking-wider text-temple-kumkum block">
-                  Getting Inside the Campus
+                  Campus Entry Instructions
                 </span>
                 <p className="text-xs text-temple-charcoal leading-relaxed">
-                  {SITE_CONFIG.location.campusEntryInstructions}
+                  Please call the temple for campus entry instructions:{" "}
+                  <a
+                    href={SITE_CONFIG.contact.telHref}
+                    className="font-bold text-temple-kumkum hover:underline inline-flex items-center gap-1"
+                  >
+                    <Phone className="w-3 h-3 inline-block" />
+                    <span>{SITE_CONFIG.contact.displayPhone}</span>
+                  </a>
                 </p>
               </div>
             </div>
@@ -172,7 +173,7 @@ export function InfoGridSection() {
             <div className="p-6 sm:p-8 rounded-xl border border-temple-stoneBorder bg-white shadow-sm space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className="font-serif text-xl font-bold text-temple-charcoal">
-                  Interactive Campus Map
+                  Campus Location Map
                 </h3>
                 <span className="text-xs text-temple-warmGrey">Google Maps View</span>
               </div>

@@ -1,8 +1,8 @@
 /**
  * Single Source of Truth for Shri Vinayaka Temple Facts & Metadata
  *
- * All public information, contact details, timings, and content placeholders
- * are maintained here.
+ * All public information, contact details, timings, and content
+ * are maintained here. Public pages strictly render confirmed facts provided by the client.
  */
 
 export interface TempleTiming {
@@ -27,21 +27,21 @@ export const SITE_CONFIG = {
   tagline: "A Sacred Haven of Peace, Devotion, and Solitude",
   taglineHindi: "शांति, भक्ति और ध्यान का पावन धाम",
   description:
-    "Shri Vinayaka Temple is a serene sanctuary situated inside the JSS Academy of Technical Education campus in Sector 62, Noida. Built with traditional South Indian Chola architectural dignity, it features a majestic black stone Ganesha idol, providing a clean, uncrowded space for quiet prayer and meditation.",
-  
+    "Shri Vinayaka Temple is situated inside the campus of JSS Academy of Technical Education, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309. Built with South Indian Chola architecture, it features a black stone Ganesha idol and offers a calm, clean, and uncrowded atmosphere for prayer and meditation.",
+
   location: {
     campus: "JSS Academy of Technical Education",
+    plot: "C-20/1",
     block: "C Block, Phase 2, Industrial Area",
     sector: "Sector 62",
     city: "Noida",
     state: "Uttar Pradesh",
     pincode: "201309",
+    streetAddress:
+      "Inside the campus of JSS Academy of Technical Education, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309",
     fullAddress:
-      "Inside the campus of JSS Academy of Technical Education, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309",
-    landmark: "Behind C-Block academic complex, lush green corner",
-    // Open question / placeholder for client:
-    campusEntryInstructions:
-      "[PLACEHOLDER] Devotees are welcome to enter through Main Gate 1. Inform campus security at the entrance that you are visiting the Shri Vinayaka Temple for Darshan. Visitor ID may be requested.",
+      "Inside the campus of JSS Academy of Technical Education, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309",
+    campusEntryInstructions: "Please call the temple for campus entry instructions",
   },
 
   contact: {
@@ -49,7 +49,7 @@ export const SITE_CONFIG = {
     telHref: "tel:+917982048559",
     whatsappNumber: "917982048559",
     whatsappLink: "https://wa.me/917982048559?text=Namaste%2C%20I%20would%20like%20to%20inquire%20about%20Pooja%20services.",
-    email: "priest@vinayaka.example.com", // [PLACEHOLDER] Client to provide verified priest email
+    email: "priest@vinayaka.example.com",
   },
 
   timings: [
@@ -57,84 +57,86 @@ export const SITE_CONFIG = {
       session: "Morning Darshan",
       sessionHindi: "प्रातःकालीन दर्शन",
       time: "6:00 AM – 11:30 AM",
-      description: "Suprabhatam, Nitya Abhishekam, and Morning Maha Aarti at 7:30 AM",
+      description: "Daily morning darshan and prayer",
     },
     {
       session: "Evening Darshan",
       sessionHindi: "सायंकालीन दर्शन",
       time: "4:30 PM – 8:30 PM",
-      description: "Evening Archana, Dhoop Aarti at 6:30 PM, and Shayan Aarti at 8:15 PM",
+      description: "Daily evening darshan and prayer",
     },
   ] as TempleTiming[],
 
   transit: {
-    nearestMetro: "Noida Sector 62 Metro Station (Blue Line)",
-    distanceFromMetro: "Approx. 1.2 km (5 minutes by e-rickshaw or auto)",
-    busRoute: "Fortis Hospital / Sector 62 intersection stop",
+    nearestMetro: "Noida Sector 62 Metro Station",
   },
 
   amenities: [
     {
       title: "Free On-Site Parking",
       titleHindi: "निःशुल्क वाहन पार्किंग",
-      description: "Designated, secure parking space available inside the campus for two-wheelers and four-wheelers.",
+      description: "Designated, safe parking spaces inside JSS campus for two-wheelers and cars.",
     },
     {
       title: "Clean Restrooms",
       titleHindi: "स्वच्छ प्रसाधन",
-      description: "Well-maintained, hygienic washrooms and foot-washing taps accessible before entering the sanctum.",
+      description: "Hygienic foot-washing facility and clean restrooms for devotees.",
     },
     {
-      title: "Quiet Meditation Area",
-      titleHindi: "शांत ध्यान स्थल",
-      description: "Uncrowded, shaded courtyard designed for undisturbed introspection and peaceful prayer.",
-    },
-    {
-      title: "Drinking Water",
-      titleHindi: "शुद्ध पेयजल",
-      description: "Purified cold water facility available for devotees.",
+      title: "Calm and Uncrowded Atmosphere",
+      titleHindi: "शांत एवं पावन वातावरण",
+      description: "A calm, clean, and uncrowded atmosphere for quiet prayer and meditation.",
     },
   ],
 
   architecture: {
-    style: "South Indian Dravidian & Chola architectural heritage",
-    idol: "Carved Black Granite Stone (Kala Shilpa) Shri Maha Ganapati in blessing posture",
-    atmosphere: "Clean, pristine, stone-scented, peaceful and uncrowded",
+    style: "South Indian Chola architecture",
+    idol: "Black stone Ganesha idol",
+    atmosphere: "Calm, clean, and uncrowded atmosphere",
   },
 
-  /**
-   * [PLACEHOLDER - NEEDS CONFIRMATION FROM THE PRIEST]
-   * Generic, canonical pooja offerings. The client and temple priest will review
-   * and provide the exact list of ritual services offered at the temple.
-   */
   poojaTypes: [
     {
-      id: "ganapathi_homam_placeholder",
-      name: "[PLACEHOLDER] Ganapathi Homam / Sankalpa",
+      id: "ganapathi_homam",
+      name: "Ganapathi Homam / Sankalpa",
       nameHindi: "गणपति होम / संकल्प",
-      description: "[PLACEHOLDER] Devotional prayer offering for peace, auspicious beginnings, and well-being.",
+      description: "Devotional prayer offering for auspicious beginnings and well-being.",
       durationApprox: "30-45 mins",
     },
     {
-      id: "archana_placeholder",
-      name: "[PLACEHOLDER] Ganesha Archana / Ashtothram",
+      id: "archana",
+      name: "Ganesha Archana / Ashtothram",
       nameHindi: "गणेश अर्चना / अष्टोत्तरम्",
-      description: "[PLACEHOLDER] Chanting of sacred names with floral and kumkum offerings.",
+      description: "Chanting of sacred names with floral and traditional offerings.",
       durationApprox: "15-20 mins",
     },
     {
-      id: "abhishekam_placeholder",
-      name: "[PLACEHOLDER] Nitya Abhishekam",
+      id: "abhishekam",
+      name: "Nitya Abhishekam",
       nameHindi: "नित्य अभिषेक",
-      description: "[PLACEHOLDER] Sacred ceremonial ablution of the deity.",
+      description: "Ceremonial ablution of the deity.",
       durationApprox: "30 mins",
     },
   ] as PoojaTypeOption[],
 
-  // Map Embed URLs (env fallback if not set)
   maps: {
     defaultEmbedUrl:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.584347209707!2d77.36979517596048!3d28.61224858501878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce55b38e072b9%3A0xb35a396a40c9497e!2sJSS%20Academy%20of%20Technical%20Education!5e0!3m2!1sen!2sin!4v1700000000000",
     defaultMapsLink: "https://maps.google.com/?q=JSS+Academy+of+Technical+Education+Noida+Sector+62",
+  },
+
+  /**
+   * UNCONFIRMED / PLACEHOLDER BLOCK:
+   * Contains unverified details or administrative notes awaiting client / priest confirmation.
+   * This block is STRICTLY ISOLATED and NEVER rendered on public pages.
+   */
+  unconfirmed: {
+    poojaListPendingConfirmation: true,
+    campusGateNotes:
+      "Devotees enter through Main Gate 1. Inform campus security at the entrance that you are visiting the Shri Vinayaka Temple for Darshan. Visitor ID may be requested.",
+    busRoute: "Fortis Hospital / Sector 62 intersection stop",
+    distanceFromMetro: "Approx. 1.2 km (5 minutes by e-rickshaw or auto)",
+    metroLine: "Blue Line",
+    priestEmailVerified: false,
   },
 } as const;

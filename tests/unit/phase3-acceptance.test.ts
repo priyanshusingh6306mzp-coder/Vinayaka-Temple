@@ -55,6 +55,8 @@ describe("Phase 3 Server Actions Defense-in-Depth", () => {
     const testIp = `192.168.10.${Date.now() % 255}`;
     const key = `pooja:ip:${testIp}`;
 
+    await rateLimiter.reset(key);
+
     for (let i = 0; i < 5; i++) {
       await rateLimiter.limit(key, 5, 3600000);
     }

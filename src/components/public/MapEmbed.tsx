@@ -46,7 +46,7 @@ export function MapEmbed() {
                 Interactive Campus & Sanctum Map
               </p>
               <p className="text-xs text-temple-warmGrey leading-relaxed">
-                Situated inside the lush campus of JSS Academy, Sector 62, Noida. Load the interactive map preview below.
+                Situated inside the campus of JSS Academy of Technical Education, Sector 62, Noida. Load the interactive map preview below.
               </p>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-3 pt-1">

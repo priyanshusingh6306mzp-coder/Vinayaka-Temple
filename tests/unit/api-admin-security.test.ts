@@ -1,13 +1,18 @@
 import { describe, it, expect, vi } from "vitest";
 import { POST as uploadSignaturePOST } from "@/app/api/admin/upload-signature/route";
-import { GET as galleryGET, POST as galleryPOST, DELETE as galleryDELETE } from "@/app/api/admin/gallery/route";
+import {
+  GET as galleryGET,
+  POST as galleryPOST,
+  PUT as galleryPUT,
+  DELETE as galleryDELETE,
+} from "@/app/api/admin/gallery/route";
 
-// Mock auth to return null (unauthenticated)
+// Mock auth to return null (unauthenticated / missing admin session)
 vi.mock("@/lib/auth", () => ({
   auth: vi.fn().mockResolvedValue(null),
 }));
 
-describe("Phase 5 Admin API Route Authentication Rejection", () => {
+describe("Admin API Route Defense-in-Depth Authentication Rejection", () => {
   it("rejects /api/admin/upload-signature POST without valid admin session (401)", async () => {
     const res = await uploadSignaturePOST();
     expect(res.status).toBe(401);
@@ -32,6 +37,21 @@ describe("Phase 5 Admin API Route Authentication Rejection", () => {
       }),
     });
     const res = await galleryPOST(req);
+    expect(res.status).toBe(401);
+    const body = await res.json();
+    expect(body).toEqual({ error: "Unauthorized" });
+  });
+
+  it("rejects /api/admin/gallery PUT without valid admin session (401)", async () => {
+    const req = new Request("http://localhost:3000/api/admin/gallery", {
+      method: "PUT",
+      body: JSON.stringify({
+        id: "test-id",
+        title: "Updated Title",
+        sortOrder: 1,
+      }),
+    });
+    const res = await galleryPUT(req);
     expect(res.status).toBe(401);
     const body = await res.json();
     expect(body).toEqual({ error: "Unauthorized" });

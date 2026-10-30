@@ -25,35 +25,30 @@ export function AboutSection() {
           <div className="lg:col-span-5 relative w-full aspect-[4/5] rounded-xl overflow-hidden shadow-md border border-temple-stoneBorder bg-temple-charcoal">
             <Image
               src="/images/about-placeholder.svg"
-              alt="Hand-carved black granite stone idol of Lord Ganesha at Shri Vinayaka Temple Noida"
+              alt="Black stone Ganesha idol at Shri Vinayaka Temple Noida"
               fill
               sizes="(max-width: 1024px) 100vw, 40vw"
               className="object-cover object-center"
             />
           </div>
 
-          {/* Column 2: Dignified Text (Only facts from site.ts) */}
+          {/* Column 2: Dignified Text (Only facts provided by client) */}
           <div className="lg:col-span-7 space-y-6">
             <div className="space-y-4 text-base sm:text-lg leading-relaxed text-temple-charcoal/90">
               <p>
                 <strong className="font-serif text-xl font-bold text-temple-charcoal block mb-1">
-                  A Solitary Sanctuary for Quiet Reflection
+                  A Quiet Sanctuary for Prayer and Darshan
                 </strong>
-                Nestled inside the leafy academic campus of JSS Academy of Technical Education in Sector 62, Noida,
-                <strong> {SITE_CONFIG.name}</strong> stands as a serene spiritual refuge from the rush of the surrounding city.
+                Situated inside the campus of JSS Academy of Technical Education, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida,
+                <strong> {SITE_CONFIG.name}</strong> offers a calm, clean, and uncrowded place of worship.
               </p>
 
               <p>
-                The temple enshrines a striking <strong>black granite stone Ganesha idol (Kala Shilpa)</strong>,
-                meticulously sculpted in the timeless tradition of <strong>South Indian Chola architecture</strong>.
-                Carved with classical Dravidian precision, Lord Vinayaka is depicted in a graceful blessing posture,
-                symbolizing the removal of obstacles, the bestowal of intellect, and protection for all devotees.
+                The temple enshrines a <strong>black stone Ganesha idol</strong>, sculpted in the traditional style of <strong>South Indian Chola architecture</strong>.
               </p>
 
               <p>
-                Unlike large pilgrimage centres, this temple is cherished by devotees for its <strong>clean, uncrowded, and serene atmosphere</strong>.
-                Filled with the scent of natural stone, fresh incense, and lamp-oil at dawn and dusk, the peaceful courtyard provides an ideal haven
-                for meditation, heartfelt prayers, and students seeking quiet fortitude.
+                Devotees visit for its <strong>calm, clean, and uncrowded atmosphere</strong>, which provides a serene setting for prayer, meditation, and spiritual reflection.
               </p>
             </div>
 
@@ -64,7 +59,7 @@ export function AboutSection() {
                   Architectural Style
                 </span>
                 <span className="text-sm font-medium text-temple-charcoal">
-                  Traditional South Indian Chola Dravidian Heritage
+                  South Indian Chola Architecture
                 </span>
               </div>
 
@@ -73,7 +68,7 @@ export function AboutSection() {
                   Sacred Deity
                 </span>
                 <span className="text-sm font-medium text-temple-charcoal">
-                  Carved Black Granite Stone Shri Maha Ganapati
+                  Black Stone Ganesha Idol
                 </span>
               </div>
             </div>

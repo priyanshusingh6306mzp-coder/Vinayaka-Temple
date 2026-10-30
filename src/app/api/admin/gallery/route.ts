@@ -49,6 +49,36 @@ export async function POST(req: Request) {
   }
 }
 
+export async function PUT(req: Request) {
+  const session = await auth();
+  if (!session || !session.user || (session.user as { role?: string }).role !== "ADMIN") {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const body = await req.json();
+    const { id, title, caption, sortOrder } = body;
+
+    if (!id) {
+      return NextResponse.json({ error: "Missing image id" }, { status: 400 });
+    }
+
+    const updated = await db.galleryImage.update({
+      where: { id },
+      data: {
+        ...(title !== undefined && { title: title.slice(0, 100) }),
+        ...(caption !== undefined && { caption: caption ? caption.slice(0, 250) : null }),
+        ...(typeof sortOrder === "number" && { sortOrder }),
+      },
+    });
+
+    return NextResponse.json(updated);
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Internal error";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
+}
+
 export async function DELETE(req: Request) {
   const session = await auth();
   if (!session || !session.user || (session.user as { role?: string }).role !== "ADMIN") {

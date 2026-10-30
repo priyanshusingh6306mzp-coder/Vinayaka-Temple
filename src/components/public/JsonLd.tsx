@@ -15,7 +15,7 @@ export function JsonLd() {
     image: `${siteUrl}/images/hero-placeholder.svg`,
     address: {
       "@type": "PostalAddress",
-      streetAddress: `${SITE_CONFIG.location.campus}, ${SITE_CONFIG.location.block}`,
+      streetAddress: SITE_CONFIG.location.streetAddress,
       addressLocality: SITE_CONFIG.location.city,
       addressRegion: SITE_CONFIG.location.state,
       postalCode: SITE_CONFIG.location.pincode,
