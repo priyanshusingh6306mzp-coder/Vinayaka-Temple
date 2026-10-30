@@ -5,6 +5,7 @@ import { authConfig } from "@/lib/auth.config";
 import { db } from "@/lib/db";
 import { rateLimiter } from "@/lib/services/ratelimit/postgres.service";
 import { loginSchema } from "@/schemas/auth.schema";
+import { getClientIp } from "@/lib/ip";
 
 // Pre-computed dummy hash with cost 12 to equalize comparison timing on non-existent users
 const DUMMY_HASH = "$2a$12$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy";
@@ -27,11 +28,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const { email, password } = parsed.data;
         const normalizedEmail = email.toLowerCase().trim();
 
-        // Extract client IP if available
-        let clientIp = "unknown";
-        if (request && "headers" in request) {
-          const forwarded = request.headers.get("x-forwarded-for");
-          clientIp = forwarded ? forwarded.split(",")[0].trim() : "127.0.0.1";
+        // Extract client IP using trusted helper
+        let clientIp = "127.0.0.1";
+        if (request && "headers" in request && request.headers) {
+          clientIp = getClientIp(request.headers as unknown as Headers);
         }
 
         // Throttle failed attempts per email and per IP (5 attempts per 15 mins)
@@ -39,7 +39,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const ipRateKey = `login:ip:${clientIp}`;
 
         const emailCheck = await rateLimiter.limit(emailRateKey, 5, 15 * 60 * 1000);
-        const ipCheck = await rateLimiter.limit(ipRateKey, 10, 15 * 60 * 1000);
+        const ipCheck = await rateLimiter.limit(ipRateKey, 5, 15 * 60 * 1000);
 
         if (!emailCheck.success || !ipCheck.success) {
           throw new Error("Too many failed attempts. Please try again in 15 minutes.");

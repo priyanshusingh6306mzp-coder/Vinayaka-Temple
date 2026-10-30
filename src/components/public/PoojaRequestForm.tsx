@@ -1,0 +1,323 @@
+"use client";
+
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Calendar, User, Phone, Mail, FileText, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { poojaRequestSchema, PoojaRequestInput } from "@/schemas/poojaRequest.schema";
+import { submitPoojaRequest } from "@/actions/pooja.actions";
+import { SITE_CONFIG } from "@/content/site";
+import { Button } from "@/components/ui/button";
+
+export function PoojaRequestForm() {
+  const [serverSuccess, setServerSuccess] = useState<string | null>(null);
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Today's date in YYYY-MM-DD format for native min date attribute
+  const todayStr = new Date().toISOString().split("T")[0];
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<PoojaRequestInput>({
+    resolver: zodResolver(poojaRequestSchema),
+    defaultValues: {
+      name: "",
+      phone: "",
+      email: "",
+      poojaType: SITE_CONFIG.poojaTypes[0]?.name || "Sankashti Ganapathi Homam / Pooja",
+      dateRequested: todayStr,
+      notes: "",
+      honeypot: "",
+    },
+  });
+
+  const onSubmit = async (data: PoojaRequestInput) => {
+    setIsSubmitting(true);
+    setServerError(null);
+    setServerSuccess(null);
+
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("phone", data.phone);
+    if (data.email) formData.append("email", data.email);
+    formData.append("poojaType", data.poojaType);
+    formData.append("dateRequested", data.dateRequested);
+    if (data.notes) formData.append("notes", data.notes);
+    if (data.honeypot) formData.append("honeypot", data.honeypot);
+
+    try {
+      const result = await submitPoojaRequest(null, formData);
+
+      if (result.success) {
+        setServerSuccess(
+          result.message ||
+            "Dhanyawad. Your pooja request has been received. The temple priest will contact you to confirm details."
+        );
+        reset();
+      } else {
+        setServerError(
+          result.message || "Unable to submit your request. Please check the form errors."
+        );
+      }
+    } catch {
+      setServerError(
+        "An unexpected network error occurred. Please call the temple directly at 079820 48559."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <section id="pooja-form" className="py-16 sm:py-24 px-4 bg-temple-sandstone/30 text-temple-charcoal border-b border-temple-stoneBorder">
+      <div className="max-w-3xl mx-auto space-y-10">
+        {/* Section Header */}
+        <div className="text-center space-y-2">
+          <span className="text-xs uppercase font-semibold tracking-widest text-temple-gold block">
+            Devotional Offerings
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-temple-charcoal">
+            Request a Sacred Pooja
+          </h2>
+          <div className="gold-divider max-w-xs mx-auto my-3" />
+          <p className="text-sm sm:text-base text-temple-warmGrey max-w-xl mx-auto">
+            Book a special sankalpa, archana, or homam. The temple priest will personally contact you to confirm timing and preparations.
+          </p>
+        </div>
+
+        {/* Server Success Alert */}
+        {serverSuccess && (
+          <div className="p-6 rounded-xl bg-green-50 border border-green-200 text-green-900 space-y-3 animate-in fade-in">
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="w-6 h-6 text-green-600 shrink-0 mt-0.5" />
+              <div>
+                <h4 className="font-serif text-lg font-bold">Request Received Successfully</h4>
+                <p className="text-sm mt-1 leading-relaxed text-green-800">{serverSuccess}</p>
+              </div>
+            </div>
+            <div className="pt-2 flex flex-wrap gap-3">
+              <a
+                href={SITE_CONFIG.contact.telHref}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-md bg-green-100 hover:bg-green-200 text-green-900 transition-colors"
+              >
+                <Phone className="w-3.5 h-3.5" />
+                <span>Call Priest: {SITE_CONFIG.contact.displayPhone}</span>
+              </a>
+              <a
+                href={SITE_CONFIG.contact.whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-md bg-green-700 hover:bg-green-800 text-white transition-colors"
+              >
+                <span>Message on WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        )}
+
+        {/* Server Error Alert */}
+        {serverError && (
+          <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm flex items-start gap-3 animate-in fade-in">
+            <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+            <p className="leading-relaxed">{serverError}</p>
+          </div>
+        )}
+
+        {/* Pooja Form Card */}
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
+          className="p-6 sm:p-10 rounded-2xl border border-temple-stoneBorder bg-white shadow-sm space-y-6"
+        >
+          {/* Honeypot field (hidden from sighted users and assistive technologies) */}
+          <div
+            style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0, width: 0 }}
+            aria-hidden="true"
+          >
+            <label htmlFor="hp_field">Leave this field blank</label>
+            <input
+              id="hp_field"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              {...register("honeypot")}
+            />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {/* Devotee Name */}
+            <div className="space-y-1.5">
+              <label htmlFor="name" className="text-xs font-semibold uppercase tracking-wider text-temple-warmGrey flex items-center gap-1.5">
+                <User className="w-3.5 h-3.5 text-temple-gold" />
+                <span>Devotee Full Name *</span>
+              </label>
+              <input
+                id="name"
+                type="text"
+                placeholder="e.g. Ramesh Kumar Sharma"
+                aria-required="true"
+                aria-invalid={!!errors.name}
+                aria-describedby={errors.name ? "name-error" : undefined}
+                className="w-full px-3.5 py-3 rounded-lg border border-temple-stoneBorder text-sm text-temple-charcoal placeholder:text-temple-warmGrey/60 focus:outline-none focus:ring-2 focus:ring-temple-gold transition-colors"
+                {...register("name")}
+              />
+              {errors.name && (
+                <p id="name-error" className="text-xs text-red-600 font-medium">
+                  {errors.name.message}
+                </p>
+              )}
+            </div>
+
+            {/* Mobile Phone */}
+            <div className="space-y-1.5">
+              <label htmlFor="phone" className="text-xs font-semibold uppercase tracking-wider text-temple-warmGrey flex items-center gap-1.5">
+                <Phone className="w-3.5 h-3.5 text-temple-gold" />
+                <span>Mobile Number (10 digits) *</span>
+              </label>
+              <div className="relative">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-semibold text-temple-warmGrey select-none">
+                  +91
+                </span>
+                <input
+                  id="phone"
+                  type="tel"
+                  placeholder="98765 43210"
+                  maxLength={10}
+                  aria-required="true"
+                  aria-invalid={!!errors.phone}
+                  aria-describedby={errors.phone ? "phone-error" : undefined}
+                  className="w-full pl-12 pr-3.5 py-3 rounded-lg border border-temple-stoneBorder text-sm text-temple-charcoal placeholder:text-temple-warmGrey/60 focus:outline-none focus:ring-2 focus:ring-temple-gold transition-colors"
+                  {...register("phone")}
+                />
+              </div>
+              {errors.phone && (
+                <p id="phone-error" className="text-xs text-red-600 font-medium">
+                  {errors.phone.message}
+                </p>
+              )}
+            </div>
+
+            {/* Email Address (Optional) */}
+            <div className="space-y-1.5">
+              <label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-temple-warmGrey flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 text-temple-gold" />
+                <span>Email Address (Optional)</span>
+              </label>
+              <input
+                id="email"
+                type="email"
+                placeholder="name@example.com"
+                aria-invalid={!!errors.email}
+                aria-describedby={errors.email ? "email-error" : undefined}
+                className="w-full px-3.5 py-3 rounded-lg border border-temple-stoneBorder text-sm text-temple-charcoal placeholder:text-temple-warmGrey/60 focus:outline-none focus:ring-2 focus:ring-temple-gold transition-colors"
+                {...register("email")}
+              />
+              {errors.email && (
+                <p id="email-error" className="text-xs text-red-600 font-medium">
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
+
+            {/* Preferred Date */}
+            <div className="space-y-1.5">
+              <label htmlFor="dateRequested" className="text-xs font-semibold uppercase tracking-wider text-temple-warmGrey flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5 text-temple-gold" />
+                <span>Preferred Date *</span>
+              </label>
+              <input
+                id="dateRequested"
+                type="date"
+                min={todayStr}
+                aria-required="true"
+                aria-invalid={!!errors.dateRequested}
+                aria-describedby={errors.dateRequested ? "date-error" : undefined}
+                className="w-full px-3.5 py-3 rounded-lg border border-temple-stoneBorder text-sm text-temple-charcoal focus:outline-none focus:ring-2 focus:ring-temple-gold transition-colors"
+                {...register("dateRequested")}
+              />
+              {errors.dateRequested && (
+                <p id="date-error" className="text-xs text-red-600 font-medium">
+                  {errors.dateRequested.message}
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* Pooja Type Selection */}
+          <div className="space-y-1.5">
+            <label htmlFor="poojaType" className="text-xs font-semibold uppercase tracking-wider text-temple-warmGrey flex items-center gap-1.5">
+              <FileText className="w-3.5 h-3.5 text-temple-gold" />
+              <span>Select Pooja / Homam Offering *</span>
+            </label>
+            <select
+              id="poojaType"
+              aria-required="true"
+              aria-invalid={!!errors.poojaType}
+              aria-describedby={errors.poojaType ? "poojaType-error" : undefined}
+              className="w-full px-3.5 py-3 rounded-lg border border-temple-stoneBorder text-sm text-temple-charcoal bg-white focus:outline-none focus:ring-2 focus:ring-temple-gold transition-colors"
+              {...register("poojaType")}
+            >
+              {SITE_CONFIG.poojaTypes.map((pt) => (
+                <option key={pt.id} value={pt.name}>
+                  {pt.name} ({pt.nameHindi}) — Approx. {pt.durationApprox}
+                </option>
+              ))}
+            </select>
+            {errors.poojaType && (
+              <p id="poojaType-error" className="text-xs text-red-600 font-medium">
+                {errors.poojaType.message}
+              </p>
+            )}
+          </div>
+
+          {/* Optional Notes / Sankalpa */}
+          <div className="space-y-1.5">
+            <label htmlFor="notes" className="text-xs font-semibold uppercase tracking-wider text-temple-warmGrey">
+              Sankalpa / Gotra / Special Prayers (Optional)
+            </label>
+            <textarea
+              id="notes"
+              rows={3}
+              placeholder="e.g. Specific family gotra, occasion (birthday/anniversary), or special prayer request..."
+              maxLength={500}
+              aria-invalid={!!errors.notes}
+              aria-describedby={errors.notes ? "notes-error" : undefined}
+              className="w-full px-3.5 py-2.5 rounded-lg border border-temple-stoneBorder text-sm text-temple-charcoal placeholder:text-temple-warmGrey/60 focus:outline-none focus:ring-2 focus:ring-temple-gold transition-colors resize-y"
+              {...register("notes")}
+            />
+            {errors.notes && (
+              <p id="notes-error" className="text-xs text-red-600 font-medium">
+                {errors.notes.message}
+              </p>
+            )}
+          </div>
+
+          {/* Submit Button */}
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            variant="default"
+            className="w-full h-13 text-base font-bold shadow-md hover:shadow-lg"
+          >
+            {isSubmitting ? (
+              <span className="flex items-center gap-2">
+                <Loader2 className="w-5 h-5 animate-spin" />
+                <span>Submitting Pooja Request...</span>
+              </span>
+            ) : (
+              <span>Submit Pooja Request</span>
+            )}
+          </Button>
+
+          <p className="text-xs text-center text-temple-warmGrey">
+            No advance online payment required. Offerings and dakshina are settled in person at the temple.
+          </p>
+        </form>
+      </div>
+    </section>
+  );
+}

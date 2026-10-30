@@ -39,11 +39,7 @@ export const poojaRequestSchema = z.object({
     .max(500, "Notes cannot exceed 500 characters")
     .optional()
     .or(z.literal("")),
-  honeypot: z
-    .string()
-    .max(0, "Bot submission rejected")
-    .optional()
-    .or(z.literal("")),
+  honeypot: z.string().optional().or(z.literal("")),
   turnstileToken: z.string().optional(),
 });
 

@@ -7,6 +7,7 @@ import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { rateLimiter } from "@/lib/services/ratelimit/postgres.service";
 import { mailerService } from "@/lib/services/mailer/nodemailer.service";
+import { getClientIp } from "@/lib/ip";
 import {
   poojaRequestSchema,
   PoojaRequestFormState,
@@ -24,9 +25,7 @@ export async function submitPoojaRequest(
   formData: FormData
 ): Promise<PoojaRequestFormState> {
   const headerList = await headers();
-  const forwarded = headerList.get("x-forwarded-for");
-  const realIp = headerList.get("x-real-ip");
-  const clientIp = (forwarded ? forwarded.split(",")[0].trim() : realIp) || "127.0.0.1";
+  const clientIp = getClientIp(headerList);
 
   // 1. IP Rate Limiting (5 requests per hour)
   const rateLimitKey = `pooja:ip:${clientIp}`;
@@ -45,7 +44,17 @@ export async function submitPoojaRequest(
     };
   }
 
-  // 2. Extract and parse data
+  // 2. Honeypot check: silent discard to mislead bots without saving to DB
+  const honeypotVal = formData.get("honeypot")?.toString()?.trim();
+  if (honeypotVal && honeypotVal.length > 0) {
+    return {
+      success: true,
+      message:
+        "Dhanyawad. Your pooja request has been received. The temple priest will contact you to confirm details.",
+    };
+  }
+
+  // 3. Extract and parse data
   const rawData = {
     name: formData.get("name"),
     phone: formData.get("phone"),
@@ -53,7 +62,7 @@ export async function submitPoojaRequest(
     poojaType: formData.get("poojaType"),
     dateRequested: formData.get("dateRequested"),
     notes: formData.get("notes") || "",
-    honeypot: formData.get("honeypot") || "",
+    honeypot: "",
     turnstileToken: formData.get("turnstileToken") || "",
   };
 
@@ -70,7 +79,7 @@ export async function submitPoojaRequest(
   const { name, phone, email, poojaType, dateRequested, notes, turnstileToken } =
     parsed.data;
 
-  // 3. Optional Cloudflare Turnstile Verification (off by default)
+  // 4. Optional Cloudflare Turnstile Verification (off by default)
   const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
   if (turnstileSecret) {
     try {
@@ -96,7 +105,7 @@ export async function submitPoojaRequest(
     }
   }
 
-  // 4. Save to Database using Prisma
+  // 5. Save to Database using Prisma
   const cleanName = sanitizeText(name);
   const cleanNotes = sanitizeText(notes);
   const cleanEmail = email ? sanitizeText(email) : null;
@@ -115,7 +124,7 @@ export async function submitPoojaRequest(
       },
     });
 
-    // 5. Non-blocking email alert to the priest via mailer interface
+    // 6. Non-blocking email alert to the priest via mailer interface
     const priestEmail =
       process.env.NOTIFICATION_RECIPIENT_EMAIL || SITE_CONFIG.contact.email;
 
@@ -146,7 +155,11 @@ export async function submitPoojaRequest(
         console.error("[Mailer Non-Blocking Catch]", err);
       });
 
-    revalidatePath("/admin/requests");
+    try {
+      revalidatePath("/admin/requests");
+    } catch {
+      // In tests or background threads, revalidatePath is safe to ignore
+    }
 
     return {
       success: true,

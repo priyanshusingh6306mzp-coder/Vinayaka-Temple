@@ -73,7 +73,7 @@ describe("Pooja Request Validation Schema", () => {
     }
   });
 
-  it("rejects submission if honeypot is filled", () => {
+  it("allows honeypot in schema so server action can inspect and silently drop", () => {
     const botData = {
       name: "Bot User",
       phone: "9876543210",
@@ -83,9 +83,9 @@ describe("Pooja Request Validation Schema", () => {
     };
 
     const result = poojaRequestSchema.safeParse(botData);
-    expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.flatten().fieldErrors.honeypot).toBeDefined();
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.honeypot).toBe("spam_content_from_bot");
     }
   });
 });
