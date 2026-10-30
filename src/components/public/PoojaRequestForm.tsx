@@ -59,11 +59,13 @@ export function PoojaRequestForm() {
         );
         reset();
       } else {
+        console.error("[Pooja Submission Failed]:", result.message);
         setServerError(
           result.message || "Unable to submit your request. Please check the form errors."
         );
       }
-    } catch {
+    } catch (err: unknown) {
+      console.error("[Pooja Submission Network Error]:", err);
       setServerError(
         "An unexpected network error occurred. Please call the temple directly at 079820 48559."
       );

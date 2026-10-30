@@ -166,12 +166,12 @@ export async function submitPoojaRequest(
       message:
         "Dhanyawad. Your pooja request has been received. The temple priest will contact you to confirm details.",
     };
-  } catch (dbError) {
+  } catch (dbError: unknown) {
     console.error("[Pooja DB Error]", dbError);
+    const errDetail = dbError instanceof Error ? dbError.message : String(dbError);
     return {
       success: false,
-      message:
-        "An unexpected error occurred while saving your request. Please try again or call the temple directly.",
+      message: `An unexpected error occurred while saving your request: ${errDetail}`,
     };
   }
 }

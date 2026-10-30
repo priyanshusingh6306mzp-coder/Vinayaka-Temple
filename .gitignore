@@ -33,3 +33,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# test screenshots & temporary scripts
+tests/screenshots/
+scripts/*.ts
+scripts/lib/
+!scripts/README.md
