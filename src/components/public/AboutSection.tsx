@@ -21,7 +21,8 @@ export function AboutSection() {
               variant="default"
               className="bg-temple-kumkum hover:bg-temple-kumkum/90 text-white font-medium shadow-sm h-11 px-5"
             >
-              <a href="#pooja-form" className="flex items-center gap-2">
+              {/* Changed href from "#pooja-form" to "/pooja" */}
+              <a href="/pooja" className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" aria-hidden="true" />
                 <span>Request a Pooja</span>
               </a>
@@ -54,10 +55,8 @@ export function AboutSection() {
           </p>
         </div>
 
-        {/* items-stretch forces both columns to be exactly the same height */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
           
-          {/* Column 1: Deity Photo */}
           <div className="lg:col-span-5 relative w-full aspect-[3/4] rounded-xl overflow-hidden border border-[#B8893B]/25 bg-white/70">
             <Image
               src="/images/ganesha.jpg"
@@ -68,10 +67,8 @@ export function AboutSection() {
             />
           </div>
 
-          {/* Column 2: Flex container pushing everything to the bottom */}
           <div className="lg:col-span-7 flex flex-col h-full lg:py-2">
             
-            {/* TEXT: mt-auto pushes this block to the bottom. mb-8 creates the line gap above the boxes. */}
             <div className="mt-auto mb-8 space-y-4">
               <h3 className="font-serif text-xl sm:text-2xl font-bold text-temple-charcoal">
                 A Quiet Sanctuary for Prayer and Darshan
@@ -81,7 +78,6 @@ export function AboutSection() {
               </p>
             </div>
 
-            {/* BOXES: Sit exactly at the bottom border of the image */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="p-4 rounded-lg bg-white border border-stone-200 shadow-sm">
                 <span className="text-xs uppercase font-bold text-temple-goldText block mb-1">

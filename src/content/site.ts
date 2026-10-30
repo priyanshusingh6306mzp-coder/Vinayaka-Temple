@@ -59,10 +59,10 @@ export const SITE_CONFIG = {
   tagline: "A Sacred Haven of Peace, Devotion, and Soul",
   taglineHindi: "शांति, भक्ति और ध्यान का पावन धाम",
   description:
-    "Shri Vinayaka Temple is situated inside the campus of JSS Academy of Technical Education, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309. Built with South Indian Chola architecture, it features a black stone Ganesha idol and offers a calm, clean, and uncrowded atmosphere for prayer and meditation.",
+    "Shri Vinayaka Temple is situated inside the campus of JSS University, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309. Built with South Indian Chola architecture, it features a black stone Ganesha idol and offers a calm, clean, and uncrowded atmosphere for prayer and meditation.",
 
   location: {
-    campus: "JSS Academy of Technical Education",
+    campus: "JSS University",
     plot: "C-20/1",
     block: "C Block, Phase 2, Industrial Area",
     sector: "Sector 62",
@@ -70,9 +70,9 @@ export const SITE_CONFIG = {
     state: "Uttar Pradesh",
     pincode: "201309",
     streetAddress:
-      "Inside the campus of JSS Academy of Technical Education, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309",
+      "Inside the campus of JSS University, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309",
     fullAddress:
-      "Inside the campus of JSS Academy of Technical Education, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309",
+      "Inside the campus of JSS University, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309",
     campusEntryInstructions: "Please call the temple for campus entry instructions",
   },
 
@@ -108,12 +108,12 @@ export const SITE_CONFIG = {
     {
       title: "Free On-Site Parking",
       titleHindi: "निःशुल्क वाहन पार्किंग",
-      description: "Designated, safe parking spaces inside JSS campus for two-wheelers and cars.",
+      description: "Designated, safe parking spaces  for two-wheelers and cars.",
     },
     {
       title: "Clean Restrooms",
       titleHindi: "स्वच्छ प्रसाधन",
-      description: "Hygienic foot-washing facility and clean restrooms for devotees.",
+      description: "Hygienic foot-washing facility  for devotees.",
     },
     {
       title: "Calm and Uncrowded Atmosphere",
@@ -135,10 +135,10 @@ export const SITE_CONFIG = {
   poojaOfferingsPendingPriestConfirmation,
   poojaTypes: poojaOfferingsPendingPriestConfirmation,
 
-  maps: {
+ maps: {
     defaultEmbedUrl:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.584347209707!2d77.36979517596048!3d28.61224858501878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce55b38e072b9%3A0xb35a396a40c9497e!2sJSS%20Academy%20of%20Technical%20Education!5e0!3m2!1sen!2sin!4v1700000000000",
-    defaultMapsLink: "https://maps.google.com/?q=JSS+Academy+of+Technical+Education+Noida+Sector+62",
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.495112642634!2d77.35731527934568!3d28.614919599999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce541e99e0771%3A0x2509b2d7c2f83148!2sSHRI%20VINAYAKA%20TEMPLE%20Noida!5e0!3m2!1sen!2sin!4v1793382989312!5m2!1sen!2sin",
+    defaultMapsLink: "https://maps.app.goo.gl/8bQKpnSUecnjsTRQ6",
   },
 
   /**

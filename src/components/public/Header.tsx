@@ -10,10 +10,10 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { label: "About", href: "#about" },
-    { label: "Darshan Timings", href: "#timings" },
-    { label: "Location & Directions", href: "#location" },
-    { label: "Gallery", href: "#gallery" },
+    { label: "About", href: "/#about" },
+    { label: "Darshan Timings", href: "/#timings" },
+    { label: "Location & Directions", href: "/#location" },
+    { label: "Gallery", href: "/#gallery" },
   ];
 
   return (
@@ -37,13 +37,13 @@ export function Header() {
         {/* Desktop Navigation Links */}
         <nav className="hidden md:flex items-center gap-6" aria-label="Main Navigation">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="text-sm font-medium text-temple-charcoal hover:text-temple-kumkum transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-700 rounded"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -59,10 +59,10 @@ export function Header() {
           </a>
 
           <Button asChild variant="default" size="default" className="bg-temple-kumkum hover:bg-temple-kumkum/90 text-white font-medium shadow-sm h-11 px-5">
-            <a href="#pooja-form">
+            <Link href="/pooja">
               <Calendar className="w-4 h-4 mr-1.5" />
               Request Pooja
-            </a>
+            </Link>
           </Button>
         </div>
 
@@ -86,14 +86,14 @@ export function Header() {
         <div className="sm:hidden border-b border-[#16130F]/10 bg-temple-ivory px-4 py-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
           <nav className="flex flex-col space-y-2">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-base font-medium text-temple-charcoal hover:text-temple-kumkum py-2.5 px-3 rounded-lg hover:bg-stone-100 transition-colors"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -107,10 +107,10 @@ export function Header() {
             </a>
 
             <Button asChild variant="default" className="w-full h-12 text-base bg-temple-kumkum hover:bg-temple-kumkum/90 text-white font-medium">
-              <a href="#pooja-form" onClick={() => setMobileMenuOpen(false)}>
+              <Link href="/pooja" onClick={() => setMobileMenuOpen(false)}>
                 <Calendar className="w-4 h-4 mr-2" />
                 Request a Pooja
-              </a>
+              </Link>
             </Button>
           </div>
         </div>
