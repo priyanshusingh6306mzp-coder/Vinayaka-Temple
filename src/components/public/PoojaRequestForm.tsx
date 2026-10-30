@@ -87,7 +87,7 @@ export function PoojaRequestForm() {
           </h2>
           <div className="gold-divider max-w-xs mx-auto my-3" />
           <p className="text-sm sm:text-base text-temple-warmGrey max-w-xl mx-auto">
-            Book a special sankalpa, archana, or homam. The temple priest will personally contact you to confirm timing and preparations.
+            Submit your pooja request below. The temple priest will personally call you to confirm your seva, ritual preparations, and preferred date.
           </p>
         </div>
 
@@ -274,6 +274,14 @@ export function PoojaRequestForm() {
                 {errors.poojaType.message}
               </p>
             )}
+
+            {/* Clearly visible note that priest confirms pooja and date by phone */}
+            <div className="p-3 rounded-lg bg-temple-sandstone/70 border border-temple-gold/30 text-xs text-temple-charcoal flex items-start gap-2.5">
+              <Phone className="w-4 h-4 text-temple-kumkum shrink-0 mt-0.5" />
+              <p className="leading-relaxed">
+                <strong>Priest Phone Confirmation:</strong> The temple priest will personally call you on your registered mobile number to confirm the pooja rituals, availability, and scheduled date before the seva is performed.
+              </p>
+            </div>
           </div>
 
           {/* Optional Notes / Sankalpa */}

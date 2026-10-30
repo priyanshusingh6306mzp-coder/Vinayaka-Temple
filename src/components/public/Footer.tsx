@@ -21,9 +21,9 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Column 1: Quick Links */}
           <div className="space-y-4">
-            <h3 className="font-serif text-lg font-bold text-white tracking-wide border-b border-temple-gold/30 pb-2">
+            <h2 className="font-serif text-lg font-bold text-white tracking-wide border-b border-temple-gold/30 pb-2">
               Quick Links
-            </h3>
+            </h2>
             <ul className="space-y-2 text-sm">
               <li>
                 <a href="#about" className="hover:text-temple-goldLight transition-colors">
@@ -55,9 +55,9 @@ export function Footer() {
 
           {/* Column 2: Visit Us */}
           <div className="space-y-4">
-            <h3 className="font-serif text-lg font-bold text-white tracking-wide border-b border-temple-gold/30 pb-2">
+            <h2 className="font-serif text-lg font-bold text-white tracking-wide border-b border-temple-gold/30 pb-2">
               Visit Us
-            </h3>
+            </h2>
             <div className="space-y-3 text-sm text-temple-sandstone/90 leading-relaxed">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-temple-gold shrink-0 mt-1" />
@@ -75,9 +75,9 @@ export function Footer() {
 
           {/* Column 3: Contact & Support */}
           <div className="space-y-4">
-            <h3 className="font-serif text-lg font-bold text-white tracking-wide border-b border-temple-gold/30 pb-2">
+            <h2 className="font-serif text-lg font-bold text-white tracking-wide border-b border-temple-gold/30 pb-2">
               Contact &amp; Support
-            </h3>
+            </h2>
             <div className="space-y-3 text-sm">
               <p className="text-xs text-temple-sandstone/70">
                 For Pooja inquiries, Sankalpa, and special darshan bookings:

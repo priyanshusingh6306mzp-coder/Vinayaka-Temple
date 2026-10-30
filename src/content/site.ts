@@ -21,6 +21,38 @@ export interface PoojaTypeOption {
   suggestedOffering?: string;
 }
 
+// Customary pooja offerings awaiting priest confirmation
+const poojaOfferingsPendingPriestConfirmation: PoojaTypeOption[] = [
+  {
+    id: "ganapathi_homam",
+    name: "Ganapathi Homam / Sankalpa",
+    nameHindi: "गणपति होम / संकल्प",
+    description: "Devotional prayer offering for auspicious beginnings and well-being.",
+    durationApprox: "30-45 mins",
+  },
+  {
+    id: "archana",
+    name: "Ganesha Archana / Ashtothram",
+    nameHindi: "गणेश अर्चना / अष्टोत्तरम्",
+    description: "Chanting of sacred names with floral and traditional offerings.",
+    durationApprox: "15-20 mins",
+  },
+  {
+    id: "abhishekam",
+    name: "Nitya Abhishekam",
+    nameHindi: "नित्य अभिषेक",
+    description: "Ceremonial ablution of the deity.",
+    durationApprox: "30 mins",
+  },
+  {
+    id: "other_or_call",
+    name: "Other / not sure, I will call",
+    nameHindi: "अन्य / परामर्श हेतु संपर्क करेंगे",
+    description: "Devotee will discuss pooja rituals directly with the priest via phone call.",
+    durationApprox: "To be confirmed",
+  },
+];
+
 export const SITE_CONFIG = {
   name: "Shri Vinayaka Temple",
   nameHindi: "श्री विनायक मंदिर",
@@ -95,29 +127,12 @@ export const SITE_CONFIG = {
     atmosphere: "Calm, clean, and uncrowded atmosphere",
   },
 
-  poojaTypes: [
-    {
-      id: "ganapathi_homam",
-      name: "Ganapathi Homam / Sankalpa",
-      nameHindi: "गणपति होम / संकल्प",
-      description: "Devotional prayer offering for auspicious beginnings and well-being.",
-      durationApprox: "30-45 mins",
-    },
-    {
-      id: "archana",
-      name: "Ganesha Archana / Ashtothram",
-      nameHindi: "गणेश अर्चना / अष्टोत्तरम्",
-      description: "Chanting of sacred names with floral and traditional offerings.",
-      durationApprox: "15-20 mins",
-    },
-    {
-      id: "abhishekam",
-      name: "Nitya Abhishekam",
-      nameHindi: "नित्य अभिषेक",
-      description: "Ceremonial ablution of the deity.",
-      durationApprox: "30 mins",
-    },
-  ] as PoojaTypeOption[],
+  /**
+   * Config block marked for priest confirmation:
+   * Standard customary pooja options pending final priest review.
+   */
+  poojaOfferingsPendingPriestConfirmation,
+  poojaTypes: poojaOfferingsPendingPriestConfirmation,
 
   maps: {
     defaultEmbedUrl:
