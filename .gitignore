@@ -37,5 +37,12 @@ next-env.d.ts
 # test screenshots & temporary scripts
 tests/screenshots/
 scripts/*.ts
+scripts/*.jpeg
+scripts/*.jpg
+scripts/*.png
 scripts/lib/
 !scripts/README.md
+
+# image originals
+assets/originals/
+assets/

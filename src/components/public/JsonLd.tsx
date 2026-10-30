@@ -12,7 +12,7 @@ export function JsonLd() {
     description: SITE_CONFIG.description,
     url: siteUrl,
     telephone: "+91-7982048559",
-    image: `${siteUrl}/images/hero-placeholder.svg`,
+    image: `${siteUrl}/images/hero-ganesha.webp`,
     address: {
       "@type": "PostalAddress",
       streetAddress: SITE_CONFIG.location.streetAddress,

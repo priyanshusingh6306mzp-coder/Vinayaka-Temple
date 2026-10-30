@@ -1,77 +1,47 @@
 import Image from "next/image";
-import { Calendar, MapPin, Sparkles } from "lucide-react";
 import { SITE_CONFIG } from "@/content/site";
-import { Button } from "@/components/ui/button";
+import { DarshanStatusBadge } from "./DarshanStatusBadge";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[560px] sm:min-h-[640px] flex items-center justify-center overflow-hidden bg-temple-charcoal text-white">
-      {/* Background Hero Image with Priority (Zero Layout Shift) */}
-      <div className="absolute inset-0 select-none">
-        <Image
-          src="/images/hero-placeholder.svg"
-          alt="Shri Vinayaka Temple Sanctum Sanctorum and Chola Architecture Tower"
-          fill
-          priority
-          fetchPriority="high"
-          sizes="100vw"
-          className="object-cover object-center opacity-40 mix-blend-luminosity transform scale-105 transition-transform duration-1000 ease-out"
-        />
-        {/* Dark linear gradient overlay ensuring WCAG AAA crisp readability for white text */}
-        <div className="absolute inset-0 bg-gradient-to-t from-temple-charcoal via-temple-charcoal/85 to-temple-charcoal/60" />
-      </div>
+    <section className="relative w-full bg-[#12100E] text-[#FBF8F2] flex flex-col items-center justify-center py-4 sm:py-6 px-4 overflow-hidden border-b border-stone-800">
+      <div className="w-full max-w-3xl mx-auto flex flex-col items-center text-center space-y-2.5 sm:space-y-3.5">
+        {/* 1. H1 Heading */}
+        <h1 className="font-serif text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#FBF8F2] leading-tight">
+          {SITE_CONFIG.name}
+        </h1>
 
-      {/* Hero Content Container */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 py-16 sm:py-24 text-center space-y-6">
-        {/* Heritage Tag */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-temple-gold/50 bg-temple-charcoalCard/90 text-temple-goldLight text-xs tracking-wider uppercase font-medium shadow-sm backdrop-blur">
-          <Sparkles className="w-3.5 h-3.5 text-temple-gold" />
-          <span>Traditional South Indian Chola Architecture</span>
+        {/* 2. Idol Photo: strict vertical center, never crops head or feet */}
+        <div className="relative flex justify-center items-center my-1">
+          <Image
+            src="/images/hero-ganesha.webp"
+            alt="Black stone idol of Lord Ganesha at Shri Vinayaka Temple"
+            width={960}
+            height={1280}
+            priority
+            fetchPriority="high"
+            placeholder="blur"
+            blurDataURL="data:image/webp;base64,UklGRpoAAABXRUJQVlA4II4AAAAwBACdASoQABUAPzmEuVOvKKWisAgB4CcJbACdMoACjbb9wMGEUoCGOoAA/i42TFIZiGQKCsqs7cewQwkThY3/Aex5z99XKag2BRyKxlSBoSbwv+V2+wLmR1C4qMewLkqeIMsYrjXO0Ew2fUls7tfUsAlXV4fu1iDwAXUNaFv8hn3PjepXf3cdNWNcgAAA"
+            className="max-h-[46vh] sm:max-h-[50vh] w-auto h-auto object-contain rounded-2xl shadow-2xl border border-stone-800/80"
+          />
         </div>
 
-        {/* Primary Headline */}
-        <div className="space-y-3">
-          <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-tight">
-            {SITE_CONFIG.name}
-          </h1>
-          <p className="font-serif text-xl sm:text-2xl text-temple-goldLight font-medium">
-            {SITE_CONFIG.tagline}
-          </p>
-          <p className="font-devanagari text-base sm:text-xl text-temple-goldLight/90">
-            {SITE_CONFIG.taglineHindi}
-          </p>
-        </div>
-
-        {/* Narrative Subtitle - strictly using facts from site.ts */}
-        <p className="text-base sm:text-lg text-temple-sandstone/90 max-w-2xl mx-auto leading-relaxed">
-          {SITE_CONFIG.description}
+        {/* 3. Subtitle 1 (English, elegant serif, muted gold / warm cream) */}
+        <p className="font-serif text-sm sm:text-base tracking-wide text-amber-200/90 max-w-xl">
+          {SITE_CONFIG.tagline}
         </p>
 
-        {/* Primary & Secondary Call to Actions */}
-        <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button
-            asChild
-            variant="default"
-            size="lg"
-            className="w-full sm:w-auto h-12 px-8 text-base font-semibold shadow-lg hover:shadow-xl"
-          >
-            <a href="#pooja-form" className="flex items-center justify-center gap-2">
-              <Calendar className="w-5 h-5" />
-              <span>Request a Pooja</span>
-            </a>
-          </Button>
+        {/* 4. Subtitle 2 (Hindi, smaller, lighter warm cream, lang="hi") */}
+        <p
+          lang="hi"
+          className="font-devanagari text-xs sm:text-sm text-stone-300/90 tracking-wide"
+        >
+          {SITE_CONFIG.taglineHindi}
+        </p>
 
-          <Button
-            asChild
-            variant="outline"
-            size="lg"
-            className="w-full sm:w-auto h-12 px-8 text-base font-semibold text-white border-temple-gold/60 hover:bg-temple-gold/20"
-          >
-            <a href="#location" className="flex items-center justify-center gap-2">
-              <MapPin className="w-5 h-5 text-temple-goldLight" />
-              <span>Plan Your Visit</span>
-            </a>
-          </Button>
+        {/* 5. Open-Now Badge (Asia/Kolkata live status with fixed height) */}
+        <div className="pt-1">
+          <DarshanStatusBadge />
         </div>
       </div>
     </section>

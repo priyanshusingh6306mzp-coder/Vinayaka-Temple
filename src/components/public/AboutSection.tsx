@@ -1,10 +1,46 @@
 import Image from "next/image";
+import { Calendar, MapPin } from "lucide-react";
 import { SITE_CONFIG } from "@/content/site";
+import { Button } from "@/components/ui/button";
 
 export function AboutSection() {
   return (
-    <section id="about" className="py-16 sm:py-24 px-4 bg-temple-ivory text-temple-charcoal border-b border-temple-stoneBorder">
-      <div className="max-w-6xl mx-auto">
+    <section id="about" className="bg-temple-ivory text-temple-charcoal border-b border-temple-stoneBorder">
+      {/* Intro Action Bar directly below Hero */}
+      <div className="border-b border-temple-stoneBorder bg-stone-100/70 py-4 sm:py-5 px-4">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+          <div className="flex items-center gap-2 text-sm text-temple-charcoal font-medium">
+            <MapPin className="w-4 h-4 text-temple-kumkum shrink-0" aria-hidden="true" />
+            <span>Inside the JSS Academy campus, Sector 62, Noida</span>
+          </div>
+          <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-center">
+            <Button
+              asChild
+              variant="default"
+              size="default"
+              className="bg-temple-kumkum hover:bg-temple-kumkum/90 text-white font-medium shadow-sm h-11 px-5"
+            >
+              <a href="#pooja-form" className="flex items-center gap-2">
+                <Calendar className="w-4 h-4" aria-hidden="true" />
+                <span>Request a Pooja</span>
+              </a>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              size="default"
+              className="border-stone-300 hover:bg-stone-200/60 text-temple-charcoal font-medium h-11 px-5"
+            >
+              <a href="#location" className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-stone-600" aria-hidden="true" />
+                <span>Plan Your Visit</span>
+              </a>
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <div className="py-16 sm:py-24 px-4 max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 space-y-2">
           <span className="text-xs uppercase font-semibold tracking-widest text-temple-goldText block">
@@ -21,14 +57,14 @@ export function AboutSection() {
 
         {/* Two-Column Grid (Image + Text) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Column 1: Artwork / Sculpture Image */}
-          <div className="lg:col-span-5 relative w-full aspect-[4/5] rounded-xl overflow-hidden shadow-md border border-temple-stoneBorder bg-temple-charcoal">
+          {/* Column 1: Deity Photo */}
+          <div className="lg:col-span-5 relative w-full aspect-[3/4] rounded-xl overflow-hidden shadow-md border border-temple-stoneBorder bg-temple-charcoal">
             <Image
-              src="/images/about-placeholder.svg"
+              src="/images/hero-ganesha.webp"
               alt="Black stone Ganesha idol at Shri Vinayaka Temple Noida"
               fill
               sizes="(max-width: 1024px) 100vw, 40vw"
-              className="object-cover object-center"
+              className="object-contain bg-black/40 p-2"
             />
           </div>
 
