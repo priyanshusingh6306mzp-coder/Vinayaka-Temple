@@ -17,7 +17,7 @@ export function GallerySection({ initialPhotos = [] }: GallerySectionProps) {
   const displayPhotos: GalleryPhoto[] = initialPhotos;
 
   return (
-    <section id="gallery" className="py-14 sm:py-20 md:py-24 px-4 bg-temple-ivory text-temple-charcoal border-b border-temple-stoneBorder">
+    <section id="gallery" className="py-14 sm:py-20 md:py-24 px-4 bg-temple-ivory text-temple-charcoal">
       <div className="max-w-5xl mx-auto space-y-10 sm:space-y-12">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto space-y-2">
@@ -49,7 +49,7 @@ export function GallerySection({ initialPhotos = [] }: GallerySectionProps) {
                     setSelectedIndex(idx);
                   }
                 }}
-                className="group relative aspect-[4/3] rounded-xl overflow-hidden border border-temple-stoneBorder bg-temple-charcoalCard cursor-pointer shadow-sm hover:shadow-md transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-temple-gold"
+                className="group relative aspect-[4/3] rounded-xl overflow-hidden border border-stone-200 bg-white cursor-pointer shadow-sm hover:shadow-md transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-temple-charcoal"
               >
                 <Image
                   src={photo.imageUrl}
@@ -61,19 +61,19 @@ export function GallerySection({ initialPhotos = [] }: GallerySectionProps) {
                 />
 
                 {/* Hover / Focus Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-temple-charcoal/90 via-temple-charcoal/30 to-transparent opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity flex flex-col justify-end p-4 text-white">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity flex flex-col justify-end p-4 text-white">
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="font-serif text-base font-bold tracking-wide">
                         {photo.title}
                       </h3>
                       {photo.caption && (
-                        <p className="text-xs text-temple-sandstone/80 line-clamp-1 mt-0.5">
+                        <p className="text-xs text-stone-200 line-clamp-1 mt-0.5">
                           {photo.caption}
                         </p>
                       )}
                     </div>
-                    <div className="w-8 h-8 rounded-full bg-temple-gold/20 flex items-center justify-center text-temple-goldLight">
+                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white">
                       <Eye className="w-4 h-4" />
                     </div>
                   </div>
@@ -83,8 +83,8 @@ export function GallerySection({ initialPhotos = [] }: GallerySectionProps) {
           </div>
         ) : (
           /* Graceful Empty State */
-          <div className="p-12 rounded-xl border border-dashed border-temple-stoneBorder text-center text-temple-warmGrey space-y-3 bg-temple-sandstone/20">
-            <Camera className="w-10 h-10 text-temple-gold mx-auto opacity-60" />
+          <div className="p-12 rounded-xl border border-dashed border-stone-300 text-center text-temple-warmGrey space-y-3 bg-white/70">
+            <Camera className="w-10 h-10 text-temple-goldText mx-auto" />
             <h3 className="font-serif text-xl font-bold text-temple-charcoal">
               Photographs Coming Soon
             </h3>

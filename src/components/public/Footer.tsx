@@ -4,15 +4,15 @@ import { SITE_CONFIG } from "@/content/site";
 
 export function Footer() {
   return (
-    <footer className="bg-temple-charcoal text-temple-sandstone border-t border-temple-gold/30 pt-16 pb-24 sm:pb-16 px-4">
-      <div className="max-w-6xl mx-auto space-y-12">
+    <footer className="bg-temple-ivory text-temple-charcoal border-t border-[#16130F]/10 pt-14 pb-24 sm:pb-16 px-4">
+      <div className="max-w-5xl mx-auto space-y-12">
         {/* Sacred Mantra Header Strip */}
-        <div className="text-center space-y-2 border-b border-temple-charcoalCard pb-8">
-          <span className="text-2xl text-temple-gold font-serif select-none">ॐ</span>
-          <p className="font-devanagari text-lg sm:text-xl text-temple-goldLight font-medium tracking-wide">
+        <div className="text-center space-y-2 border-b border-[#16130F]/10 pb-8">
+          <span className="text-2xl text-temple-goldText font-serif select-none" aria-hidden="true">ॐ</span>
+          <p className="font-devanagari text-lg sm:text-xl text-temple-charcoal font-medium tracking-wide">
             वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ। निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा॥
           </p>
-          <p className="text-xs text-temple-sandstone/70 italic">
+          <p className="text-xs text-temple-warmGrey italic max-w-xl mx-auto">
             O Lord with the curved trunk and immense aura like a million suns, remove all obstacles from all our undertakings forever.
           </p>
         </div>
@@ -21,32 +21,32 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Column 1: Quick Links */}
           <div className="space-y-4">
-            <h2 className="font-serif text-lg font-bold text-white tracking-wide border-b border-temple-gold/30 pb-2">
+            <h2 className="font-serif text-lg font-bold text-temple-charcoal tracking-wide border-b border-[#16130F]/10 pb-2">
               Quick Links
             </h2>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#about" className="hover:text-temple-goldLight transition-colors">
+                <a href="#about" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
                   About Temple &amp; Deity
                 </a>
               </li>
               <li>
-                <a href="#timings" className="hover:text-temple-goldLight transition-colors">
+                <a href="#timings" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
                   Darshan &amp; Aarti Timings
                 </a>
               </li>
               <li>
-                <a href="#location" className="hover:text-temple-goldLight transition-colors">
+                <a href="#location" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
                   Location &amp; Directions
                 </a>
               </li>
               <li>
-                <a href="#gallery" className="hover:text-temple-goldLight transition-colors">
+                <a href="#gallery" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
                   Temple Photo Gallery
                 </a>
               </li>
               <li>
-                <a href="#pooja-form" className="hover:text-temple-goldLight transition-colors">
+                <a href="#pooja-form" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
                   Request a Pooja / Homam
                 </a>
               </li>
@@ -55,16 +55,16 @@ export function Footer() {
 
           {/* Column 2: Visit Us */}
           <div className="space-y-4">
-            <h2 className="font-serif text-lg font-bold text-white tracking-wide border-b border-temple-gold/30 pb-2">
+            <h2 className="font-serif text-lg font-bold text-temple-charcoal tracking-wide border-b border-[#16130F]/10 pb-2">
               Visit Us
             </h2>
-            <div className="space-y-3 text-sm text-temple-sandstone/90 leading-relaxed">
+            <div className="space-y-3 text-sm text-temple-charcoal leading-relaxed">
               <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-temple-gold shrink-0 mt-1" />
+                <MapPin className="w-4 h-4 text-temple-kumkum shrink-0 mt-1" aria-hidden="true" />
                 <span>{SITE_CONFIG.location.fullAddress}</span>
               </div>
               <div className="flex items-start gap-2.5">
-                <Clock className="w-4 h-4 text-temple-gold shrink-0 mt-1" />
+                <Clock className="w-4 h-4 text-temple-kumkum shrink-0 mt-1" aria-hidden="true" />
                 <span>
                   Morning: 6:00 AM – 11:30 AM<br />
                   Evening: 4:30 PM – 8:30 PM (Daily)
@@ -75,21 +75,20 @@ export function Footer() {
 
           {/* Column 3: Contact & Support */}
           <div className="space-y-4">
-            <h2 className="font-serif text-lg font-bold text-white tracking-wide border-b border-temple-gold/30 pb-2">
+            <h2 className="font-serif text-lg font-bold text-temple-charcoal tracking-wide border-b border-[#16130F]/10 pb-2">
               Contact &amp; Support
             </h2>
             <div className="space-y-3 text-sm">
-              <p className="text-xs text-temple-sandstone/70">
+              <p className="text-xs text-temple-warmGrey">
                 For Pooja inquiries, Sankalpa, and special darshan bookings:
               </p>
 
-              {/* Requirement: phone rendered as <a href="tel:+917982048559"> */}
               <div className="pt-1">
                 <a
                   href="tel:+917982048559"
-                  className="inline-flex items-center gap-2 text-base font-bold text-temple-goldLight hover:text-white transition-colors"
+                  className="inline-flex items-center gap-2 text-base font-bold text-temple-charcoal hover:text-temple-kumkum transition-colors"
                 >
-                  <Phone className="w-4 h-4 text-temple-kumkum" />
+                  <Phone className="w-4 h-4 text-temple-kumkum" aria-hidden="true" />
                   <span>079820 48559</span>
                 </a>
               </div>
@@ -99,19 +98,19 @@ export function Footer() {
                   href={SITE_CONFIG.contact.whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs text-green-400 hover:text-green-300 font-medium"
+                  className="inline-flex items-center gap-1.5 text-xs text-emerald-800 hover:text-emerald-900 font-semibold"
                 >
                   <span>Inquire via WhatsApp</span>
-                  <ExternalLink className="w-3 h-3" />
+                  <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
                 </a>
               </div>
 
-              <div className="pt-3 border-t border-temple-charcoalCard">
+              <div className="pt-3 border-t border-[#16130F]/10">
                 <Link
                   href="/admin/login"
-                  className="inline-flex items-center gap-1.5 text-xs text-temple-sandstone/60 hover:text-temple-goldLight transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs text-temple-warmGrey hover:text-temple-charcoal transition-colors"
                 >
-                  <Lock className="w-3 h-3" />
+                  <Lock className="w-3.5 h-3.5" aria-hidden="true" />
                   <span>Priest / Admin Portal</span>
                 </Link>
               </div>
@@ -120,7 +119,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Rights Strip */}
-        <div className="pt-8 border-t border-temple-charcoalCard flex flex-col sm:flex-row items-center justify-between text-xs text-temple-sandstone/60 gap-4">
+        <div className="pt-8 border-t border-[#16130F]/10 flex flex-col sm:flex-row items-center justify-between text-xs text-temple-warmGrey gap-4">
           <p>© {new Date().getFullYear()} {SITE_CONFIG.name}. Dedicated to Shri Maha Ganapati.</p>
           <p className="text-center sm:text-right">
             Zero-Budget Community Heritage Initiative • Hosted on Vercel

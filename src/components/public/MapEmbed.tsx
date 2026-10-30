@@ -13,7 +13,7 @@ export function MapEmbed() {
   return (
     <div className="space-y-4">
       {/* Map Container */}
-      <div className="relative w-full h-[320px] sm:h-[400px] rounded-xl overflow-hidden border border-temple-stoneBorder shadow-sm bg-temple-sandstone/30">
+      <div className="relative w-full h-[320px] sm:h-[400px] rounded-xl overflow-hidden border border-stone-200 shadow-sm bg-stone-50">
         {isLoaded ? (
           embedUrl ? (
             <iframe
@@ -37,9 +37,9 @@ export function MapEmbed() {
           )
         ) : (
           /* Click-to-load Facade (Zero 3rd party cookies on initial load) */
-          <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-gradient-to-b from-temple-sandstone/40 via-temple-ivory to-temple-sandstone/50 space-y-4">
-            <div className="w-14 h-14 rounded-full bg-white shadow-sm border border-temple-stoneBorder flex items-center justify-center text-temple-goldText">
-              <Navigation className="w-7 h-7 text-temple-goldText animate-pulse" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-stone-50/90 space-y-4">
+            <div className="w-14 h-14 rounded-full bg-white shadow-sm border border-stone-200 flex items-center justify-center text-temple-goldText">
+              <Navigation className="w-7 h-7 text-temple-goldText animate-pulse motion-reduce:animate-none" />
             </div>
             <div className="space-y-1.5 max-w-sm">
               <p className="font-serif text-lg font-bold text-temple-charcoal">
@@ -53,14 +53,14 @@ export function MapEmbed() {
               <Button
                 type="button"
                 onClick={() => setIsLoaded(true)}
-                className="h-10 px-5 text-xs font-semibold bg-temple-charcoal text-white hover:bg-temple-charcoalCard shadow-sm"
+                className="h-10 px-5 text-xs font-semibold bg-temple-charcoal text-white hover:bg-black shadow-sm"
               >
                 Load Interactive Map
               </Button>
               <Button
                 asChild
                 variant="outline"
-                className="h-10 px-4 text-xs font-semibold border-temple-stoneBorder bg-white text-temple-charcoal hover:bg-temple-sandstone/40 shadow-sm"
+                className="h-10 px-4 text-xs font-semibold border border-temple-charcoal bg-white text-temple-charcoal hover:bg-stone-100 shadow-sm"
               >
                 <a
                   href={mapsLink}
@@ -80,7 +80,7 @@ export function MapEmbed() {
       {/* Direct Open in Google Maps Link footer when loaded */}
       {isLoaded && (
         <div className="flex justify-end">
-          <Button asChild variant="outline" size="sm" className="h-10 px-4 text-xs font-semibold border-temple-stoneBorder text-temple-charcoal hover:bg-temple-sandstone/30">
+          <Button asChild variant="outline" size="sm" className="h-10 px-4 text-xs font-semibold border border-temple-charcoal text-temple-charcoal hover:bg-stone-100">
             <a
               href={mapsLink}
               target="_blank"
@@ -88,7 +88,7 @@ export function MapEmbed() {
               className="inline-flex items-center gap-1.5"
             >
               <span>Open in Google Maps App</span>
-              <ExternalLink className="w-3.5 h-3.5 ml-1 text-temple-goldText" />
+              <ExternalLink className="w-3.5 h-3.5 text-temple-goldText" />
             </a>
           </Button>
         </div>

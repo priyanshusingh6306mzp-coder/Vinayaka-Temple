@@ -20,7 +20,7 @@ export function DarshanStatusBadge() {
 
   return (
     <div
-      className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium tracking-wide bg-stone-900/80 border border-stone-800 text-stone-300 shadow-sm min-h-[36px]"
+      className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium tracking-wide bg-white/90 border border-stone-300/80 text-temple-charcoal shadow-sm min-h-[36px]"
       aria-live="polite"
     >
       {status ? (
@@ -28,11 +28,11 @@ export function DarshanStatusBadge() {
           <span className="relative flex h-2.5 w-2.5 items-center justify-center">
             {status.isOpen ? (
               <>
-                <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 motion-safe:animate-ping" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75 motion-safe:animate-ping motion-reduce:hidden" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600" />
               </>
             ) : (
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400/80" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-600" />
             )}
           </span>
           <span>{status.label}</span>

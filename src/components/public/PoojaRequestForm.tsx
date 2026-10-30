@@ -76,7 +76,7 @@ export function PoojaRequestForm() {
   };
 
   return (
-    <section id="pooja-form" className="py-14 sm:py-20 md:py-24 px-4 bg-temple-sandstone/30 text-temple-charcoal border-b border-temple-stoneBorder">
+    <section id="pooja-form" className="py-14 sm:py-20 md:py-24 px-4 bg-temple-ivory text-temple-charcoal">
       <div className="max-w-3xl mx-auto space-y-10">
         {/* Section Header */}
         <div className="text-center space-y-2">
@@ -116,7 +116,7 @@ export function PoojaRequestForm() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-md bg-green-700 hover:bg-green-800 text-white transition-colors"
               >
-                <span>Message on WhatsApp</span>
+                <span>WhatsApp Temple</span>
               </a>
             </div>
           </div>
@@ -125,25 +125,22 @@ export function PoojaRequestForm() {
         {/* Server Error Alert */}
         {serverError && (
           <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm flex items-start gap-3 animate-in fade-in">
-            <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+            <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
             <p className="leading-relaxed">{serverError}</p>
           </div>
         )}
 
-        {/* Pooja Form Card */}
+        {/* Accessible Devotee Form */}
         <form
           onSubmit={handleSubmit(onSubmit)}
           noValidate
-          className="p-6 sm:p-10 rounded-2xl border border-temple-stoneBorder bg-white shadow-sm space-y-6"
+          className="p-6 sm:p-10 rounded-2xl border border-stone-200 bg-white shadow-sm space-y-6"
         >
-          {/* Honeypot field (hidden from sighted users and assistive technologies) */}
-          <div
-            style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0, width: 0 }}
-            aria-hidden="true"
-          >
-            <label htmlFor="hp_field">Leave this field blank</label>
+          {/* Honeypot anti-spam field */}
+          <div className="hidden" aria-hidden="true">
+            <label htmlFor="website">Website Address</label>
             <input
-              id="hp_field"
+              id="website"
               type="text"
               tabIndex={-1}
               autoComplete="off"
@@ -155,7 +152,7 @@ export function PoojaRequestForm() {
             {/* Devotee Name */}
             <div className="space-y-1.5">
               <label htmlFor="name" className="text-xs font-semibold uppercase tracking-wider text-temple-warmGrey flex items-center gap-1.5">
-                <User className="w-3.5 h-3.5 text-temple-gold" />
+                <User className="w-3.5 h-3.5 text-temple-goldText" />
                 <span>Devotee Full Name *</span>
               </label>
               <input
@@ -165,7 +162,7 @@ export function PoojaRequestForm() {
                 aria-required="true"
                 aria-invalid={!!errors.name}
                 aria-describedby={errors.name ? "name-error" : undefined}
-                className="w-full px-3.5 py-3 rounded-lg border border-temple-stoneBorder text-sm text-temple-charcoal placeholder:text-temple-warmGrey/60 focus:outline-none focus:ring-2 focus:ring-temple-gold transition-colors"
+                className="w-full px-3.5 py-3 rounded-lg border border-stone-500/80 bg-white text-sm text-temple-charcoal placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-700 focus:border-stone-700 transition-colors"
                 {...register("name")}
               />
               {errors.name && (
@@ -178,7 +175,7 @@ export function PoojaRequestForm() {
             {/* Mobile Phone */}
             <div className="space-y-1.5">
               <label htmlFor="phone" className="text-xs font-semibold uppercase tracking-wider text-temple-warmGrey flex items-center gap-1.5">
-                <Phone className="w-3.5 h-3.5 text-temple-gold" />
+                <Phone className="w-3.5 h-3.5 text-temple-goldText" />
                 <span>Mobile Number (10 digits) *</span>
               </label>
               <div className="relative">
@@ -193,7 +190,7 @@ export function PoojaRequestForm() {
                   aria-required="true"
                   aria-invalid={!!errors.phone}
                   aria-describedby={errors.phone ? "phone-error" : undefined}
-                  className="w-full pl-12 pr-3.5 py-3 rounded-lg border border-temple-stoneBorder text-sm text-temple-charcoal placeholder:text-temple-warmGrey/60 focus:outline-none focus:ring-2 focus:ring-temple-gold transition-colors"
+                  className="w-full pl-12 pr-3.5 py-3 rounded-lg border border-stone-500/80 bg-white text-sm text-temple-charcoal placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-700 focus:border-stone-700 transition-colors"
                   {...register("phone")}
                 />
               </div>
@@ -207,7 +204,7 @@ export function PoojaRequestForm() {
             {/* Email Address (Optional) */}
             <div className="space-y-1.5">
               <label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-temple-warmGrey flex items-center gap-1.5">
-                <Mail className="w-3.5 h-3.5 text-temple-gold" />
+                <Mail className="w-3.5 h-3.5 text-temple-goldText" />
                 <span>Email Address (Optional)</span>
               </label>
               <input
@@ -216,7 +213,7 @@ export function PoojaRequestForm() {
                 placeholder="name@example.com"
                 aria-invalid={!!errors.email}
                 aria-describedby={errors.email ? "email-error" : undefined}
-                className="w-full px-3.5 py-3 rounded-lg border border-temple-stoneBorder text-sm text-temple-charcoal placeholder:text-temple-warmGrey/60 focus:outline-none focus:ring-2 focus:ring-temple-gold transition-colors"
+                className="w-full px-3.5 py-3 rounded-lg border border-stone-500/80 bg-white text-sm text-temple-charcoal placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-700 focus:border-stone-700 transition-colors"
                 {...register("email")}
               />
               {errors.email && (
@@ -229,7 +226,7 @@ export function PoojaRequestForm() {
             {/* Preferred Date */}
             <div className="space-y-1.5">
               <label htmlFor="dateRequested" className="text-xs font-semibold uppercase tracking-wider text-temple-warmGrey flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5 text-temple-gold" />
+                <Calendar className="w-3.5 h-3.5 text-temple-goldText" />
                 <span>Preferred Date *</span>
               </label>
               <input
@@ -239,7 +236,7 @@ export function PoojaRequestForm() {
                 aria-required="true"
                 aria-invalid={!!errors.dateRequested}
                 aria-describedby={errors.dateRequested ? "date-error" : undefined}
-                className="w-full px-3.5 py-3 rounded-lg border border-temple-stoneBorder text-sm text-temple-charcoal focus:outline-none focus:ring-2 focus:ring-temple-gold transition-colors"
+                className="w-full px-3.5 py-3 rounded-lg border border-stone-500/80 bg-white text-sm text-temple-charcoal focus:outline-none focus:ring-2 focus:ring-stone-700 focus:border-stone-700 transition-colors"
                 {...register("dateRequested")}
               />
               {errors.dateRequested && (
@@ -253,7 +250,7 @@ export function PoojaRequestForm() {
           {/* Pooja Type Selection */}
           <div className="space-y-1.5">
             <label htmlFor="poojaType" className="text-xs font-semibold uppercase tracking-wider text-temple-warmGrey flex items-center gap-1.5">
-              <FileText className="w-3.5 h-3.5 text-temple-gold" />
+              <FileText className="w-3.5 h-3.5 text-temple-goldText" />
               <span>Select Pooja / Homam Offering *</span>
             </label>
             <select
@@ -261,7 +258,7 @@ export function PoojaRequestForm() {
               aria-required="true"
               aria-invalid={!!errors.poojaType}
               aria-describedby={errors.poojaType ? "poojaType-error" : undefined}
-              className="w-full px-3.5 py-3 rounded-lg border border-temple-stoneBorder text-sm text-temple-charcoal bg-white focus:outline-none focus:ring-2 focus:ring-temple-gold transition-colors"
+              className="w-full px-3.5 py-3 rounded-lg border border-stone-500/80 bg-white text-sm text-temple-charcoal focus:outline-none focus:ring-2 focus:ring-stone-700 focus:border-stone-700 transition-colors"
               {...register("poojaType")}
             >
               {SITE_CONFIG.poojaTypes.map((pt) => (
@@ -277,7 +274,7 @@ export function PoojaRequestForm() {
             )}
 
             {/* Clearly visible note that temple confirms pooja and date */}
-            <div className="p-3 rounded-lg bg-temple-sandstone/70 border border-temple-gold/30 text-xs text-temple-charcoal flex items-start gap-2.5">
+            <div className="p-3 rounded-lg bg-stone-50 border border-stone-200 text-xs text-temple-charcoal flex items-start gap-2.5">
               <Phone className="w-4 h-4 text-temple-kumkum shrink-0 mt-0.5" />
               <p className="leading-relaxed">
                 The temple will contact you to confirm the pooja and date.
@@ -297,7 +294,7 @@ export function PoojaRequestForm() {
               maxLength={500}
               aria-invalid={!!errors.notes}
               aria-describedby={errors.notes ? "notes-error" : undefined}
-              className="w-full px-3.5 py-2.5 rounded-lg border border-temple-stoneBorder text-sm text-temple-charcoal placeholder:text-temple-warmGrey/60 focus:outline-none focus:ring-2 focus:ring-temple-gold transition-colors resize-y"
+              className="w-full px-3.5 py-2.5 rounded-lg border border-stone-500/80 bg-white text-sm text-temple-charcoal placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-700 focus:border-stone-700 transition-colors resize-y"
               {...register("notes")}
             />
             {errors.notes && (
@@ -313,7 +310,7 @@ export function PoojaRequestForm() {
               type="submit"
               disabled={isSubmitting}
               variant="default"
-              className="w-full sm:flex-1 h-12 text-base font-bold shadow-md hover:shadow-lg bg-temple-kumkum hover:bg-temple-kumkum/90 text-white focus-visible:ring-2 focus-visible:ring-temple-gold"
+              className="w-full sm:flex-1 h-12 text-base font-bold shadow-md hover:shadow-lg bg-temple-kumkum hover:bg-temple-kumkum/90 text-white focus-visible:ring-2 focus-visible:ring-stone-700"
             >
               {isSubmitting ? (
                 <span className="flex items-center justify-center gap-2">
@@ -329,7 +326,7 @@ export function PoojaRequestForm() {
               asChild
               type="button"
               variant="outline"
-              className="w-full sm:w-auto h-12 px-5 text-sm font-semibold border-stone-300 hover:bg-stone-200/60 text-stone-800 focus-visible:ring-2 focus-visible:ring-temple-gold"
+              className="w-full sm:w-auto h-12 px-5 text-sm font-semibold border border-temple-charcoal hover:bg-stone-100 text-temple-charcoal focus-visible:ring-2 focus-visible:ring-stone-700"
             >
               <a
                 href={SITE_CONFIG.contact.whatsappLink}
@@ -337,7 +334,7 @@ export function PoojaRequestForm() {
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2"
               >
-                <MessageCircle className="w-4 h-4 text-emerald-600" aria-hidden="true" />
+                <MessageCircle className="w-4 h-4 text-emerald-800" aria-hidden="true" />
                 <span>Message on WhatsApp</span>
               </a>
             </Button>

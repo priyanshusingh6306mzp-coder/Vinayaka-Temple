@@ -6,9 +6,12 @@ import { SectionDivider } from "./SectionDivider";
 
 export function AboutSection() {
   return (
-    <section id="about" className="bg-temple-ivory text-temple-charcoal border-b border-temple-stoneBorder">
-      {/* Intro Action Bar directly below Hero */}
-      <div className="border-b border-temple-stoneBorder bg-stone-100/70 py-4 sm:py-5 px-4">
+    <section id="about" className="bg-temple-ivory text-temple-charcoal">
+      {/* Divider between Hero and Actions */}
+      <SectionDivider className="pt-2 pb-1 max-w-xs mx-auto" />
+
+      {/* Intro Action Bar directly below Hero on Ivory */}
+      <div className="py-4 sm:py-6 px-4">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
           <div className="flex items-center gap-2 text-sm text-temple-charcoal font-medium">
             <MapPin className="w-4 h-4 text-temple-kumkum shrink-0" aria-hidden="true" />
@@ -19,7 +22,7 @@ export function AboutSection() {
               asChild
               variant="default"
               size="default"
-              className="bg-temple-kumkum hover:bg-temple-kumkum/90 text-white font-medium shadow-sm h-11 px-5 focus-visible:ring-2 focus-visible:ring-temple-gold"
+              className="bg-temple-kumkum hover:bg-temple-kumkum/90 text-white font-medium shadow-sm h-11 px-5 focus-visible:ring-2 focus-visible:ring-temple-charcoal"
             >
               <a href="#pooja-form" className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" aria-hidden="true" />
@@ -30,7 +33,7 @@ export function AboutSection() {
               asChild
               variant="outline"
               size="default"
-              className="border-stone-300 hover:bg-stone-200/60 text-temple-charcoal font-medium h-11 px-5 focus-visible:ring-2 focus-visible:ring-temple-gold"
+              className="border border-temple-charcoal hover:bg-stone-200/50 text-temple-charcoal font-medium h-11 px-5 focus-visible:ring-2 focus-visible:ring-temple-charcoal"
             >
               <a href="#location" className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-stone-600" aria-hidden="true" />
@@ -58,20 +61,20 @@ export function AboutSection() {
 
         {/* Two-Column Grid (Image + Text) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Column 1: Deity Photo */}
-          <div className="lg:col-span-5 relative w-full aspect-[3/4] rounded-xl overflow-hidden shadow-md border border-temple-stoneBorder bg-temple-charcoal">
+          {/* Column 1: Deity Photo on Ivory */}
+          <div className="lg:col-span-5 relative w-full aspect-[3/4] rounded-xl overflow-hidden border border-[#B8893B]/25 bg-white/70">
             <Image
               src="/images/hero-ganesha.webp"
               alt="Black stone Ganesha idol at Shri Vinayaka Temple Noida"
               fill
               sizes="(max-width: 1024px) 100vw, 40vw"
-              className="object-contain bg-black/40 p-2"
+              className="object-contain p-2"
             />
           </div>
 
           {/* Column 2: Dignified Text (Restrained measure <65 chars/line, 17-18px) */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="space-y-4 text-base sm:text-lg leading-[1.7] text-temple-charcoal/90 max-w-prose">
+            <div className="space-y-4 text-base sm:text-lg leading-[1.7] text-temple-charcoal max-w-prose">
               <p>
                 <strong className="font-serif text-xl font-bold text-temple-charcoal block mb-1">
                   A Quiet Sanctuary for Prayer and Darshan
@@ -91,7 +94,7 @@ export function AboutSection() {
 
             {/* Quick Fact Badges */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div className="p-4 rounded-lg bg-temple-sandstone/60 border border-temple-stoneBorder">
+              <div className="p-4 rounded-lg bg-white border border-stone-200 shadow-sm">
                 <span className="text-xs uppercase font-bold text-temple-goldText block mb-1">
                   Architectural Style
                 </span>
@@ -100,7 +103,7 @@ export function AboutSection() {
                 </span>
               </div>
 
-              <div className="p-4 rounded-lg bg-temple-sandstone/60 border border-temple-stoneBorder">
+              <div className="p-4 rounded-lg bg-white border border-stone-200 shadow-sm">
                 <span className="text-xs uppercase font-bold text-temple-goldText block mb-1">
                   Sacred Deity
                 </span>
