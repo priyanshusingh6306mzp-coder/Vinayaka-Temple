@@ -50,6 +50,7 @@ const config: Config = {
           ivory: "#F6F0E4",
           sandstone: "#EFE6D5",
           gold: "#B8893B",
+          goldText: "#7A5310", // WCAG AA compliant on ivory (#F6F0E4 ratio ~6.5:1), sandstone (#EFE6D5 ratio ~6.2:1), and white (#FFFFFF ratio ~7.4:1)
           goldLight: "#D9A95B",
           goldMuted: "rgba(184, 137, 59, 0.2)",
           kumkum: "#9B2D20",

@@ -7,7 +7,7 @@ export function AboutSection() {
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 space-y-2">
-          <span className="text-xs uppercase font-semibold tracking-widest text-temple-gold block">
+          <span className="text-xs uppercase font-semibold tracking-widest text-temple-goldText block">
             Sacred Sanctuary &amp; Heritage
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-temple-charcoal">
@@ -60,7 +60,7 @@ export function AboutSection() {
             {/* Quick Fact Badges */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div className="p-4 rounded-lg bg-temple-sandstone/60 border border-temple-stoneBorder">
-                <span className="text-xs uppercase font-bold text-temple-gold block mb-1">
+                <span className="text-xs uppercase font-bold text-temple-goldText block mb-1">
                   Architectural Style
                 </span>
                 <span className="text-sm font-medium text-temple-charcoal">
@@ -69,7 +69,7 @@ export function AboutSection() {
               </div>
 
               <div className="p-4 rounded-lg bg-temple-sandstone/60 border border-temple-stoneBorder">
-                <span className="text-xs uppercase font-bold text-temple-gold block mb-1">
+                <span className="text-xs uppercase font-bold text-temple-goldText block mb-1">
                   Sacred Deity
                 </span>
                 <span className="text-sm font-medium text-temple-charcoal">

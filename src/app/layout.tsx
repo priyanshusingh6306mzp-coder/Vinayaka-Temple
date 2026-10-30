@@ -5,21 +5,21 @@ import { SITE_CONFIG } from "@/content/site";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["600", "700"],
   variable: "--font-cormorant",
   display: "swap",
 });
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "600"],
   variable: "--font-inter",
   display: "swap",
 });
 
 const notoDevanagari = Noto_Sans_Devanagari({
   subsets: ["devanagari"],
-  weight: ["400", "600", "700"],
+  weight: ["600"],
   variable: "--font-noto-devanagari",
   display: "swap",
 });

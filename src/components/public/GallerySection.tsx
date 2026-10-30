@@ -36,7 +36,7 @@ export function GallerySection({ initialPhotos = [] }: GallerySectionProps) {
       <div className="max-w-6xl mx-auto space-y-12">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto space-y-2">
-          <span className="text-xs uppercase font-semibold tracking-widest text-temple-gold block">
+          <span className="text-xs uppercase font-semibold tracking-widest text-temple-goldText block">
             Sacred Darshan
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-temple-charcoal">
@@ -79,9 +79,9 @@ export function GallerySection({ initialPhotos = [] }: GallerySectionProps) {
                 <div className="absolute inset-0 bg-gradient-to-t from-temple-charcoal/90 via-temple-charcoal/30 to-transparent opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity flex flex-col justify-end p-4 text-white">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="font-serif text-base font-bold tracking-wide">
+                      <h3 className="font-serif text-base font-bold tracking-wide">
                         {photo.title}
-                      </h4>
+                      </h3>
                       {photo.caption && (
                         <p className="text-xs text-temple-sandstone/80 line-clamp-1 mt-0.5">
                           {photo.caption}

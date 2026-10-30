@@ -77,7 +77,7 @@ export function PoojaRequestForm() {
       <div className="max-w-3xl mx-auto space-y-10">
         {/* Section Header */}
         <div className="text-center space-y-2">
-          <span className="text-xs uppercase font-semibold tracking-widest text-temple-gold block">
+          <span className="text-xs uppercase font-semibold tracking-widest text-temple-goldText block">
             Devotional Offerings
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-temple-charcoal">
@@ -95,7 +95,7 @@ export function PoojaRequestForm() {
             <div className="flex items-start gap-3">
               <CheckCircle2 className="w-6 h-6 text-green-600 shrink-0 mt-0.5" />
               <div>
-                <h4 className="font-serif text-lg font-bold">Request Received Successfully</h4>
+                <h3 className="font-serif text-lg font-bold">Request Received Successfully</h3>
                 <p className="text-sm mt-1 leading-relaxed text-green-800">{serverSuccess}</p>
               </div>
             </div>

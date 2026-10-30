@@ -8,7 +8,7 @@ export function InfoGridSection() {
       <div className="max-w-6xl mx-auto space-y-16">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto space-y-2">
-          <span className="text-xs uppercase font-semibold tracking-widest text-temple-gold block">
+          <span className="text-xs uppercase font-semibold tracking-widest text-temple-goldText block">
             Plan Your Darshan
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-temple-charcoal">
@@ -32,7 +32,7 @@ export function InfoGridSection() {
                 <h3 className="font-serif text-xl sm:text-2xl font-bold text-temple-charcoal">
                   Daily Darshan Timings
                 </h3>
-                <p className="font-devanagari text-xs text-temple-gold font-semibold">
+                <p className="font-devanagari text-xs text-temple-goldText font-semibold">
                   सोमवार से रविवार (प्रतिदिन)
                 </p>
               </div>
@@ -74,7 +74,7 @@ export function InfoGridSection() {
                 <h3 className="font-serif text-xl sm:text-2xl font-bold text-temple-charcoal">
                   Devotee Amenities
                 </h3>
-                <p className="font-devanagari text-xs text-temple-gold font-semibold">
+                <p className="font-devanagari text-xs text-temple-goldText font-semibold">
                   भक्तों हेतु निःशुल्क सुविधाएं
                 </p>
               </div>
@@ -82,7 +82,7 @@ export function InfoGridSection() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="p-4 rounded-lg bg-temple-sandstone/40 border border-temple-stoneBorder space-y-1">
-                <div className="flex items-center gap-2 text-temple-gold font-semibold text-sm">
+                <div className="flex items-center gap-2 text-temple-goldText font-semibold text-sm">
                   <Car className="w-4 h-4 text-temple-kumkum" />
                   <span>Free On-Site Parking</span>
                 </div>
@@ -92,7 +92,7 @@ export function InfoGridSection() {
               </div>
 
               <div className="p-4 rounded-lg bg-temple-sandstone/40 border border-temple-stoneBorder space-y-1">
-                <div className="flex items-center gap-2 text-temple-gold font-semibold text-sm">
+                <div className="flex items-center gap-2 text-temple-goldText font-semibold text-sm">
                   <Droplets className="w-4 h-4 text-temple-kumkum" />
                   <span>Clean Washrooms &amp; Water</span>
                 </div>
@@ -102,7 +102,7 @@ export function InfoGridSection() {
               </div>
 
               <div className="p-4 rounded-lg bg-temple-sandstone/40 border border-temple-stoneBorder sm:col-span-2 space-y-1">
-                <div className="flex items-center gap-2 text-temple-gold font-semibold text-sm">
+                <div className="flex items-center gap-2 text-temple-goldText font-semibold text-sm">
                   <Sparkles className="w-4 h-4 text-temple-kumkum" />
                   <span>Quiet Meditation Courtyard</span>
                 </div>
@@ -143,7 +143,7 @@ export function InfoGridSection() {
               </div>
 
               <div className="pt-4 border-t border-temple-stoneBorder space-y-3">
-                <div className="flex items-center gap-2 text-temple-gold font-semibold text-sm">
+                <div className="flex items-center gap-2 text-temple-goldText font-semibold text-sm">
                   <Navigation className="w-4 h-4 text-temple-kumkum" />
                   <span>Transit &amp; Nearest Metro</span>
                 </div>

@@ -13,6 +13,7 @@ export function HeroSection() {
           alt="Shri Vinayaka Temple Sanctum Sanctorum and Chola Architecture Tower"
           fill
           priority
+          fetchPriority="high"
           sizes="100vw"
           className="object-cover object-center opacity-40 mix-blend-luminosity transform scale-105 transition-transform duration-1000 ease-out"
         />
