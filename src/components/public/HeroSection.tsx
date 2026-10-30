@@ -32,17 +32,19 @@ export function HeroSection() {
         {/* Primary Headline */}
         <div className="space-y-3">
           <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-tight">
-            {SITE_CONFIG.tagline}
+            {SITE_CONFIG.name}
           </h1>
-          <p className="font-devanagari text-lg sm:text-2xl text-temple-goldLight font-semibold">
+          <p className="font-serif text-xl sm:text-2xl text-temple-goldLight font-medium">
+            {SITE_CONFIG.tagline}
+          </p>
+          <p className="font-devanagari text-base sm:text-xl text-temple-goldLight/90">
             {SITE_CONFIG.taglineHindi}
           </p>
         </div>
 
-        {/* Narrative Subtitle */}
+        {/* Narrative Subtitle - strictly using facts from site.ts */}
         <p className="text-base sm:text-lg text-temple-sandstone/90 max-w-2xl mx-auto leading-relaxed">
-          Sanctified inside the tranquil campus of JSS Academy of Technical Education in Sector 62, Noida.
-          A peaceful abode featuring a striking black stone Ganesha idol, untouched by crowd or noise.
+          {SITE_CONFIG.description}
         </p>
 
         {/* Primary & Secondary Call to Actions */}

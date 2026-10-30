@@ -12,24 +12,8 @@ interface GallerySectionProps {
 export function GallerySection({ initialPhotos = [] }: GallerySectionProps) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
-  // If initialPhotos from DB is empty, provide default curated placeholders until admin uploads real photos
-  const displayPhotos: GalleryPhoto[] =
-    initialPhotos.length > 0
-      ? initialPhotos
-      : [
-          {
-            id: "ph-1",
-            imageUrl: "/images/hero-placeholder.svg",
-            title: "Sanctum Sanctorum & Chola Architecture",
-            caption: "Classic Dravidian stone carved Vimana tower over the deity sanctum.",
-          },
-          {
-            id: "ph-2",
-            imageUrl: "/images/about-placeholder.svg",
-            title: "Shri Maha Ganapati Idol",
-            caption: "Carved Black Granite Stone (Kala Shilpa) idol in blessing posture.",
-          },
-        ];
+  // Gallery comes strictly from the database. When no photos have been uploaded by admin, show friendly empty state.
+  const displayPhotos: GalleryPhoto[] = initialPhotos;
 
   return (
     <section id="gallery" className="py-16 sm:py-24 px-4 bg-temple-ivory text-temple-charcoal border-b border-temple-stoneBorder">
