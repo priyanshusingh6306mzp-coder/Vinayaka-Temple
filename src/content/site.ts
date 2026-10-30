@@ -77,11 +77,11 @@ export const SITE_CONFIG = {
   },
 
   contact: {
-    displayPhone: "079820 48559",
-    telHref: "tel:+917982048559",
-    whatsappNumber: "917982048559",
+    displayPhone: "6306213986",
+    telHref: "tel:+916306213986",
+    whatsappNumber: "6306213986",
     whatsappLink:
-      "https://wa.me/917982048559?text=Namaste%2C%20I%20would%20like%20to%20enquire%20about%20a%20pooja.",
+      "https://wa.me/916306213986?text=Namaste%2C%20I%20would%20like%20to%20enquire%20about%20a%20pooja.",
     email: "priest@vinayaka.example.com",
   },
 
