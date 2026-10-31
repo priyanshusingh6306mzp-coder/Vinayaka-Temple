@@ -11,7 +11,7 @@ export function JsonLd() {
     alternateName: SITE_CONFIG.nameHindi,
     description: SITE_CONFIG.description,
     url: siteUrl,
-    telephone: "+91-7982048559",
+    telephone: SITE_CONFIG.contact.telHref.replace("tel:", ""),
     image: `${siteUrl}/images/hero-ganesha.webp`,
     address: {
       "@type": "PostalAddress",

@@ -52,7 +52,7 @@ describe("Public Website - No Placeholders Rendered Guard", () => {
 
   it("ensures fullAddress contains C-20/1 in exact expected form", () => {
     const expected =
-      "Inside the campus of JSS Academy of Technical Education, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309";
+      "Inside the campus of JSS University, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309";
     expect(SITE_CONFIG.location.fullAddress).toBe(expected);
     expect(SITE_CONFIG.location.streetAddress).toBe(expected);
   });

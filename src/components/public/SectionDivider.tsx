@@ -1,11 +1,22 @@
 interface SectionDividerProps {
   className?: string;
+  variant?: "center" | "hero";
 }
 
-export function SectionDivider({ className = "my-1 w-full max-w-sm mr-auto" }: SectionDividerProps) {
+export function SectionDivider({
+  className,
+  variant = "center",
+}: SectionDividerProps) {
+  const defaultClasses =
+    variant === "hero"
+      ? "my-2 w-full max-w-sm mr-auto"
+      : "my-8 sm:my-12 max-w-xs mx-auto";
+
+  const resolvedClass = className || defaultClasses;
+
   return (
     <div
-      className={`flex items-center justify-center gap-3 ${className}`}
+      className={`flex items-center justify-center gap-3 ${resolvedClass}`}
       aria-hidden="true"
     >
       <span className="flex-1 h-px bg-gradient-to-r from-transparent via-[#B8893B]/40 to-[#B8893B]/80" />

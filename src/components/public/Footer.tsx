@@ -26,29 +26,29 @@ export function Footer() {
             </h2>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#about" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
+                <Link href="/#about" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
                   About Temple &amp; Deity
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#timings" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
+                <Link href="/#timings" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
                   Darshan &amp; Aarti Timings
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#location" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
+                <Link href="/#location" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
                   Location &amp; Directions
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#gallery" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
+                <Link href="/#gallery" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
                   Temple Photo Gallery
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#pooja-form" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
+                <Link href="/pooja" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
                   Request a Pooja / Homam
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -85,11 +85,11 @@ export function Footer() {
 
               <div className="pt-1">
                 <a
-                  href="tel:+917982048559"
+                  href={SITE_CONFIG.contact.telHref}
                   className="inline-flex items-center gap-2 text-base font-bold text-temple-charcoal hover:text-temple-kumkum transition-colors"
                 >
                   <Phone className="w-4 h-4 text-temple-kumkum" aria-hidden="true" />
-                  <span>079820 48559</span>
+                  <span>{SITE_CONFIG.contact.displayPhone}</span>
                 </a>
               </div>
 

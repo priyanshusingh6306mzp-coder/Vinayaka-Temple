@@ -38,8 +38,8 @@ Copy `.env.example` to `.env` to configure your environment. **Never commit `.en
 | `SMTP_PASS` | Optional | Gmail / SMTP | 16-character Google App Password |
 | `SMTP_FROM_NAME` | Optional | Gmail / SMTP | Display name in outgoing email alerts |
 | `NOTIFICATION_RECIPIENT_EMAIL` | Optional | Temple | Priest email to receive new pooja booking alerts |
-| `NEXT_PUBLIC_MAPS_EMBED_URL` | Optional | Google Maps | Iframe embed URL for JSS Academy campus location |
-| `NEXT_PUBLIC_MAPS_LINK` | Optional | Google Maps | External Google Maps link for directions |
+| `NEXT_PUBLIC_MAPS_EMBED_URL` | Optional Override | Google Maps | Optional override for Google Maps embed URL (defaults to `site.ts`) |
+| `NEXT_PUBLIC_MAPS_LINK` | Optional Override | Google Maps | Optional override for Google Maps app directions link (defaults to `site.ts`) |
 
 ---
 
@@ -53,7 +53,7 @@ Before announcing or launching the public website, complete this essential verif
 - [ ] **Campus Entry Instructions:** Confirm visitor gate access protocol with JSS Academy administration and update `campusEntryInstructions` in `src/content/site.ts`.
 - [ ] **Real Photography:** Upload genuine high-resolution photos of the sanctum sanctorum, black stone Ganesha idol, and Chola architecture tower via `/admin/gallery`.
 - [ ] **Cloudinary Production Keys:** Add verified Cloudinary credentials (`NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`) in Vercel environment variables.
-- [ ] **Google Maps Verification:** Verify the exact Google Maps embed and directions links (`NEXT_PUBLIC_MAPS_EMBED_URL`, `NEXT_PUBLIC_MAPS_LINK`).
+- [ ] **Google Maps Verification:** Verify the live Google Maps embed and directions links in `src/content/site.ts` (or override via `NEXT_PUBLIC_MAPS_EMBED_URL`, `NEXT_PUBLIC_MAPS_LINK`).
 - [ ] **Production Environment Variables:** Set `NEXT_PUBLIC_SITE_URL`, `AUTH_URL`, `AUTH_SECRET`, and `AUTH_TRUST_HOST="true"` on Vercel.
 
 ---

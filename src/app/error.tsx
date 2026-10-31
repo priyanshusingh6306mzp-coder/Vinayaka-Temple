@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { AlertCircle, RefreshCw, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SITE_CONFIG } from "@/content/site";
 
 export default function ErrorPage({
   error,
@@ -43,11 +44,11 @@ export default function ErrorPage({
           </Button>
 
           <a
-            href="tel:+917982048559"
+            href={SITE_CONFIG.contact.telHref}
             className="flex items-center justify-center gap-2 text-xs font-semibold text-temple-warmGrey hover:text-temple-charcoal py-2"
           >
             <Phone className="w-3.5 h-3.5 text-temple-kumkum" />
-            <span>Call Temple: 079820 48559</span>
+            <span>Call Temple: {SITE_CONFIG.contact.displayPhone}</span>
           </a>
 
           <div>

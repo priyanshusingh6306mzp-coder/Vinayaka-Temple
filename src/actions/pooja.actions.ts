@@ -40,7 +40,7 @@ export async function submitPoojaRequest(
       success: false,
       rateLimited: true,
       message:
-        "Submission limit reached (maximum 5 requests per hour from this connection). If urgent, please call the temple directly at 079820 48559.",
+        `Submission limit reached (maximum 5 requests per hour from this connection). If urgent, please call the temple directly at ${SITE_CONFIG.contact.displayPhone}.`,
     };
   }
 

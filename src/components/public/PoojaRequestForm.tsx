@@ -10,7 +10,11 @@ import { SITE_CONFIG } from "@/content/site";
 import { Button } from "@/components/ui/button";
 import { SectionDivider } from "./SectionDivider";
 
-export function PoojaRequestForm() {
+interface PoojaRequestFormProps {
+  isStandalonePage?: boolean;
+}
+
+export function PoojaRequestForm({ isStandalonePage = true }: PoojaRequestFormProps) {
   const [serverSuccess, setServerSuccess] = useState<string | null>(null);
   const [serverError, setServerError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -68,7 +72,7 @@ export function PoojaRequestForm() {
     } catch (err: unknown) {
       console.error("[Pooja Submission Network Error]:", err);
       setServerError(
-        "An unexpected network error occurred. Please call the temple directly at 079820 48559."
+        `An unexpected network error occurred. Please call the temple directly at ${SITE_CONFIG.contact.displayPhone}.`
       );
     } finally {
       setIsSubmitting(false);
@@ -83,9 +87,15 @@ export function PoojaRequestForm() {
           <p className="text-xs uppercase font-semibold tracking-widest text-temple-goldText block">
             Devotional Offerings
           </p>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-temple-charcoal">
-            Request a Sacred Pooja
-          </h2>
+          {isStandalonePage ? (
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-temple-charcoal">
+              Request a Sacred Pooja
+            </h1>
+          ) : (
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-temple-charcoal">
+              Request a Sacred Pooja
+            </h2>
+          )}
           <SectionDivider />
           <p className="text-sm sm:text-base text-temple-warmGrey max-w-xl mx-auto">
             Submit your pooja request below. The temple will contact you to confirm the pooja and date.

@@ -35,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/#pooja-form`,
+      url: `${baseUrl}/pooja`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
