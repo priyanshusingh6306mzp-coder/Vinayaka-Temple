@@ -123,7 +123,7 @@ export function LocationMapSection() {
         
         <div className="text-center max-w-2xl mx-auto space-y-2">
           <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-temple-charcoal">
-            Getting to the Temple
+            Location
           </h2>
           <SectionDivider />
         </div>

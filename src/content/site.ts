@@ -135,10 +135,8 @@ export const SITE_CONFIG = {
   poojaOfferingsPendingPriestConfirmation,
   poojaTypes: poojaOfferingsPendingPriestConfirmation,
 
- maps: {
-    defaultEmbedUrl:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.495112642634!2d77.35731527934568!3d28.614919599999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce541e99e0771%3A0x2509b2d7c2f83148!2sSHRI%20VINAYAKA%20TEMPLE%20Noida!5e0!3m2!1sen!2sin!4v1793382989312!5m2!1sen!2sin",
-    defaultMapsLink: "https://maps.app.goo.gl/8bQKpnSUecnjsTRQ6",
+  maps: {
+    link: "https://maps.app.goo.gl/8bQKpnSUecnjsTRQ6",
   },
 
   /**

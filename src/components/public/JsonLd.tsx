@@ -11,6 +11,7 @@ export function JsonLd() {
     alternateName: SITE_CONFIG.nameHindi,
     description: SITE_CONFIG.description,
     url: siteUrl,
+    hasMap: SITE_CONFIG.maps.link,
     telephone: SITE_CONFIG.contact.telHref.replace("tel:", ""),
     image: `${siteUrl}/images/hero-ganesha.webp`,
     address: {

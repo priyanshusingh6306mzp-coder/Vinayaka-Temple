@@ -38,7 +38,7 @@ Copy `.env.example` to `.env` to configure your environment. **Never commit `.en
 | `SMTP_PASS` | Optional | Gmail / SMTP | 16-character Google App Password |
 | `SMTP_FROM_NAME` | Optional | Gmail / SMTP | Display name in outgoing email alerts |
 | `NOTIFICATION_RECIPIENT_EMAIL` | Optional | Temple | Priest email to receive new pooja booking alerts |
-| `NEXT_PUBLIC_MAPS_EMBED_URL` | Optional Override | Google Maps | Optional override for Google Maps embed URL (defaults to `site.ts`) |
+
 | `NEXT_PUBLIC_MAPS_LINK` | Optional Override | Google Maps | Optional override for Google Maps app directions link (defaults to `site.ts`) |
 
 ---
@@ -54,7 +54,7 @@ Before announcing or launching the public website, complete this essential verif
 - [ ] **Campus Entry Instructions:** Confirm visitor gate access protocol with JSS University administration and update `campusEntryInstructions` in `src/content/site.ts`.
 - [ ] **Real Photography:** Upload genuine high-resolution photos of the sanctum sanctorum, black stone Ganesha idol, and temple via `/admin/gallery`.
 - [ ] **Cloudinary Production Keys:** Add real Cloudinary production credentials (`NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`) in Vercel environment variables.
-- [ ] **Google Maps Verification:** Verify the live Google Maps embed and directions links in `src/content/site.ts` (or override via `NEXT_PUBLIC_MAPS_EMBED_URL`, `NEXT_PUBLIC_MAPS_LINK`).
+- [ ] **Google Maps Verification:** Verify the live Google Maps directions link in `src/content/site.ts` (or override via `NEXT_PUBLIC_MAPS_LINK`).
 - [ ] **Production Environment Variables:** Set `NEXT_PUBLIC_SITE_URL`, `AUTH_URL`, `AUTH_SECRET`, and `AUTH_TRUST_HOST="true"` on Vercel.
 
 ---
@@ -155,7 +155,7 @@ All public facts, address details, timings, and content placeholders are central
    - `AUTH_URL` (Matches `NEXT_PUBLIC_SITE_URL`)
    - `AUTH_TRUST_HOST` = `"true"` (Mandatory for Auth.js behind Vercel reverse proxy)
    - `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`
-   - `NEXT_PUBLIC_MAPS_EMBED_URL`, `NEXT_PUBLIC_MAPS_LINK`
+   - `NEXT_PUBLIC_MAPS_LINK` (Optional Google Maps link override)
    - `SMTP_*` variables (optional)
 5. **Vercel Region:** Vercel functions are configured for Singapore (`sin1`) in [`vercel.json`](vercel.json) to minimize round-trip latency to Neon DB (`ap-southeast-1`) and devotees across India.
 6. Deploy. To run database migrations against production:
