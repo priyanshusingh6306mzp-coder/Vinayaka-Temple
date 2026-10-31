@@ -120,16 +120,79 @@ npm run dev
    - Tap **WhatsApp** to launch WhatsApp pre-filled with a courteous greeting and the devotee's request details.
    - Tap **Confirm** once scheduled, **Complete** after the ritual is performed, or **Cancel** if necessary.
    - Tap **Add/Edit Notes** to record gotra, nakshatra, or specific timing details.
-5. **Managing Gallery Photos:**
-   - Navigate to `/admin/gallery`.
-   - Tap **Upload Photos from Phone** to select one or multiple photos from the camera or photo library.
-   - Photos are automatically resized and compressed client-side (max 1600px, ~250KB) before uploading to Cloudinary.
-   - Use the **Up/Down arrows** to reorder images on the public homepage.
-   - Tap **Delete** to permanently remove an image from both the database and cloud storage.
 
 ---
 
-## 7. Single Source of Truth (`src/content/site.ts`)
+## 7. Managing Events & Photos (Priest Guide)
+
+The admin portal provides two dedicated sections for the priest to maintain the temple calendar and photography directly from a mobile phone:
+
+### A. Managing Events & Festivals (`/admin/events`)
+- **Upcoming & Past Tabs:** View upcoming festivals and rituals sorted by date, or switch to the Past tab to view completed events and their photos.
+- **Adding an Event:** Tap **+ Add Event**.
+  - **Title:** Enter the event name (e.g., *Maha Sankashti Chaturthi & Special Abhishekam*).
+  - **Category:** Choose from *Sankashti Chaturthi*, *Temple Festival*, *Special Pooja*, or *Temple Event*.
+  - **Event Date:** Enter the date from the Hindu panchang (calendar).
+  - **Start Time (Optional):** Enter the start time (e.g., `18:30` for 6:30 PM). Leave empty for all-day events.
+  - **Description (Optional):** Add brief notes for devotees regarding special alankaram, timings, or offerings.
+- **Editing Events:** Tap **Edit** on any event card to update dates, timings, descriptions, or publication status.
+- **Deleting an Event:** When deleting an event that has photos attached, the portal presents two safe choices:
+  - **Option 1 (Keep Photos):** Removes the event from the schedule, but keeps all its photos in the gallery under *Other Photographs*.
+  - **Option 2 (Delete Photos):** Permanently removes both the event and all its attached photos from the database and Cloudinary cloud storage.
+
+### B. Managing Photos & Albums (`/admin/gallery`)
+- **Event-Linked Photo Uploads:** Tap **Upload Photos**.
+  - Use the **Add photos to:** dropdown to assign photos directly to an existing event, tap **+ Create a new event...** to create one on the fly, or choose **No event (Other photographs)**.
+  - Select up to 20 photos at a time from your mobile camera or library.
+  - Photos are automatically resized and compressed client-side (<1600px, ~250KB) before uploading.
+- **Homepage Featured Photos (Max 4):**
+  - Toggle the **Show on homepage** button on any photo.
+  - The portal strictly enforces a limit of **up to 4 featured photos** with a live indicator (*"n of 4 on the homepage"*).
+  - Featured photos appear in the staggered 4-photo showcase on the public homepage.
+  - Use the **Up/Down arrow buttons** to adjust the order of featured photos.
+- **Moving Photos Between Events:** Tap **Edit** on any photo thumbnail to update its caption or reassign it to another event or to *Other Photographs*.
+
+### C. Cloudinary Free-Tier Storage & Bandwidth Limits
+- **Monthly Free Allowance:** Cloudinary's permanent free plan provides **25 monthly credits**, equivalent to **~25 GB of net storage** and **25 GB of monthly bandwidth**.
+- **Compression Efficiency:** Because our client-side compression reduces each uploaded photo to ~250 KB (compared to raw 5MB-10MB phone camera images), storing **1,000 photos consumes only ~0.25 GB** (less than 1% of the monthly storage allowance).
+- **Best Practice for the Priest:** Select and upload clean, memorable photographs of festivals and ceremonies rather than dozens of repeated burst shots. This keeps the gallery fast, devotional, and well within free limits indefinitely.
+
+---
+
+## 8. Complete Application Route Directory
+
+### Public Routes
+| Route | Purpose | Features & SEO |
+| :--- | :--- | :--- |
+| `/` | Homepage | Hero, About, Darshan Timings & Schedule card, 4-photo featured gallery glimpse, static Google Maps card with 0 third-party cookies |
+| `/schedule` | Sacred Calendar | Upcoming festivals & Sankashti dates grouped by month, `.ics` calendar export, WhatsApp share, tap-to-call |
+| `/gallery` | Photo Gallery Hub | Album cards with photo counts, dynamic preview collages (1, 2, 3, or 4 images), unattached photos card, pagination |
+| `/gallery/[id]` | Album Detail | Full-page photo grid for a specific event with interactive accessible Lightbox modal and dynamic metadata |
+| `/gallery/other` | Other Photographs | Grid of standalone temple photographs with accessible Lightbox modal |
+| `/pooja` | Pooja Booking | Dedicated booking form with priest confirmation notices and telephone consultation |
+| `/sitemap.xml` | Dynamic Sitemap | Auto-generated sitemap including all public static routes and published album detail pages |
+| `/robots.txt` | Crawler Directives | Allows public routes and disallows `/admin/` and `/api/` |
+
+### Admin Routes (Protected)
+| Route | Purpose | Access Control |
+| :--- | :--- | :--- |
+| `/admin/login` | Priest Sign-In | Rate-limited, timing-attack protected |
+| `/admin/change-password` | Password Change | Enforces minimum 10 characters and clears initial temporary password flag |
+| `/admin/requests` | Pooja Requests Dashboard | Filter by status (Pending, Confirmed, Completed, Cancelled), Call & WhatsApp action triggers, inline priest notes |
+| `/admin/events` | Sacred Events Manager | Upcoming/Past tabs, photo counters, create/edit modals, 2-option delete confirmation |
+| `/admin/gallery` | Upgraded Gallery Manager | Event picker, batch uploads ($\le 20$), filter by event, max 4 homepage featured photos, move photo modal |
+
+### API Routes
+| Route | Method | Purpose |
+| :--- | :--- | :--- |
+| `/api/events/[id]/calendar` | `GET` | Returns RFC 5545 `.ics` file for calendar addition with Asia/Kolkata timezone support |
+| `/api/admin/upload-signature` | `POST` | Authenticated generation of Cloudinary signed upload parameters |
+| `/api/admin/gallery` | `DELETE` | Authenticated deletion of gallery images and Cloudinary assets |
+| `/api/auth/[...nextauth]` | `GET/POST` | Auth.js v5 authentication endpoints |
+
+---
+
+## 9. Single Source of Truth (`src/content/site.ts`)
 
 All public facts, address details, timings, and content placeholders are centralized in [`src/content/site.ts`](src/content/site.ts). To modify temple information, update this single file:
 - **Temple Name & Taglines:** `SITE_CONFIG.name`, `SITE_CONFIG.tagline`
@@ -140,7 +203,7 @@ All public facts, address details, timings, and content placeholders are central
 
 ---
 
-## 8. Deploying to Vercel (Production)
+## 10. Deploying to Vercel (Production)
 
 1. Push your repository to GitHub.
 2. In [vercel.com](https://vercel.com), import the repository.
@@ -165,7 +228,7 @@ All public facts, address details, timings, and content placeholders are central
 
 ---
 
-## 9. Permanent Free-Tier Limits Reference
+## 11. Permanent Free-Tier Limits Reference
 
 | Service | Free-Tier Allowance | Usage Strategy & Guardrails |
 | :--- | :--- | :--- |
@@ -176,7 +239,7 @@ All public facts, address details, timings, and content placeholders are central
 
 ---
 
-## 10. Upgrade Path (When Budget is Approved)
+## 12. Upgrade Path (When Budget is Approved)
 
 1. **Custom Domain (`vinayakatemple.org`):**
    - Cost: ~₹800/year.
@@ -193,7 +256,7 @@ All public facts, address details, timings, and content placeholders are central
 
 ---
 
-## 11. Known Advisories
+## 13. Known Advisories
 
 The following package advisories are tracked and deferred until post-launch maintenance:
 - **`zod` (`<4.6.6`):** Advisory regarding memory exhaustion on oversized constrained collections. Upgrading requires a breaking major release (`zod@4.x`), which is currently incompatible with `@hookform/resolvers@3.10.0`. Mitigated in application code by enforcing strict `.max()` constraints on all form fields (name max 100, phone max 10, notes max 500).
