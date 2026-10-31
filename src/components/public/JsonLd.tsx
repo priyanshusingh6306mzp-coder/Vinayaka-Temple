@@ -13,7 +13,7 @@ export function JsonLd() {
     url: siteUrl,
     hasMap: SITE_CONFIG.maps.link,
     telephone: SITE_CONFIG.contact.telHref.replace("tel:", ""),
-    image: `${siteUrl}/images/hero-ganesha.webp`,
+    image: `${siteUrl}/images/temple.jpg`,
     address: {
       "@type": "PostalAddress",
       streetAddress: SITE_CONFIG.location.streetAddress,
