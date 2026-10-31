@@ -35,7 +35,7 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-6" aria-label="Main Navigation">
+        <nav className="hidden lg:flex items-center gap-6" aria-label="Main Navigation">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -66,8 +66,8 @@ export function Header() {
           </Button>
         </div>
 
-        {/* Mobile Hamburger Toggle */}
-        <div className="flex sm:hidden items-center gap-2">
+        {/* Mobile / Tablet Hamburger Toggle */}
+        <div className="flex lg:hidden items-center gap-2">
           <Button
             variant="ghost"
             size="icon"
@@ -81,9 +81,9 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile Drawer Navigation */}
+      {/* Mobile / Tablet Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="sm:hidden border-b border-[#16130F]/10 bg-temple-ivory px-4 py-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="lg:hidden border-b border-[#16130F]/10 bg-temple-ivory px-4 py-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
           <nav className="flex flex-col space-y-2">
             {navLinks.map((link) => (
               <Link
