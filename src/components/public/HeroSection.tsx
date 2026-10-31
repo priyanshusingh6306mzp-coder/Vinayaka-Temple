@@ -66,7 +66,7 @@ export function HeroSection() {
         </h1>
 
         {/* 2. Idol Photo (DOM 2nd: mobile row 2, desktop col 2 rows 1-6 vertically centered) */}
-        <div className="relative flex justify-center items-center my-1 lg:my-0 lg:col-start-2 lg:row-start-1 lg:row-span-6 lg:justify-end translate-y-2">
+        <div className="relative flex justify-center items-center my-1 lg:my-0 lg:col-start-2 lg:row-start-1 lg:row-span-6 lg:justify-end translate-y-[14px]">
           <Image
             src="/images/temple.jpg"
             alt="Shri Vinayaka Temple"
