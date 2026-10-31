@@ -63,13 +63,13 @@ export default async function GalleryHubPage({ searchParams }: GalleryHubPagePro
           {/* Header */}
           <div className="text-center max-w-2xl mx-auto space-y-3">
             <span className="text-xs uppercase font-semibold tracking-widest text-temple-goldText block">
-              Divine Darshan
+              Temple Gallery
             </span>
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-temple-charcoal">
               Photo Gallery
             </h1>
             <p className="text-sm sm:text-base text-temple-warmGrey leading-relaxed">
-              Browse photographs and albums of festivals, abhishekas, and daily spiritual life at the temple.
+              Photographs of temple festivals, rituals, and occasions.
             </p>
           </div>
 

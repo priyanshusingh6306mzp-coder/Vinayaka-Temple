@@ -404,10 +404,12 @@ export function EventsManager({
 
               {/* Category */}
               <div className="space-y-1">
-                <label className="text-xs font-bold text-temple-charcoal block">
+                <label htmlFor="event-category" className="text-xs font-bold text-temple-charcoal block">
                   Category <span className="text-red-500">*</span>
                 </label>
                 <select
+                  id="event-category"
+                  aria-label="Category"
                   value={category}
                   onChange={(e) => setCategory(e.target.value as EventCategoryType)}
                   className="w-full min-h-[44px] px-3.5 rounded-lg border border-stone-300 text-sm focus:outline-none focus:ring-2 focus:ring-temple-charcoal bg-white"

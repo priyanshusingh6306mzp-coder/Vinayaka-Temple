@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { getRelativeDateChip, getKolkataDateString } from "@/lib/date-utils";
+import { getRelativeDateChip } from "@/lib/date-utils";
+import { generateIcsContent, formatIcsDtStart } from "@/lib/calendar";
 
 describe("Part 4: Interaction Polish Suite", () => {
   describe("1. Relative Date Chips in Asia/Kolkata", () => {
@@ -48,48 +49,71 @@ describe("Part 4: Interaction Polish Suite", () => {
     });
   });
 
-  describe("3. RFC 5545 iCalendar Rules & Escaping", () => {
-    function escapeIcs(str: string): string {
-      return str
-        .replace(/\\/g, "\\\\")
-        .replace(/;/g, "\\;")
-        .replace(/,/g, "\\,")
-        .replace(/\r?\n/g, "\\n");
-    }
+  describe("3. RFC 5545 iCalendar Rules, UTC Conversion & No Invented End Time", () => {
+    const fixedNow = new Date("2026-10-31T08:00:00.000Z");
 
-    it("escapes semicolons, commas, and newlines in ICS text fields", () => {
-      const raw = "Special Pooja; with flowers, fruits\nLine 2";
-      const escaped = escapeIcs(raw);
-      expect(escaped).toBe("Special Pooja\\; with flowers\\, fruits\\nLine 2");
+    it("converts Asia/Kolkata timed event to UTC DTSTART and omits DTEND entirely", () => {
+      // 18:30 IST on 2026-11-14 is 13:00 UTC (IST = UTC+5:30)
+      const dtStart = formatIcsDtStart("2026-11-14", "18:30");
+      expect(dtStart).toBe("DTSTART:20261114T130000Z");
+
+      const timedEvent = {
+        id: "timed-event-123",
+        title: "Evening Deepotsav & Aarti",
+        description: "Special evening deepotsav celebration.",
+        eventDate: "2026-11-14",
+        startTime: "18:30",
+      };
+
+      const ics = generateIcsContent(timedEvent, "https://vinayaka-temple.vercel.app", fixedNow);
+
+      expect(ics).toContain("BEGIN:VCALENDAR\r\n");
+      expect(ics).toContain("UID:timed-event-123@vinayakatemple\r\n");
+      expect(ics).toContain("DTSTART:20261114T130000Z\r\n");
+      expect(ics).not.toContain("DTEND"); // Never invent end time or duration
+      expect(ics).not.toContain("DURATION");
+      expect(ics).not.toContain("TZID"); // Writes UTC timestamp directly
+      expect(ics).toContain("SUMMARY:Evening Deepotsav & Aarti\r\n");
+      expect(ics).toContain("END:VEVENT\r\n");
+      expect(ics).toContain("END:VCALENDAR\r\n");
     });
 
-    it("validates RFC 5545 structure for timed event", () => {
-      const eventId = "test-event-uuid-123";
-      const title = "Deepotsav Celebration";
-      const date = "20261114";
-      const startTime = "183000";
-      const endTime = "193000";
+    it("formats all-day event using VALUE=DATE and omits DTEND entirely", () => {
+      const dtStart = formatIcsDtStart("2026-11-14", null);
+      expect(dtStart).toBe("DTSTART;VALUE=DATE:20261114");
 
-      const lines = [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "PRODID:-//Shri Vinayaka Temple//Event Calendar//EN",
-        "CALSCALE:GREGORIAN",
-        "METHOD:PUBLISH",
-        "BEGIN:VEVENT",
-        `UID:${eventId}@vinayakatemple`,
-        `DTSTART;TZID=Asia/Kolkata:${date}T${startTime}`,
-        `DTEND;TZID=Asia/Kolkata:${date}T${endTime}`,
-        `SUMMARY:${escapeIcs(title)}`,
-        "END:VEVENT",
-        "END:VCALENDAR",
-      ];
+      const allDayEvent = {
+        id: "allday-event-456",
+        title: "Vinayaka Chaturthi Utsavam",
+        description: "Full day auspicious celebration and darshan.",
+        eventDate: "2026-11-14",
+        startTime: null,
+      };
 
-      const ics = lines.join("\r\n") + "\r\n";
+      const ics = generateIcsContent(allDayEvent, "https://vinayaka-temple.vercel.app", fixedNow);
+
       expect(ics).toContain("BEGIN:VCALENDAR\r\n");
-      expect(ics).toContain("UID:test-event-uuid-123@vinayakatemple\r\n");
-      expect(ics).toContain("TZID=Asia/Kolkata:20261114T183000\r\n");
+      expect(ics).toContain("UID:allday-event-456@vinayakatemple\r\n");
+      expect(ics).toContain("DTSTART;VALUE=DATE:20261114\r\n");
+      expect(ics).not.toContain("DTEND"); // Never invent end time or duration
+      expect(ics).not.toContain("DURATION");
+      expect(ics).toContain("SUMMARY:Vinayaka Chaturthi Utsavam\r\n");
+      expect(ics).toContain("END:VEVENT\r\n");
       expect(ics).toContain("END:VCALENDAR\r\n");
+    });
+
+    it("escapes semicolons, commas, backslashes, and newlines in ICS text fields", () => {
+      const specialEvent = {
+        id: "special-event-789",
+        title: "Special Pooja; with flowers, fruits",
+        description: "Line 1\nLine 2; with notes, details",
+        eventDate: "2026-12-01",
+        startTime: null,
+      };
+
+      const ics = generateIcsContent(specialEvent, "https://vinayaka-temple.vercel.app", fixedNow);
+      expect(ics).toContain("SUMMARY:Special Pooja\\; with flowers\\, fruits\r\n");
+      expect(ics).toContain("DESCRIPTION:Line 1\\nLine 2\\; with notes\\, details");
     });
   });
 });

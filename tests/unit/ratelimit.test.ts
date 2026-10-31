@@ -1,17 +1,29 @@
-import { describe, it, expect, beforeAll, afterAll } from "vitest";
+import { describe, it, expect, afterAll } from "vitest";
 import { rateLimiter } from "@/lib/services/ratelimit/postgres.service";
+import { db } from "@/lib/db";
 
 describe("Postgres-backed Rate Limiter", () => {
-  const testKey = `test:ip:192.168.1.${Date.now()}`;
+  const testKey = `zz-test:ip:192.168.1.${Date.now()}`;
 
-  beforeAll(async () => {
-    // Warmup and ensure clean initial state
-    await rateLimiter.reset(testKey);
-  });
+  const cleanup = async () => {
+    let retries = 5;
+    while (retries > 0) {
+      try {
+        await db.rateLimit.deleteMany({
+          where: { key: testKey },
+        });
+        break;
+      } catch (err) {
+        retries--;
+        if (retries === 0) throw err;
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+      }
+    }
+  };
 
   afterAll(async () => {
-    await rateLimiter.reset(testKey);
-  });
+    await cleanup();
+  }, 30000);
 
   it("permits requests within max limit (5 attempts)", async () => {
     for (let i = 1; i <= 5; i++) {

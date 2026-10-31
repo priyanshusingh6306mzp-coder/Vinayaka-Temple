@@ -68,7 +68,7 @@ export default async function OtherGalleryPage({ searchParams }: OtherGalleryPag
             </h1>
 
             <p className="text-base text-temple-warmGrey max-w-3xl leading-relaxed">
-              Photographs of the deity, rituals, sanctum sanctorum, and temple grounds.
+              Photographs of the deity, rituals, and temple premises.
             </p>
           </div>
 

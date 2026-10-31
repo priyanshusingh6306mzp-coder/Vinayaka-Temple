@@ -13,7 +13,9 @@ export default defineConfig({
   test: {
     environment: "node",
     globals: true,
-    testTimeout: 30000,
+    testTimeout: 60000,
+    hookTimeout: 60000,
+    fileParallelism: false,
     server: {
       deps: {
         inline: ["next-auth"],

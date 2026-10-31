@@ -387,11 +387,13 @@ export function GalleryManager({
         {/* "Add photos to:" Event Picker */}
         <div className="space-y-3">
           <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-            <label className="text-xs font-bold text-temple-charcoal shrink-0">
+            <label htmlFor="upload-target-event" className="text-xs font-bold text-temple-charcoal shrink-0">
               Add photos to:
             </label>
             <div className="flex-1 max-w-md">
               <select
+                id="upload-target-event"
+                aria-label="Add photos to event or album"
                 value={showInlineNewEvent ? "__create_new__" : uploadTargetEventId}
                 onChange={(e) => {
                   const val = e.target.value;
@@ -521,8 +523,12 @@ export function GalleryManager({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-sm">
         <div className="flex items-center gap-2">
           <Filter className="w-4 h-4 text-temple-goldText shrink-0" />
-          <span className="text-xs font-bold text-temple-charcoal">Filter photos:</span>
+          <label htmlFor="filter-gallery-event" className="text-xs font-bold text-temple-charcoal">
+            Filter photos:
+          </label>
           <select
+            id="filter-gallery-event"
+            aria-label="Filter photos by event"
             value={filterEventId}
             onChange={(e) => setFilterEventId(e.target.value)}
             className="min-h-[40px] px-3 rounded-lg border border-stone-200 text-xs font-medium text-temple-charcoal bg-white focus:outline-none focus:ring-2 focus:ring-temple-charcoal"
@@ -608,7 +614,7 @@ export function GalleryManager({
                       {img.caption}
                     </p>
                   ) : (
-                    <p className="text-[11px] text-stone-400 italic mt-0.5">
+                    <p className="text-[11px] text-stone-600 italic mt-0.5">
                       No caption
                     </p>
                   )}
@@ -719,10 +725,12 @@ export function GalleryManager({
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-bold text-temple-charcoal block">
+                <label htmlFor="edit-event-id" className="text-xs font-bold text-temple-charcoal block">
                   Attach to Event / Album
                 </label>
                 <select
+                  id="edit-event-id"
+                  aria-label="Attach to Event or Album"
                   value={editEventId}
                   onChange={(e) => setEditEventId(e.target.value)}
                   className="w-full min-h-[44px] px-3 rounded-lg border border-stone-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-temple-charcoal bg-white"

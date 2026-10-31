@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach, afterAll } from "vitest";
 import { db } from "@/lib/db";
 import {
   createEvent,
@@ -170,35 +170,66 @@ describe("Admin Events & Gallery Upgraded Suite", () => {
     const createdEventIds: string[] = [];
     const createdImageIds: string[] = [];
 
+    async function retryDb<T>(fn: () => Promise<T>, retries = 5, delay = 1500): Promise<T> {
+      let attempt = 0;
+      while (true) {
+        try {
+          return await fn();
+        } catch (err) {
+          attempt++;
+          if (attempt >= retries) throw err;
+          await new Promise((r) => setTimeout(r, delay));
+        }
+      }
+    }
+
+    const cleanupSuiteData = async () => {
+      let retries = 5;
+      while (retries > 0) {
+        try {
+          // Only delete rows tagged with ZZ-TEST-
+          await db.galleryImage.deleteMany({
+            where: { title: { startsWith: "ZZ-TEST-" } },
+          });
+          await db.templeEvent.deleteMany({
+            where: { title: { startsWith: "ZZ-TEST-" } },
+          });
+          createdImageIds.length = 0;
+          createdEventIds.length = 0;
+          break;
+        } catch (err) {
+          retries--;
+          if (retries === 0) throw err;
+          await new Promise((resolve) => setTimeout(resolve, 1500));
+        }
+      }
+    };
+
     beforeEach(() => {
       mockAdminSession = { user: { role: "ADMIN", email: "admin@vinayaka.example.com" } };
     });
 
     afterEach(async () => {
-      // Clean up test data
-      if (createdImageIds.length > 0) {
-        await db.galleryImage.deleteMany({ where: { id: { in: createdImageIds } } });
-        createdImageIds.length = 0;
-      }
-      if (createdEventIds.length > 0) {
-        await db.templeEvent.deleteMany({ where: { id: { in: createdEventIds } } });
-        createdEventIds.length = 0;
+      if (createdImageIds.length > 0 || createdEventIds.length > 0) {
+        await cleanupSuiteData();
       }
     });
 
     it("rejects a 5th featured image and enforces maximum 4 in transaction", async () => {
-      // Create 5 temporary images
+      // Create 5 temporary tagged images
       const images: any[] = [];
       for (let i = 1; i <= 5; i++) {
-        const img = await db.galleryImage.create({
-          data: {
-            imageUrl: `https://fake.cdn/photo_${i}.webp`,
-            publicId: `test_img_${Date.now()}_${i}`,
-            title: `Featured Test Image ${i}`,
-            sortOrder: i,
-            featured: false,
-          },
-        });
+        const img = await retryDb(() =>
+          db.galleryImage.create({
+            data: {
+              imageUrl: `https://fake.cdn/photo_${i}.webp`,
+              publicId: `zz-test-img-${Date.now()}-${i}`,
+              title: `ZZ-TEST-Featured-Image-${i}`,
+              sortOrder: i,
+              featured: false,
+            },
+          })
+        );
         createdImageIds.push(img.id);
         images.push(img);
       }
@@ -224,25 +255,29 @@ describe("Admin Events & Gallery Upgraded Suite", () => {
 
     it("deletes event with Option 1 (keep_photos): keeps photos and clears eventId", async () => {
       // Create test event
-      const evRes = await createEvent({
-        title: "Event Option 1 Test",
-        category: "SPECIAL_POOJA",
-        eventDate: "2026-12-01",
-        published: true,
-      });
+      const evRes = await retryDb(() =>
+        createEvent({
+          title: "ZZ-TEST-Event-Option-1",
+          category: "SPECIAL_POOJA",
+          eventDate: "2026-12-01",
+          published: true,
+        })
+      );
       const eventId = evRes.event!.id;
       createdEventIds.push(eventId);
 
       // Create test photo attached to this event
-      const img = await db.galleryImage.create({
-        data: {
-          imageUrl: "https://fake.cdn/event1_photo.webp",
-          publicId: `test_keep_${Date.now()}`,
-          title: "Keep Photo Test",
-          sortOrder: 0,
-          eventId,
-        },
-      });
+      const img = await retryDb(() =>
+        db.galleryImage.create({
+          data: {
+            imageUrl: "https://fake.cdn/event1_photo.webp",
+            publicId: `zz-test-keep-${Date.now()}`,
+            title: "ZZ-TEST-Keep-Photo",
+            sortOrder: 0,
+            eventId,
+          },
+        })
+      );
       createdImageIds.push(img.id);
 
       // Delete event with Option 1: "keep_photos"
@@ -265,26 +300,30 @@ describe("Admin Events & Gallery Upgraded Suite", () => {
 
     it("deletes event with Option 2 (delete_photos): deletes photos and removes storage assets", async () => {
       // Create test event
-      const evRes = await createEvent({
-        title: "Event Option 2 Test",
-        category: "FESTIVAL",
-        eventDate: "2026-12-05",
-        published: true,
-      });
+      const evRes = await retryDb(() =>
+        createEvent({
+          title: "ZZ-TEST-Event-Option-2",
+          category: "FESTIVAL",
+          eventDate: "2026-12-05",
+          published: true,
+        })
+      );
       const eventId = evRes.event!.id;
       createdEventIds.push(eventId);
 
       // Create test photo attached to this event
-      const publicId = `test_delete_${Date.now()}`;
-      const img = await db.galleryImage.create({
-        data: {
-          imageUrl: "https://fake.cdn/event2_photo.webp",
-          publicId,
-          title: "Delete Photo Test",
-          sortOrder: 0,
-          eventId,
-        },
-      });
+      const publicId = `zz-test-delete-${Date.now()}`;
+      const img = await retryDb(() =>
+        db.galleryImage.create({
+          data: {
+            imageUrl: "https://fake.cdn/event2_photo.webp",
+            publicId,
+            title: "ZZ-TEST-Delete-Photo",
+            sortOrder: 0,
+            eventId,
+          },
+        })
+      );
 
       // Delete event with Option 2: "delete_photos"
       const delRes = await deleteEvent(eventId, "delete_photos");
@@ -305,32 +344,38 @@ describe("Admin Events & Gallery Upgraded Suite", () => {
 
     it("moves a photo between events and to 'other photographs'", async () => {
       // Create Event A
-      const evA = await createEvent({
-        title: "Event A",
-        category: "SPECIAL_POOJA",
-        eventDate: "2026-12-10",
-        published: true,
-      });
+      const evA = await retryDb(() =>
+        createEvent({
+          title: "ZZ-TEST-Event-A",
+          category: "SPECIAL_POOJA",
+          eventDate: "2026-12-10",
+          published: true,
+        })
+      );
       createdEventIds.push(evA.event!.id);
 
       // Create Event B
-      const evB = await createEvent({
-        title: "Event B",
-        category: "FESTIVAL",
-        eventDate: "2026-12-15",
-        published: true,
-      });
+      const evB = await retryDb(() =>
+        createEvent({
+          title: "ZZ-TEST-Event-B",
+          category: "FESTIVAL",
+          eventDate: "2026-12-15",
+          published: true,
+        })
+      );
       createdEventIds.push(evB.event!.id);
 
       // Create photo in Event A
-      const img = await db.galleryImage.create({
-        data: {
-          imageUrl: "https://fake.cdn/moving_photo.webp",
-          publicId: `test_move_${Date.now()}`,
-          title: "Moving Photo",
-          eventId: evA.event!.id,
-        },
-      });
+      const img = await retryDb(() =>
+        db.galleryImage.create({
+          data: {
+            imageUrl: "https://fake.cdn/moving_photo.webp",
+            publicId: `zz-test-move-${Date.now()}`,
+            title: "ZZ-TEST-Moving-Photo",
+            eventId: evA.event!.id,
+          },
+        })
+      );
       createdImageIds.push(img.id);
 
       // Move photo from Event A to Event B
@@ -349,5 +394,9 @@ describe("Admin Events & Gallery Upgraded Suite", () => {
       expect(moveOtherRes.success).toBe(true);
       expect(moveOtherRes.updated?.eventId).toBeNull();
     });
+
+    afterAll(async () => {
+      await cleanupSuiteData();
+    }, 30000);
   });
 });

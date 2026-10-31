@@ -72,13 +72,13 @@ export default async function SchedulePage() {
           {/* Page Header */}
           <div className="text-center max-w-2xl mx-auto space-y-3">
             <span className="text-xs uppercase font-semibold tracking-widest text-temple-goldText block">
-              Sacred Calendar
+              Temple Calendar
             </span>
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-temple-charcoal">
               Upcoming Events &amp; Schedule
             </h1>
             <p className="text-sm sm:text-base text-temple-warmGrey leading-relaxed">
-              Join us for auspicious festivals, monthly Sankashti Chaturthi celebrations, and divine poojas at the sanctum.
+              Upcoming festivals, Sankashti Chaturthi dates, and special poojas at Shri Vinayaka Temple, Noida.
             </p>
           </div>
 

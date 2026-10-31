@@ -22,7 +22,7 @@ export function GallerySection({ initialPhotos = [] }: GallerySectionProps) {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto space-y-2">
           <p className="text-xs uppercase font-semibold tracking-widest text-temple-goldText block">
-            Sacred Darshan
+            Photo Gallery
           </p>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-temple-charcoal">
             Temple Gallery

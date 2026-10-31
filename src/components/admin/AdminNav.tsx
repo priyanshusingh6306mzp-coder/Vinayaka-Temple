@@ -48,8 +48,12 @@ export function AdminNav({ pendingCount = 0 }: AdminNavProps) {
                 : "h-9 sm:h-10 px-2 sm:px-4 text-xs font-semibold text-temple-charcoal hover:bg-temple-sandstone/40"
             }
           >
-            <Link href="/admin/requests" className="inline-flex items-center gap-1 sm:gap-1.5">
-              <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-temple-goldText" />
+            <Link
+              href="/admin/requests"
+              aria-label="Pooja Requests"
+              className="inline-flex items-center gap-1 sm:gap-1.5"
+            >
+              <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-temple-goldText" aria-hidden="true" />
               <span className="hidden xs:inline">Requests</span>
               {pendingCount > 0 && (
                 <span className="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-temple-kumkum text-white">
@@ -69,8 +73,12 @@ export function AdminNav({ pendingCount = 0 }: AdminNavProps) {
                 : "h-9 sm:h-10 px-2 sm:px-4 text-xs font-semibold text-temple-charcoal hover:bg-temple-sandstone/40"
             }
           >
-            <Link href="/admin/events" className="inline-flex items-center gap-1 sm:gap-1.5">
-              <CalendarDays className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-temple-goldText" />
+            <Link
+              href="/admin/events"
+              aria-label="Temple Events"
+              className="inline-flex items-center gap-1 sm:gap-1.5"
+            >
+              <CalendarDays className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-temple-goldText" aria-hidden="true" />
               <span className="hidden xs:inline">Events</span>
             </Link>
           </Button>
@@ -85,8 +93,12 @@ export function AdminNav({ pendingCount = 0 }: AdminNavProps) {
                 : "h-9 sm:h-10 px-2 sm:px-4 text-xs font-semibold text-temple-charcoal hover:bg-temple-sandstone/40"
             }
           >
-            <Link href="/admin/gallery" className="inline-flex items-center gap-1 sm:gap-1.5">
-              <Images className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-temple-goldText" />
+            <Link
+              href="/admin/gallery"
+              aria-label="Gallery Management"
+              className="inline-flex items-center gap-1 sm:gap-1.5"
+            >
+              <Images className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-temple-goldText" aria-hidden="true" />
               <span className="hidden xs:inline">Gallery</span>
             </Link>
           </Button>
@@ -98,8 +110,12 @@ export function AdminNav({ pendingCount = 0 }: AdminNavProps) {
             className="h-10 px-2 sm:px-3 text-xs font-semibold text-temple-warmGrey hover:bg-temple-sandstone/30 hidden md:inline-flex"
             title="Change Admin Password"
           >
-            <Link href="/admin/change-password" className="inline-flex items-center gap-1">
-              <KeyRound className="w-3.5 h-3.5" />
+            <Link
+              href="/admin/change-password"
+              aria-label="Change Admin Password"
+              className="inline-flex items-center gap-1"
+            >
+              <KeyRound className="w-3.5 h-3.5" aria-hidden="true" />
               <span className="hidden lg:inline">Password</span>
             </Link>
           </Button>
@@ -110,9 +126,10 @@ export function AdminNav({ pendingCount = 0 }: AdminNavProps) {
             variant="outline"
             size="sm"
             onClick={() => signOut({ callbackUrl: "/admin/login" })}
+            aria-label="Logout of Admin Portal"
             className="h-9 sm:h-10 px-2 sm:px-3 text-xs font-semibold border-temple-stoneBorder text-temple-charcoal hover:bg-red-50 hover:text-red-700 hover:border-red-200 transition-colors"
           >
-            <LogOut className="w-3.5 h-3.5 sm:mr-1 text-temple-warmGrey" />
+            <LogOut className="w-3.5 h-3.5 sm:mr-1 text-temple-warmGrey" aria-hidden="true" />
             <span className="hidden sm:inline">Logout</span>
           </Button>
         </nav>

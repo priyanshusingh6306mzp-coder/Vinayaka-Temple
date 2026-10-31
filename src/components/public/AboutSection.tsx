@@ -71,10 +71,10 @@ export function AboutSection() {
             
             <div className="mt-auto mb-8 space-y-4">
               <h3 className="font-serif text-xl sm:text-2xl font-bold text-temple-charcoal">
-                A Quiet Sanctuary for Prayer and Darshan
+                Prayer and Darshan
               </h3>
               <p className="text-base sm:text-lg leading-[1.7] text-temple-charcoal max-w-prose">
-                Situated inside the campus of JSS University, Noida, <strong>{SITE_CONFIG.name}</strong> offers a serene, uncrowded atmosphere perfect for prayer, meditation, and spiritual reflection.
+                Situated inside the campus of JSS University, Noida, <strong>{SITE_CONFIG.name}</strong> features {SITE_CONFIG.architecture.style.toLowerCase()} and a {SITE_CONFIG.architecture.idol.toLowerCase()}, offering a calm and uncrowded atmosphere for prayer and meditation.
               </p>
             </div>
 

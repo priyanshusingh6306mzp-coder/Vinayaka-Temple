@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, afterAll } from "vitest";
 import bcrypt from "bcryptjs";
 import { saveGalleryImage, deleteGalleryImage, reorderGalleryImages } from "@/actions/gallery.actions";
 import { updatePoojaStatus } from "@/actions/pooja.actions";
@@ -12,6 +12,12 @@ vi.mock("@/lib/auth", () => ({
 }));
 
 describe("Phase 3 Server Actions Defense-in-Depth", () => {
+  afterAll(async () => {
+    // Clean up only test tagged rows
+    await db.rateLimit.deleteMany({ where: { key: { contains: "zz-test" } } }).catch(() => {});
+    await db.user.deleteMany({ where: { email: { startsWith: "zz-test-" } } }).catch(() => {});
+  });
+
   it("saveGalleryImage rejects unauthenticated calls", async () => {
     await expect(
       saveGalleryImage({
@@ -52,24 +58,26 @@ describe("Phase 3 Server Actions Defense-in-Depth", () => {
   });
 
   it("Rate limits the 6th rapid attempt from the same IP", async () => {
-    const testIp = `192.168.10.${Date.now() % 255}`;
+    const testIp = `zz-test-phase3-${Date.now()}`;
     const key = `pooja:ip:${testIp}`;
 
-    await rateLimiter.reset(key);
+    try {
+      await rateLimiter.reset(key);
 
-    for (let i = 0; i < 5; i++) {
-      await rateLimiter.limit(key, 5, 3600000);
+      for (let i = 0; i < 5; i++) {
+        await rateLimiter.limit(key, 5, 3600000);
+      }
+
+      const sixth = await rateLimiter.limit(key, 5, 3600000);
+      expect(sixth.success).toBe(false);
+      expect(sixth.remaining).toBe(0);
+    } finally {
+      await db.rateLimit.deleteMany({ where: { key } }).catch(() => {});
     }
-
-    const sixth = await rateLimiter.limit(key, 5, 3600000);
-    expect(sixth.success).toBe(false);
-    expect(sixth.remaining).toBe(0);
-
-    await rateLimiter.reset(key);
   });
 
   it("Temporary admin with mustChangePassword = true enforces password change lifecycle", async () => {
-    const testEmail = `test-admin-${Date.now()}@example.invalid`;
+    const testEmail = `zz-test-admin-${Date.now()}@example.invalid`;
     const randomPassword = `P@ssword_${Math.random().toString(36).slice(2)}!`;
     const passwordHash = await bcrypt.hash(randomPassword, 10);
 
@@ -105,6 +113,7 @@ describe("Phase 3 Server Actions Defense-in-Depth", () => {
       if (createdId) {
         await db.user.delete({ where: { id: createdId } }).catch(() => {});
       }
+      await db.user.deleteMany({ where: { email: { startsWith: "zz-test-" } } }).catch(() => {});
     }
   });
 
