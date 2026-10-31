@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    /* Light Theme (Default: Sandstone & Lamp-light) */
+    /* Ivory Temple Theme (#F6F0E4) */
     --background: 40 48% 93%; /* #F6F0E4 */
     --foreground: 33 20% 7%; /* #16130F */
 
@@ -34,37 +34,6 @@
     --ring: 38 51% 48%;
 
     --radius: 0.5rem;
-  }
-
-  .dark {
-    /* Dark Theme (Charcoal Black Stone & Gold Flame) */
-    --background: 33 20% 7%; /* #16130F */
-    --foreground: 40 48% 93%; /* #F6F0E4 */
-
-    --card: 33 16% 12%; /* #221E19 */
-    --card-foreground: 40 48% 93%;
-
-    --popover: 33 16% 12%;
-    --popover-foreground: 40 48% 93%;
-
-    --primary: 6 66% 40%;
-    --primary-foreground: 40 48% 95%;
-
-    --secondary: 38 51% 48%;
-    --secondary-foreground: 40 48% 93%;
-
-    --muted: 33 15% 18%;
-    --muted-foreground: 40 20% 70%;
-
-    --accent: 38 51% 48%;
-    --accent-foreground: 33 20% 7%;
-
-    --destructive: 6 70% 45%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 33 15% 20%;
-    --input: 33 15% 20%;
-    --ring: 38 51% 48%;
   }
 }
 
