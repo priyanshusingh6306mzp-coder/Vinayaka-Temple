@@ -34,3 +34,65 @@ export async function getFeaturedImages() {
     },
   });
 }
+
+/**
+ * Returns unattached photos summary for the /gallery hub card.
+ */
+export async function getUnattachedSummary() {
+  const [totalPhotos, previewImages] = await Promise.all([
+    db.galleryImage.count({
+      where: { eventId: null },
+    }),
+    db.galleryImage.findMany({
+      where: { eventId: null },
+      orderBy: [{ sortOrder: "asc" }, { uploadedAt: "desc" }],
+      take: 4,
+      select: {
+        id: true,
+        imageUrl: true,
+        title: true,
+        caption: true,
+      },
+    }),
+  ]);
+
+  return {
+    totalPhotos,
+    previewImages,
+  };
+}
+
+/**
+ * Returns paginated unattached photos for /gallery/other.
+ */
+export async function getUnattachedPhotos(page: number = 1, pageSize: number = 48) {
+  const safePage = Math.max(1, page);
+  const skip = (safePage - 1) * pageSize;
+
+  const [total, images] = await Promise.all([
+    db.galleryImage.count({
+      where: { eventId: null },
+    }),
+    db.galleryImage.findMany({
+      where: { eventId: null },
+      orderBy: [{ sortOrder: "asc" }, { uploadedAt: "desc" }],
+      skip,
+      take: pageSize,
+      select: {
+        id: true,
+        imageUrl: true,
+        title: true,
+        caption: true,
+      },
+    }),
+  ]);
+
+  return {
+    images,
+    total,
+    page: safePage,
+    pageSize,
+    totalPages: Math.ceil(total / pageSize),
+  };
+}
+

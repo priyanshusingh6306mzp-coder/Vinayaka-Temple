@@ -12,8 +12,9 @@ export function Header() {
   const navLinks = [
     { label: "About", href: "/#about" },
     { label: "Darshan Timings", href: "/#timings" },
+    { label: "Schedule", href: "/schedule" },
     { label: "Location & Directions", href: "/#location" },
-    { label: "Gallery", href: "/#gallery" },
+    { label: "Gallery", href: "/gallery" },
   ];
 
   return (

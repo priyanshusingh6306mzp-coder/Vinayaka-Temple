@@ -1,3 +1,5 @@
+import React from "react";
+
 interface SectionDividerProps {
   className?: string;
   variant?: "center" | "hero";
@@ -23,16 +25,11 @@ export function SectionDivider({
       <svg
         className="w-3.5 h-3.5 text-[#B8893B] shrink-0"
         viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        fill="currentColor"
+        aria-hidden="true"
       >
-        <path d="M12 3c-1.5 3-4 6-4 9a4 4 0 0 0 8 0c0-3-2.5-6-4-9z" />
-        <path d="M8 12c-2.5-1.5-5-1-6 1 1 3 4 4 6 3" />
-        <path d="M16 12c2.5-1.5 5-1 6 1-1 3-4 4-6 3" />
-        <path d="M10 18c1 1 3 1 4 0" />
+        <path d="M12 2C12 2 8 8 8 13C8 15.2091 9.79086 17 12 17C14.2091 17 16 15.2091 16 13C16 8 12 2 12 2Z" />
+        <path d="M12 17C10.5 17 6 18.5 4 21C7 21.5 10 20.5 12 19C14 20.5 17 21.5 20 21C18 18.5 13.5 17 12 17Z" />
       </svg>
       <span className="flex-1 h-px bg-gradient-to-l from-transparent via-[#B8893B]/40 to-[#B8893B]/80" />
     </div>

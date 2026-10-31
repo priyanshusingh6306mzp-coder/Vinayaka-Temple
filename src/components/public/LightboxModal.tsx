@@ -10,6 +10,7 @@ export interface GalleryPhoto {
   imageUrl: string;
   title: string;
   caption?: string | null;
+  eventTitle?: string | null;
 }
 
 interface LightboxModalProps {
@@ -27,6 +28,7 @@ export function LightboxModal({
 }: LightboxModalProps) {
   const current = photos[currentIndex];
   const dialogRef = useRef<HTMLDivElement>(null);
+  const previousActiveElement = useRef<HTMLElement | null>(null);
   const touchStartX = useRef<number | null>(null);
 
   const handlePrev = useCallback(() => {
@@ -36,6 +38,16 @@ export function LightboxModal({
   const handleNext = useCallback(() => {
     onNavigate((currentIndex + 1) % photos.length);
   }, [currentIndex, photos.length, onNavigate]);
+
+  // Trap focus and restore focus on close
+  useEffect(() => {
+    previousActiveElement.current = document.activeElement as HTMLElement | null;
+    dialogRef.current?.focus();
+
+    return () => {
+      previousActiveElement.current?.focus?.();
+    };
+  }, []);
 
   // Keyboard navigation & Esc key handler
   useEffect(() => {
@@ -52,11 +64,6 @@ export function LightboxModal({
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onClose, handlePrev, handleNext]);
-
-  // Trap focus inside modal
-  useEffect(() => {
-    dialogRef.current?.focus();
-  }, []);
 
   // Mobile swipe support
   const onTouchStart = (e: React.TouchEvent) => {
@@ -121,28 +128,49 @@ export function LightboxModal({
 
       {/* Main Image Container */}
       <div className="relative max-w-4xl max-h-[75vh] w-full h-[60vh] sm:h-[75vh] flex flex-col items-center justify-center">
-        <div className="relative w-full h-full">
-          <Image
-            src={current.imageUrl}
-            alt={current.title}
-            fill
-            sizes="90vw"
-            className="object-contain"
-            priority
-          />
-        </div>
+        {(() => {
+          const altText =
+            current.caption?.trim() ||
+            current.eventTitle?.trim() ||
+            (current.title && !/\.(jpe?g|png|webp|gif|avif)$/i.test(current.title) ? current.title.trim() : null) ||
+            "Photograph from Shri Vinayaka Temple";
 
-        {/* Caption */}
-        <div className="mt-4 text-center text-white max-w-xl px-4">
-          <h4 className="font-serif text-lg sm:text-xl font-bold tracking-wide">
-            {current.title}
-          </h4>
-          {current.caption && (
-            <p className="text-xs sm:text-sm text-temple-sandstone/80 mt-1">
-              {current.caption}
-            </p>
-          )}
-        </div>
+          const displayTitle =
+            current.title && !/\.(jpe?g|png|webp|gif|avif)$/i.test(current.title)
+              ? current.title
+              : current.eventTitle || "";
+
+          return (
+            <>
+              <div className="relative w-full h-full">
+                <Image
+                  src={current.imageUrl}
+                  alt={altText}
+                  fill
+                  sizes="90vw"
+                  className="object-contain"
+                  priority
+                />
+              </div>
+
+              {/* Caption */}
+              {(displayTitle || current.caption) && (
+                <div className="mt-4 text-center text-white max-w-xl px-4">
+                  {displayTitle && (
+                    <h4 className="font-serif text-lg sm:text-xl font-bold tracking-wide">
+                      {displayTitle}
+                    </h4>
+                  )}
+                  {current.caption && (
+                    <p className="text-xs sm:text-sm text-temple-sandstone/80 mt-1">
+                      {current.caption}
+                    </p>
+                  )}
+                </div>
+              )}
+            </>
+          );
+        })()}
       </div>
 
       {/* Navigation: Next Button */}

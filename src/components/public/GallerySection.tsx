@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { Camera, Eye } from "lucide-react";
+import Link from "next/link";
+import { Camera, ArrowRight } from "lucide-react";
 import { LightboxModal, GalleryPhoto } from "@/components/public/LightboxModal";
 import { SectionDivider } from "./SectionDivider";
 
@@ -13,12 +14,11 @@ interface GallerySectionProps {
 export function GallerySection({ initialPhotos = [] }: GallerySectionProps) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
-  // Gallery comes strictly from the database. When no photos have been uploaded by admin, show friendly empty state.
-  const displayPhotos: GalleryPhoto[] = initialPhotos;
+  const displayPhotos = initialPhotos.slice(0, 4);
 
   return (
     <section id="gallery" className="py-14 sm:py-20 md:py-24 px-4 bg-temple-ivory text-temple-charcoal">
-      <div className="max-w-5xl mx-auto space-y-10 sm:space-y-12">
+      <div className="max-w-6xl mx-auto space-y-10 sm:space-y-12">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto space-y-2">
           <p className="text-xs uppercase font-semibold tracking-widest text-temple-goldText block">
@@ -35,67 +35,84 @@ export function GallerySection({ initialPhotos = [] }: GallerySectionProps) {
 
         {/* Gallery Grid */}
         {displayPhotos.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {displayPhotos.map((photo, idx) => (
-              <div
-                key={photo.id}
-                role="button"
-                tabIndex={0}
-                aria-label={`View photo: ${photo.title}`}
-                onClick={() => setSelectedIndex(idx)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setSelectedIndex(idx);
-                  }
-                }}
-                className="group relative aspect-[4/3] rounded-xl overflow-hidden border border-stone-200 bg-white cursor-pointer shadow-sm hover:shadow-md transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-temple-charcoal"
-              >
-                <Image
-                  src={photo.imageUrl}
-                  alt={photo.title}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500 motion-reduce:transform-none"
-                  loading="lazy"
-                />
+          <div className="space-y-10">
+            {/* Desktop: gently staggered 4-column row (cols 2 & 4 offset downward by 40px)
+                Mobile: 2x2 grid without vertical offset */}
+            <div
+              className={`grid ${
+                displayPhotos.length === 1
+                  ? "max-w-md mx-auto grid-cols-1"
+                  : displayPhotos.length === 2
+                  ? "max-w-2xl mx-auto grid-cols-2 gap-4 lg:gap-8 lg:items-start"
+                  : displayPhotos.length === 3
+                  ? "max-w-4xl mx-auto grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 lg:items-start"
+                  : "grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 lg:items-start"
+              }`}
+            >
+              {displayPhotos.map((photo, idx) => {
+                // Alternating ratios: 0 -> 3/4, 1 -> 4/5, 2 -> 3/4, 3 -> 4/5
+                const isThreeFour = idx % 2 === 0;
+                const aspectClass = isThreeFour ? "aspect-[3/4]" : "aspect-[4/5]";
 
-                {/* Hover / Focus Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity flex flex-col justify-end p-4 text-white">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="font-serif text-base font-bold tracking-wide">
-                        {photo.title}
-                      </h3>
-                      {photo.caption && (
-                        <p className="text-xs text-stone-200 line-clamp-1 mt-0.5">
-                          {photo.caption}
-                        </p>
-                      )}
-                    </div>
-                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white">
-                      <Eye className="w-4 h-4" />
-                    </div>
+                // Columns 2 & 4 (indices 1 & 3) offset downward by ~40px on lg
+                const offsetClass = idx === 1 || idx === 3 ? "lg:mt-10" : "";
+
+                // First image has arched top (niche); others are softly rounded
+                const roundingClass = idx === 0 ? "rounded-t-[44px] rounded-b-xl" : "rounded-xl";
+
+                const altText = photo.caption?.trim() || photo.title?.trim() || "Photograph from Shri Vinayaka Temple";
+
+                return (
+                  <div key={photo.id} className={`flex flex-col space-y-2 ${offsetClass}`}>
+                    <button
+                      type="button"
+                      aria-label={`View photograph: ${altText}`}
+                      onClick={() => setSelectedIndex(idx)}
+                      className={`group relative w-full ${aspectClass} ${roundingClass} overflow-hidden border border-stone-200/80 bg-white cursor-pointer transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-temple-charcoal focus-visible:ring-offset-2`}
+                    >
+                      <Image
+                        src={photo.imageUrl}
+                        alt={altText}
+                        fill
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                        loading="lazy"
+                        className="object-cover object-center transition-transform duration-600 ease-out group-hover:scale-[1.03] motion-reduce:transform-none"
+                      />
+                    </button>
+
+                    {photo.caption && (
+                      <p className="text-xs font-medium text-temple-warmGrey line-clamp-2 px-1 leading-relaxed">
+                        {photo.caption}
+                      </p>
+                    )}
                   </div>
-                </div>
-              </div>
-            ))}
+                );
+              })}
+            </div>
+
+            {/* Quiet Link to /gallery */}
+            <div className="text-center pt-2">
+              <Link
+                href="/gallery"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-temple-kumkum hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-temple-charcoal rounded px-2 py-1"
+              >
+                <span>View all photos</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
         ) : (
-          /* Graceful Empty State */
-          <div className="p-12 rounded-xl border border-dashed border-stone-300 text-center text-temple-warmGrey space-y-3 bg-white/70">
+          /* Empty State */
+          <div className="p-12 text-center text-temple-warmGrey space-y-3">
             <Camera className="w-10 h-10 text-temple-goldText mx-auto" />
-            <h3 className="font-serif text-xl font-bold text-temple-charcoal">
-              Photographs Coming Soon
-            </h3>
-            <p className="text-sm max-w-md mx-auto">
-              High-resolution photographs of the temple, festivals, and sanctum are being curated by the temple administration.
+            <p className="text-base font-medium text-temple-charcoal">
+              Photographs will be added soon.
             </p>
           </div>
         )}
       </div>
 
-      {/* Accessible Lightbox Modal */}
+      {/* Lightbox Modal */}
       {selectedIndex !== null && (
         <LightboxModal
           photos={displayPhotos}

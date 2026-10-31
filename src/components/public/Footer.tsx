@@ -36,12 +36,17 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/schedule" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
+                  Schedule &amp; Events
+                </Link>
+              </li>
+              <li>
                 <Link href="/#location" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
                   Location &amp; Directions
                 </Link>
               </li>
               <li>
-                <Link href="/#gallery" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
+                <Link href="/gallery" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
                   Temple Photo Gallery
                 </Link>
               </li>

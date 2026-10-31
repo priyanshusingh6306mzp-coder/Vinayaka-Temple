@@ -91,3 +91,23 @@ export function getRelativeDateChip(
   if (diffDays > 1 && diffDays <= 30) return `In ${diffDays} days`;
   return null;
 }
+
+/**
+ * Formats a Date or YYYY-MM-DD string into "November 2026" (Month Year) in Asia/Kolkata.
+ */
+export function formatMonthYear(date: Date | string): string {
+  let d: Date;
+  if (typeof date === "string") {
+    if (/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      d = new Date(`${date}T12:00:00.000Z`);
+    } else {
+      d = new Date(date);
+    }
+  } else {
+    d = date;
+  }
+  const month = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Kolkata", month: "long" }).format(d);
+  const year = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Kolkata", year: "numeric" }).format(d);
+  return `${month} ${year}`;
+}
+

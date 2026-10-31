@@ -1,5 +1,5 @@
-import { db } from "@/lib/db";
 import { getNextEvent } from "@/lib/events";
+import { getFeaturedImages } from "@/lib/gallery";
 import { Header } from "@/components/public/Header";
 import { HeroSection } from "@/components/public/HeroSection";
 import { AboutSection } from "@/components/public/AboutSection";
@@ -23,15 +23,14 @@ export default async function HomePage() {
   }
 
   try {
-    initialPhotos = await db.galleryImage.findMany({
-      orderBy: { sortOrder: "asc" },
-      select: {
-        id: true,
-        imageUrl: true,
-        title: true,
-        caption: true,
-      },
-    });
+    const featuredImages = await getFeaturedImages();
+    initialPhotos = featuredImages.map((img) => ({
+      id: img.id,
+      imageUrl: img.imageUrl,
+      title: img.title,
+      caption: img.caption,
+      eventTitle: img.event?.title || null,
+    }));
   } catch (err) {
     console.error("[Gallery Fetch Error]", err);
   }

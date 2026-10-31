@@ -38,57 +38,104 @@ export async function getUpcomingEvents() {
 
 /**
  * Returns events that have at least one image, ordered newest eventDate first.
- * Includes total photo count and up to 4 preview images.
+ * Includes total photo count and up to 4 preview images. Supports pagination.
  */
-export async function getAlbums() {
-  const events = await db.templeEvent.findMany({
-    where: {
-      published: true,
-      images: { some: {} },
-    },
-    orderBy: { eventDate: "desc" },
-    include: {
-      _count: {
-        select: { images: true },
+export async function getAlbums(page: number = 1, pageSize: number = 12) {
+  const safePage = Math.max(1, page);
+  const skip = (safePage - 1) * pageSize;
+
+  const [total, events] = await Promise.all([
+    db.templeEvent.count({
+      where: {
+        published: true,
+        images: { some: {} },
       },
-      images: {
-        take: 4,
-        orderBy: [{ sortOrder: "asc" }, { uploadedAt: "desc" }],
-        select: {
-          id: true,
-          imageUrl: true,
-          publicId: true,
-          title: true,
-          caption: true,
+    }),
+    db.templeEvent.findMany({
+      where: {
+        published: true,
+        images: { some: {} },
+      },
+      orderBy: { eventDate: "desc" },
+      skip,
+      take: pageSize,
+      include: {
+        _count: {
+          select: { images: true },
+        },
+        images: {
+          take: 4,
+          orderBy: [{ sortOrder: "asc" }, { uploadedAt: "desc" }],
+          select: {
+            id: true,
+            imageUrl: true,
+            publicId: true,
+            title: true,
+            caption: true,
+          },
         },
       },
-    },
-  });
+    }),
+  ]);
 
-  return events.map((ev) => ({
-    id: ev.id,
-    title: ev.title,
-    category: ev.category,
-    eventDate: ev.eventDate,
-    description: ev.description,
-    totalPhotos: ev._count.images,
-    previewImages: ev.images,
-  }));
+  return {
+    albums: events.map((ev) => ({
+      id: ev.id,
+      title: ev.title,
+      category: ev.category,
+      eventDate: ev.eventDate,
+      description: ev.description,
+      totalPhotos: ev._count.images,
+      previewImages: ev.images,
+    })),
+    total,
+    page: safePage,
+    pageSize,
+    totalPages: Math.ceil(total / pageSize),
+  };
 }
 
 /**
- * Returns the requested published event and all its photos, ordered by sortOrder then uploadedAt.
+ * Returns the requested published event and paginated photos, ordered by sortOrder then uploadedAt.
  */
-export async function getAlbum(id: string) {
-  return db.templeEvent.findFirst({
+export async function getAlbum(id: string, page: number = 1, pageSize: number = 48) {
+  const safePage = Math.max(1, page);
+  const skip = (safePage - 1) * pageSize;
+
+  const event = await db.templeEvent.findFirst({
     where: {
       id,
       published: true,
     },
     include: {
-      images: {
-        orderBy: [{ sortOrder: "asc" }, { uploadedAt: "desc" }],
+      _count: {
+        select: { images: true },
       },
     },
   });
+
+  if (!event) return null;
+
+  const images = await db.galleryImage.findMany({
+    where: { eventId: id },
+    orderBy: [{ sortOrder: "asc" }, { uploadedAt: "desc" }],
+    skip,
+    take: pageSize,
+    select: {
+      id: true,
+      imageUrl: true,
+      publicId: true,
+      title: true,
+      caption: true,
+    },
+  });
+
+  return {
+    ...event,
+    totalPhotos: event._count.images,
+    totalPages: Math.ceil(event._count.images / pageSize),
+    page: safePage,
+    pageSize,
+    images,
+  };
 }
