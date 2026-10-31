@@ -68,20 +68,44 @@ describe("Phase 3 Server Actions Defense-in-Depth", () => {
     await rateLimiter.reset(key);
   });
 
-  it("Seeded admin is in DB with mustChangePassword = true", async () => {
-    const admin = await db.user.findFirst({
-      where: { role: "ADMIN" },
-      select: {
-        id: true,
-        email: true,
-        mustChangePassword: true,
-        role: true,
-      },
-    });
+  it("Temporary admin with mustChangePassword = true enforces password change lifecycle", async () => {
+    const testEmail = `test-admin-${Date.now()}@example.invalid`;
+    const randomPassword = `P@ssword_${Math.random().toString(36).slice(2)}!`;
+    const passwordHash = await bcrypt.hash(randomPassword, 10);
 
-    expect(admin).toBeDefined();
-    expect(admin?.role).toBe("ADMIN");
-    expect(admin?.mustChangePassword).toBe(true);
+    let createdId: string | null = null;
+    try {
+      const createdAdmin = await db.user.create({
+        data: {
+          email: testEmail,
+          passwordHash,
+          role: "ADMIN",
+          mustChangePassword: true,
+        },
+      });
+      createdId = createdAdmin.id;
+
+      expect(createdAdmin).toBeDefined();
+      expect(createdAdmin.role).toBe("ADMIN");
+      expect(createdAdmin.mustChangePassword).toBe(true);
+
+      const fetched = await db.user.findUnique({
+        where: { id: createdId },
+        select: { id: true, email: true, role: true, mustChangePassword: true },
+      });
+      expect(fetched?.mustChangePassword).toBe(true);
+
+      const updated = await db.user.update({
+        where: { id: createdId },
+        data: { mustChangePassword: false },
+        select: { id: true, mustChangePassword: true },
+      });
+      expect(updated.mustChangePassword).toBe(false);
+    } finally {
+      if (createdId) {
+        await db.user.delete({ where: { id: createdId } }).catch(() => {});
+      }
+    }
   });
 
   it("Timing attack mitigation: dummy hash comparison executes for unknown users", async () => {

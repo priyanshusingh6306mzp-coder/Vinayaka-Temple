@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   keywords: [
     "Vinayaka Temple Noida",
     "Ganesh Temple Sector 62",
-    "JSS Academy Temple",
+    "JSS University Temple",
     "Pooja Booking Noida",
     "South Indian Chola Architecture Noida",
   ],

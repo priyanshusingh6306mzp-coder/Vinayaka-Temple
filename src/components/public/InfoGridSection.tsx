@@ -85,7 +85,7 @@ export function TimingsAmenitiesSection() {
                   <span>Free On-Site Parking</span>
                 </div>
                 <p className="text-xs text-temple-warmGrey leading-relaxed">
-                  Designated, safe parking spaces inside JSS campus.
+                  Designated, safe parking spaces inside JSS University campus.
                 </p>
               </div>
 

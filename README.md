@@ -1,6 +1,6 @@
 # Shri Vinayaka Temple — Production Website & Priest Portal
 
-> A production-grade, zero-budget informational website and mobile-first administrative portal for **Shri Vinayaka Temple** (located inside the campus of JSS Academy of Technical Education, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309). Built with Next.js 15 App Router, TypeScript, Tailwind CSS, Prisma, Neon PostgreSQL, and Auth.js v5.
+> A production-grade, zero-budget informational website and mobile-first administrative portal for **Shri Vinayaka Temple** (located inside the campus of JSS University, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309). Built with Next.js 15 App Router, TypeScript, Tailwind CSS, Prisma, Neon PostgreSQL, and Auth.js v5.
 
 ---
 
@@ -43,16 +43,17 @@ Copy `.env.example` to `.env` to configure your environment. **Never commit `.en
 
 ---
 
-## 3. Pre-Launch Checklist
+## 3. Pre-Launch Checklist (Before Launch)
 
 Before announcing or launching the public website, complete this essential verification checklist:
 
-- [ ] **Priest Real Email:** Replace test admin account (`priest@vinayaka.example.com`) with the priest's verified real email address in the database or via initial seed.
-- [ ] **Forced Password Change:** Guide the priest through initial login at `/admin/login` and verify forced password update (minimum 10 characters).
-- [ ] **Pooja Offerings Confirmation:** Review the default list of rituals with the priest and confirm exact offerings, suggested timings, and descriptions in `src/content/site.ts`.
-- [ ] **Campus Entry Instructions:** Confirm visitor gate access protocol with JSS Academy administration and update `campusEntryInstructions` in `src/content/site.ts`.
-- [ ] **Real Photography:** Upload genuine high-resolution photos of the sanctum sanctorum, black stone Ganesha idol, and Chola architecture tower via `/admin/gallery`.
-- [ ] **Cloudinary Production Keys:** Add verified Cloudinary credentials (`NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`) in Vercel environment variables.
+- [ ] **Temple Phone Number:** Replace the test phone number in `src/content/site.ts` (`displayPhone`, `telHref`, `whatsappNumber`, `whatsappLink`) with the temple's number.
+- [ ] **Admin Account:** Replace the test admin account (`priest@vinayaka.example.com`) with the priest/admin's verified real email address in the database or via initial seed, and guide them through forced password change.
+
+- [ ] **Pooja Offerings Confirmation:** Confirm the pooja list, suggested timings, and descriptions with the priest/client in `src/content/site.ts`.
+- [ ] **Campus Entry Instructions:** Confirm visitor gate access protocol with JSS University administration and update `campusEntryInstructions` in `src/content/site.ts`.
+- [ ] **Real Photography:** Upload genuine high-resolution photos of the sanctum sanctorum, black stone Ganesha idol, and temple via `/admin/gallery`.
+- [ ] **Cloudinary Production Keys:** Add real Cloudinary production credentials (`NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`) in Vercel environment variables.
 - [ ] **Google Maps Verification:** Verify the live Google Maps embed and directions links in `src/content/site.ts` (or override via `NEXT_PUBLIC_MAPS_EMBED_URL`, `NEXT_PUBLIC_MAPS_LINK`).
 - [ ] **Production Environment Variables:** Set `NEXT_PUBLIC_SITE_URL`, `AUTH_URL`, `AUTH_SECRET`, and `AUTH_TRUST_HOST="true"` on Vercel.
 
@@ -132,7 +133,7 @@ npm run dev
 
 All public facts, address details, timings, and content placeholders are centralized in [`src/content/site.ts`](src/content/site.ts). To modify temple information, update this single file:
 - **Temple Name & Taglines:** `SITE_CONFIG.name`, `SITE_CONFIG.tagline`
-- **Location & Address:** `SITE_CONFIG.location.fullAddress` ("Inside the campus of JSS Academy of Technical Education, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309"), `SITE_CONFIG.location.campusEntryInstructions`
+- **Location & Address:** `SITE_CONFIG.location.fullAddress` ("Inside the campus of JSS University, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309"), `SITE_CONFIG.location.campusEntryInstructions`
 - **Timings:** `SITE_CONFIG.timings` (Morning & Evening sessions)
 - **Contact & Phone:** `SITE_CONFIG.contact.displayPhone`, `SITE_CONFIG.contact.telHref`
 - **Pooja Offerings:** `SITE_CONFIG.poojaTypes`
