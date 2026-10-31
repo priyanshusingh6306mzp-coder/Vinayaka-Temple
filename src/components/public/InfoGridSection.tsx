@@ -1,10 +1,12 @@
-import { Clock, MapPin, Navigation, Sparkles, Calendar, Phone, ArrowRight } from "lucide-react";
+import { MapPin, Navigation, Calendar, Phone, ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { SITE_CONFIG } from "@/content/site";
 import { MapEmbed } from "@/components/public/MapEmbed";
 import { SectionDivider } from "./SectionDivider";
-import { formatDisplayDate, formatDisplayTime, getRelativeDateChip } from "@/lib/date-utils";
+import { formatDisplayDate, formatDisplayTime } from "@/lib/date-utils";
 import { EVENT_CATEGORY_LABELS, EventCategoryType } from "@/schemas/events";
+import { LiveDarshanTimingsCard } from "@/components/public/LiveDarshanTimingsCard";
+import { EventDateChip } from "@/components/public/EventDateChip";
 
 interface NextEventProp {
   id: string;
@@ -16,7 +18,6 @@ interface NextEventProp {
 }
 
 export function TimingsAmenitiesSection({ nextEvent }: { nextEvent?: NextEventProp | null }) {
-  const relativeChip = nextEvent ? getRelativeDateChip(nextEvent.eventDate) : null;
   const categoryLabel = nextEvent
     ? EVENT_CATEGORY_LABELS[nextEvent.category as EventCategoryType] || nextEvent.category
     : "";
@@ -38,58 +39,19 @@ export function TimingsAmenitiesSection({ nextEvent }: { nextEvent?: NextEventPr
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Card 1: Daily Darshan Timings */}
-          <div className="p-6 sm:p-8 rounded-xl border border-stone-200 bg-white shadow-sm space-y-6 flex flex-col">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center text-temple-kumkum">
-                <Clock className="w-5 h-5" />
-              </div>
-              <div>
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-temple-charcoal">
-                  Daily Darshan Timings
-                </h3>
-                <p className="font-devanagari text-xs text-temple-goldText font-semibold">
-                  सोमवार से रविवार (प्रतिदिन)
-                </p>
-              </div>
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+          {/* Card 1: Daily Darshan Timings (Client Live Status Card) */}
+          <LiveDarshanTimingsCard />
 
-            <div className="space-y-4 divide-y divide-stone-100">
-              {SITE_CONFIG.timings.map((t, idx) => (
-                <div key={idx} className={idx > 0 ? "pt-4 space-y-1" : "space-y-1"}>
-                  <div className="flex items-center justify-between">
-                    <span className="font-semibold text-base text-temple-charcoal">
-                      {t.session} ({t.sessionHindi})
-                    </span>
-                    <span className="font-serif font-bold text-base text-temple-kumkum px-2.5 py-0.5 rounded bg-red-50 border border-red-100">
-                      {t.time}
-                    </span>
-                  </div>
-                  <p className="text-xs sm:text-sm text-temple-warmGrey">
-                    {t.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-auto p-3.5 rounded-lg bg-stone-50 border border-stone-200 text-xs text-temple-charcoal flex items-start gap-2">
-              <Sparkles className="w-4 h-4 text-temple-goldText shrink-0 mt-0.5" />
-              <span>
-                Devotees are welcome for peaceful darshan and prayers during temple opening hours.
-              </span>
-            </div>
-          </div>
-
-          {/* Card 2: Upcoming Events & Schedule */}
-          <div className="p-6 sm:p-8 rounded-xl border border-stone-200 bg-white shadow-sm space-y-6 flex flex-col">
-            <div className="flex items-center justify-between">
+          {/* Card 2: Upcoming Events & Schedule (Interactive Card with Stretched Link) */}
+          <article className="group relative rounded-xl border border-stone-200 bg-white p-6 sm:p-8 shadow-sm space-y-6 flex flex-col transition-all hover:shadow-md hover:border-temple-goldText/60 hover:-translate-y-0.5 focus-within:ring-2 focus-within:ring-temple-charcoal active:scale-[0.985] motion-reduce:transform-none motion-reduce:transition-none cursor-pointer">
+            <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center text-temple-kumkum">
-                  <Calendar className="w-5 h-5" />
+                  <Calendar className="w-5 h-5" aria-hidden="true" />
                 </div>
                 <div>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-temple-charcoal">
+                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-temple-charcoal group-hover:text-temple-kumkum transition-colors">
                     Upcoming Events &amp; Schedule
                   </h3>
                   <p className="font-devanagari text-xs text-temple-goldText font-semibold">
@@ -97,10 +59,10 @@ export function TimingsAmenitiesSection({ nextEvent }: { nextEvent?: NextEventPr
                   </p>
                 </div>
               </div>
-              {relativeChip && (
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-50 text-temple-goldText border border-amber-200/60">
-                  {relativeChip}
-                </span>
+              {nextEvent && (
+                <div className="relative z-10 shrink-0">
+                  <EventDateChip eventDate={nextEvent.eventDate} />
+                </div>
               )}
             </div>
 
@@ -135,7 +97,7 @@ export function TimingsAmenitiesSection({ nextEvent }: { nextEvent?: NextEventPr
                   For upcoming festival and Sankashti timings:{" "}
                   <a
                     href={SITE_CONFIG.contact.telHref}
-                    className="font-bold text-temple-kumkum hover:underline inline-flex items-center gap-1"
+                    className="relative z-10 font-bold text-temple-kumkum hover:underline inline-flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-temple-charcoal rounded"
                   >
                     <Phone className="w-3 h-3 inline-block" />
                     <span>{SITE_CONFIG.contact.displayPhone}</span>
@@ -147,13 +109,13 @@ export function TimingsAmenitiesSection({ nextEvent }: { nextEvent?: NextEventPr
             <div className="pt-3 border-t border-stone-100 flex justify-end">
               <Link
                 href="/schedule"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-temple-kumkum hover:underline"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-temple-kumkum focus:outline-none after:absolute after:inset-0 rounded"
               >
                 <span>View full schedule</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none" aria-hidden="true" />
               </Link>
             </div>
-          </div>
+          </article>
         </div>
       </div>
     </section>

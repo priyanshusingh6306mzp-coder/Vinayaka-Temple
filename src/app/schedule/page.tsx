@@ -1,15 +1,15 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Calendar, Clock, Phone, Sparkles } from "lucide-react";
+import { Calendar, Clock, Phone, Sparkles, CalendarPlus, Share2 } from "lucide-react";
 import { Header } from "@/components/public/Header";
 import { Footer } from "@/components/public/Footer";
 import { SectionDivider } from "@/components/public/SectionDivider";
+import { EventDateChip } from "@/components/public/EventDateChip";
 import { getUpcomingEvents } from "@/lib/events";
 import {
   formatDisplayDate,
   formatDisplayTime,
   formatMonthYear,
-  getRelativeDateChip,
 } from "@/lib/date-utils";
 import { SITE_CONFIG } from "@/content/site";
 import { EventCategory } from "@prisma/client";
@@ -42,6 +42,7 @@ const CATEGORY_CONFIG: Record<EventCategory, { label: string; badgeClass: string
 };
 
 export default async function SchedulePage() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://vinayaka-temple.vercel.app";
   let events: Awaited<ReturnType<typeof getUpcomingEvents>> = [];
 
   try {
@@ -100,20 +101,24 @@ export default async function SchedulePage() {
                     {groupedByMonth[month].map((event) => {
                       const displayDate = formatDisplayDate(event.eventDate);
                       const displayTime = formatDisplayTime(event.startTime);
-                      const relativeChip = getRelativeDateChip(event.eventDate);
                       const catInfo = CATEGORY_CONFIG[event.category] || CATEGORY_CONFIG.OTHER;
                       const isSankashti = event.category === "SANKASHTI";
+
+                      const whatsappText = `${event.title} at Shri Vinayaka Temple, ${displayDate}${
+                        displayTime ? ` at ${displayTime}` : ""
+                      }. ${siteUrl}/schedule`;
+                      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(whatsappText)}`;
 
                       return (
                         <article
                           key={event.id}
-                          className={`relative rounded-xl border p-5 sm:p-6 bg-white/80 shadow-xs transition-all ${
+                          className={`relative rounded-xl border p-5 sm:p-6 bg-white/85 shadow-xs transition-all hover:shadow-md hover:border-temple-goldText/60 hover:-translate-y-0.5 active:scale-[0.985] motion-reduce:transform-none motion-reduce:transition-none ${
                             isSankashti
                               ? "border-amber-300/80 bg-linear-to-r from-amber-50/40 via-white to-white"
                               : "border-[#16130F]/10"
                           }`}
                         >
-                          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                             <div className="space-y-2 flex-1">
                               <div className="flex flex-wrap items-center gap-2">
                                 <span
@@ -123,11 +128,7 @@ export default async function SchedulePage() {
                                   {catInfo.label}
                                 </span>
 
-                                {relativeChip && (
-                                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-temple-kumkum/10 text-temple-kumkum border border-temple-kumkum/20">
-                                    {relativeChip}
-                                  </span>
-                                )}
+                                <EventDateChip eventDate={event.eventDate} />
                               </div>
 
                               <h3 className="font-serif text-lg sm:text-xl font-bold text-temple-charcoal tracking-wide">
@@ -153,6 +154,32 @@ export default async function SchedulePage() {
                                   {event.description}
                                 </p>
                               )}
+                            </div>
+
+                            {/* Action Buttons: Calendar & WhatsApp */}
+                            <div className="relative z-10 flex items-center gap-2 pt-2 sm:pt-0 sm:flex-col sm:items-end">
+                              <a
+                                href={`/api/events/${event.id}/calendar`}
+                                download={`event-${event.id}.ics`}
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md border border-stone-300 bg-white hover:bg-stone-50 text-temple-charcoal transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-temple-charcoal"
+                                title="Add event to your calendar (.ics)"
+                                aria-label={`Add ${event.title} to calendar`}
+                              >
+                                <CalendarPlus className="w-3.5 h-3.5 text-temple-kumkum" aria-hidden="true" />
+                                <span>Add to Calendar</span>
+                              </a>
+
+                              <a
+                                href={whatsappUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md border border-emerald-300/80 bg-emerald-50/60 hover:bg-emerald-100 text-emerald-900 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700"
+                                title="Share event on WhatsApp"
+                                aria-label={`Share ${event.title} on WhatsApp`}
+                              >
+                                <Share2 className="w-3.5 h-3.5 text-emerald-700" aria-hidden="true" />
+                                <span>Share</span>
+                              </a>
                             </div>
                           </div>
                         </article>

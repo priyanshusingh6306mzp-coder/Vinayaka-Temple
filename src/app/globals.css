@@ -35,12 +35,15 @@
 
     --radius: 0.5rem;
   }
-}
 
-@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
@@ -64,4 +67,45 @@
 .tap-target-min {
   min-height: 48px;
   min-width: 48px;
+}
+
+/* Smooth link underline slide animation */
+.temple-link-hover {
+  position: relative;
+}
+.temple-link-hover::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1.5px;
+  bottom: -2px;
+  left: 0;
+  background-color: #9B2D20;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+@media (hover: hover) {
+  .temple-link-hover:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+}
+
+/* Accessible reduced-motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .temple-link-hover::after {
+    transition: none !important;
+  }
 }

@@ -26,32 +26,32 @@ export function Footer() {
             </h2>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/#about" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
+                <Link href="/#about" className="temple-link-hover text-temple-charcoal hover:text-temple-kumkum transition-colors">
                   About Temple &amp; Deity
                 </Link>
               </li>
               <li>
-                <Link href="/#timings" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
+                <Link href="/#timings" className="temple-link-hover text-temple-charcoal hover:text-temple-kumkum transition-colors">
                   Darshan &amp; Aarti Timings
                 </Link>
               </li>
               <li>
-                <Link href="/schedule" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
+                <Link href="/schedule" className="temple-link-hover text-temple-charcoal hover:text-temple-kumkum transition-colors">
                   Schedule &amp; Events
                 </Link>
               </li>
               <li>
-                <Link href="/#location" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
+                <Link href="/#location" className="temple-link-hover text-temple-charcoal hover:text-temple-kumkum transition-colors">
                   Location &amp; Directions
                 </Link>
               </li>
               <li>
-                <Link href="/gallery" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
+                <Link href="/gallery" className="temple-link-hover text-temple-charcoal hover:text-temple-kumkum transition-colors">
                   Temple Photo Gallery
                 </Link>
               </li>
               <li>
-                <Link href="/pooja" className="text-temple-charcoal hover:text-temple-kumkum transition-colors">
+                <Link href="/pooja" className="temple-link-hover text-temple-charcoal hover:text-temple-kumkum transition-colors">
                   Request a Pooja / Homam
                 </Link>
               </li>

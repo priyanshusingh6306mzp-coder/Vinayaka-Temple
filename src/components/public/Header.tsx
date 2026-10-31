@@ -41,7 +41,7 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-temple-charcoal hover:text-temple-kumkum transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-700 rounded"
+              className="temple-link-hover text-sm font-medium text-temple-charcoal hover:text-temple-kumkum transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-700 rounded"
             >
               {link.label}
             </Link>
@@ -52,14 +52,14 @@ export function Header() {
         <div className="hidden sm:flex items-center gap-3">
           <a
             href={SITE_CONFIG.contact.telHref}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-temple-charcoal hover:text-temple-kumkum transition-colors h-11 px-3 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-700"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-temple-charcoal hover:text-temple-kumkum transition-colors h-11 px-3 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-700 active:scale-[0.985]"
             aria-label={`Call temple at ${SITE_CONFIG.contact.displayPhone}`}
           >
             <Phone className="w-4 h-4 text-temple-kumkum" />
             <span>{SITE_CONFIG.contact.displayPhone}</span>
           </a>
 
-          <Button asChild variant="default" size="default" className="bg-temple-kumkum hover:bg-temple-kumkum/90 text-white font-medium shadow-sm h-11 px-5">
+          <Button asChild variant="default" size="default" className="bg-temple-kumkum hover:bg-temple-kumkum/90 text-white font-medium shadow-sm h-11 px-5 active:scale-[0.985]">
             <Link href="/pooja">
               <Calendar className="w-4 h-4 mr-1.5" />
               Request Pooja
