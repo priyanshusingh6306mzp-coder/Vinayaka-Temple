@@ -8,9 +8,36 @@
 export interface TempleTiming {
   session: string;
   sessionHindi: string;
+  opens: string;
+  closes: string;
+  openDisplay: string;
+  closeDisplay: string;
   time: string;
   description: string;
 }
+
+export const DARSHAN_SESSIONS = {
+  morning: {
+    session: "Morning Darshan",
+    sessionHindi: "प्रातःकालीन दर्शन",
+    opens: "06:00",
+    closes: "10:30",
+    openDisplay: "6:00 AM",
+    closeDisplay: "10:30 AM",
+    time: "6:00 AM – 10:30 AM",
+    description: "Daily morning darshan and prayer",
+  },
+  evening: {
+    session: "Evening Darshan",
+    sessionHindi: "सायंकालीन दर्शन",
+    opens: "17:30",
+    closes: "20:30",
+    openDisplay: "5:30 PM",
+    closeDisplay: "8:30 PM",
+    time: "5:30 PM – 8:30 PM",
+    description: "Daily evening darshan and prayer",
+  },
+} as const;
 
 export interface PoojaTypeOption {
   id: string;
@@ -85,19 +112,11 @@ export const SITE_CONFIG = {
     email: "priest@vinayaka.example.com",
   },
 
+  darshanSessions: DARSHAN_SESSIONS,
+
   timings: [
-    {
-      session: "Morning Darshan",
-      sessionHindi: "प्रातःकालीन दर्शन",
-      time: "6:00 AM – 11:30 AM",
-      description: "Daily morning darshan and prayer",
-    },
-    {
-      session: "Evening Darshan",
-      sessionHindi: "सायंकालीन दर्शन",
-      time: "4:30 PM – 8:30 PM",
-      description: "Daily evening darshan and prayer",
-    },
+    DARSHAN_SESSIONS.morning,
+    DARSHAN_SESSIONS.evening,
   ] as TempleTiming[],
 
   transit: {

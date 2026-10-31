@@ -39,8 +39,8 @@ export function JsonLd() {
           "Saturday",
           "Sunday",
         ],
-        opens: "06:00",
-        closes: "11:30",
+        opens: SITE_CONFIG.darshanSessions.morning.opens,
+        closes: SITE_CONFIG.darshanSessions.morning.closes,
       },
       {
         "@type": "OpeningHoursSpecification",
@@ -53,8 +53,8 @@ export function JsonLd() {
           "Saturday",
           "Sunday",
         ],
-        opens: "16:30",
-        closes: "20:30",
+        opens: SITE_CONFIG.darshanSessions.evening.opens,
+        closes: SITE_CONFIG.darshanSessions.evening.closes,
       },
     ],
     amenityFeature: SITE_CONFIG.amenities.map((amenity) => ({

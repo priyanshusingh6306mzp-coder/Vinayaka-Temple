@@ -66,8 +66,8 @@ export function Footer() {
               <div className="flex items-start gap-2.5">
                 <Clock className="w-4 h-4 text-temple-kumkum shrink-0 mt-1" aria-hidden="true" />
                 <span>
-                  Morning: 6:00 AM – 11:30 AM<br />
-                  Evening: 4:30 PM – 8:30 PM (Daily)
+                  Morning: {SITE_CONFIG.darshanSessions.morning.time}<br />
+                  Evening: {SITE_CONFIG.darshanSessions.evening.time} (Daily)
                 </span>
               </div>
             </div>

@@ -134,7 +134,7 @@ npm run dev
 All public facts, address details, timings, and content placeholders are centralized in [`src/content/site.ts`](src/content/site.ts). To modify temple information, update this single file:
 - **Temple Name & Taglines:** `SITE_CONFIG.name`, `SITE_CONFIG.tagline`
 - **Location & Address:** `SITE_CONFIG.location.fullAddress` ("Inside the campus of JSS University, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309"), `SITE_CONFIG.location.campusEntryInstructions`
-- **Timings:** `SITE_CONFIG.timings` (Morning & Evening sessions)
+- **Timings:** `SITE_CONFIG.darshanSessions` / `SITE_CONFIG.timings` (Morning: 6:00 AM – 10:30 AM, Evening: 5:30 PM – 8:30 PM)
 - **Contact & Phone:** `SITE_CONFIG.contact.displayPhone`, `SITE_CONFIG.contact.telHref`
 - **Pooja Offerings:** `SITE_CONFIG.poojaTypes`
 

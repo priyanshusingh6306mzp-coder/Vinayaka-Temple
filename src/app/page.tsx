@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { getNextEvent } from "@/lib/events";
 import { Header } from "@/components/public/Header";
 import { HeroSection } from "@/components/public/HeroSection";
 import { AboutSection } from "@/components/public/AboutSection";
@@ -13,6 +14,14 @@ export const revalidate = 60;
 
 export default async function HomePage() {
   let initialPhotos: GalleryPhoto[] = [];
+  let nextEvent = null;
+
+  try {
+    nextEvent = await getNextEvent();
+  } catch (err) {
+    console.error("[Next Event Fetch Error]", err);
+  }
+
   try {
     initialPhotos = await db.galleryImage.findMany({
       orderBy: { sortOrder: "asc" },
@@ -34,7 +43,7 @@ export default async function HomePage() {
       <main className="flex-1 bg-temple-ivory text-temple-charcoal">
         <HeroSection />
         <AboutSection />
-        <TimingsAmenitiesSection />
+        <TimingsAmenitiesSection nextEvent={nextEvent} />
         <GallerySection initialPhotos={initialPhotos} />
         <LocationMapSection />
       </main>

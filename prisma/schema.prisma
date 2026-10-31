@@ -22,6 +22,13 @@ enum PoojaStatus {
   CANCELLED
 }
 
+enum EventCategory {
+  SANKASHTI
+  FESTIVAL
+  SPECIAL_POOJA
+  OTHER
+}
+
 // User model for Admin / Priest authentication
 model User {
   id                 String   @id @default(uuid())
@@ -54,17 +61,40 @@ model PoojaRequest {
   @@map("pooja_requests")
 }
 
+// Temple Events & Festival Schedule
+model TempleEvent {
+  id          String        @id @default(uuid())
+  title       String
+  category    EventCategory
+  eventDate   DateTime      @db.Date
+  startTime   String?
+  description String?
+  published   Boolean       @default(true)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  images      GalleryImage[]
+
+  @@index([eventDate])
+  @@map("temple_events")
+}
+
 // Temple Photo Gallery Images (Cloudinary)
 model GalleryImage {
-  id         String   @id @default(uuid())
-  imageUrl   String
-  publicId   String   @unique
-  title      String
-  caption    String?
-  sortOrder  Int      @default(0)
-  uploadedAt DateTime @default(now())
+  id            String       @id @default(uuid())
+  imageUrl      String
+  publicId      String       @unique
+  title         String
+  caption       String?
+  sortOrder     Int          @default(0)
+  uploadedAt    DateTime     @default(now())
+  eventId       String?
+  event         TempleEvent? @relation(fields: [eventId], references: [id], onDelete: SetNull)
+  featured      Boolean      @default(false)
+  featuredOrder Int?
 
   @@index([sortOrder, uploadedAt])
+  @@index([eventId])
   @@map("gallery_images")
 }
 
