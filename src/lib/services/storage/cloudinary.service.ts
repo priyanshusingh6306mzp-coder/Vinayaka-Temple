@@ -97,4 +97,18 @@ export class CloudinaryService implements IStorageService {
   }
 }
 
-export const storageService = new CloudinaryService();
+let activeStorageService: IStorageService = new CloudinaryService();
+
+export function setStorageService(service: IStorageService) {
+  activeStorageService = service;
+}
+
+export function getStorageService(): IStorageService {
+  return activeStorageService;
+}
+
+export const storageService: IStorageService = {
+  getUploadSignature: (folder) => getStorageService().getUploadSignature(folder),
+  deleteImage: (publicId) => getStorageService().deleteImage(publicId),
+  getOptimizedUrl: (publicId, options) => getStorageService().getOptimizedUrl(publicId, options),
+};

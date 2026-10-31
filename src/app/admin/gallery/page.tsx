@@ -2,26 +2,49 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { AdminNav } from "@/components/admin/AdminNav";
-import { GalleryManager, SerializedGalleryImage } from "@/components/admin/GalleryManager";
+import { GalleryManager, SerializedGalleryImage, SimpleEvent } from "@/components/admin/GalleryManager";
+import { getKolkataDateString } from "@/lib/date-utils";
 
 export const metadata = {
   title: "Gallery Manager | Shri Vinayaka Temple",
 };
 
-export default async function AdminGalleryPage() {
+export default async function AdminGalleryPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ eventId?: string }>;
+}) {
   const session = await auth();
   if (!session || !session.user || (session.user as { role?: string }).role !== "ADMIN") {
     redirect("/admin/login");
   }
+
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
+  const initialEventId = resolvedSearchParams?.eventId;
 
   // Fetch pending requests for badge counter
   const pendingCount = await db.poojaRequest.count({
     where: { status: "PENDING" },
   });
 
+  // Fetch all events for the "Add photos to:" picker
+  const rawEvents = await db.templeEvent.findMany({
+    orderBy: { eventDate: "desc" },
+    select: { id: true, title: true, eventDate: true },
+  });
+
+  const serializedEvents: SimpleEvent[] = rawEvents.map((ev) => ({
+    id: ev.id,
+    title: ev.title,
+    eventDate: getKolkataDateString(ev.eventDate),
+  }));
+
   // Fetch all gallery images ordered by sortOrder
   const rawImages = await db.galleryImage.findMany({
-    orderBy: { sortOrder: "asc" },
+    orderBy: [{ sortOrder: "asc" }, { uploadedAt: "desc" }],
+    include: {
+      event: { select: { id: true, title: true } },
+    },
   });
 
   const serializedImages: SerializedGalleryImage[] = rawImages.map((img) => ({
@@ -31,6 +54,10 @@ export default async function AdminGalleryPage() {
     title: img.title,
     caption: img.caption,
     sortOrder: img.sortOrder,
+    eventId: img.eventId,
+    featured: img.featured,
+    featuredOrder: img.featuredOrder,
+    event: img.event,
   }));
 
   return (
@@ -44,12 +71,16 @@ export default async function AdminGalleryPage() {
               Temple Gallery Manager
             </h1>
             <p className="text-xs sm:text-sm text-temple-warmGrey mt-0.5">
-              Upload, organize, and edit photos visible to devotees on the public temple homepage.
+              Upload, organize, and attach photos to events, or feature up to 4 on the temple homepage.
             </p>
           </div>
         </div>
 
-        <GalleryManager initialImages={serializedImages} />
+        <GalleryManager
+          initialImages={serializedImages}
+          events={serializedEvents}
+          initialEventId={initialEventId}
+        />
       </main>
     </div>
   );

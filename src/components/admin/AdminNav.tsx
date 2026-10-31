@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { Calendar, Images, LogOut, KeyRound } from "lucide-react";
+import { Calendar, CalendarDays, Images, LogOut, KeyRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface AdminNavProps {
@@ -56,6 +56,22 @@ export function AdminNav({ pendingCount = 0 }: AdminNavProps) {
                   {pendingCount}
                 </span>
               )}
+            </Link>
+          </Button>
+
+          <Button
+            asChild
+            variant={pathname.startsWith("/admin/events") ? "default" : "ghost"}
+            size="sm"
+            className={
+              pathname.startsWith("/admin/events")
+                ? "h-9 sm:h-10 px-2 sm:px-4 bg-temple-charcoal text-white hover:bg-temple-charcoalCard text-xs font-semibold"
+                : "h-9 sm:h-10 px-2 sm:px-4 text-xs font-semibold text-temple-charcoal hover:bg-temple-sandstone/40"
+            }
+          >
+            <Link href="/admin/events" className="inline-flex items-center gap-1 sm:gap-1.5">
+              <CalendarDays className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-temple-goldText" />
+              <span className="hidden xs:inline">Events</span>
             </Link>
           </Button>
 
