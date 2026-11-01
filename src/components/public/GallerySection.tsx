@@ -5,6 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Camera, ArrowRight } from "lucide-react";
 import { LightboxModal, GalleryPhoto } from "@/components/public/LightboxModal";
+import {
+  getPublicPhotoAlt,
+  getPublicPhotoCaption,
+  getOptimizedCloudinaryUrl,
+} from "@/lib/gallery-title";
 import { SectionDivider } from "./SectionDivider";
 
 interface GallerySectionProps {
@@ -60,7 +65,9 @@ export function GallerySection({ initialPhotos = [] }: GallerySectionProps) {
                 // First image has arched top (niche); others are softly rounded
                 const roundingClass = idx === 0 ? "rounded-t-[44px] rounded-b-xl" : "rounded-xl";
 
-                const altText = photo.caption?.trim() || photo.title?.trim() || "Photograph from Shri Vinayaka Temple";
+                const altText = getPublicPhotoAlt(photo);
+                const displayCaption = getPublicPhotoCaption(photo);
+                const optimizedUrl = getOptimizedCloudinaryUrl(photo.imageUrl, { width: 600 });
 
                 return (
                   <div key={photo.id} className={`flex flex-col space-y-2 ${offsetClass}`}>
@@ -71,7 +78,7 @@ export function GallerySection({ initialPhotos = [] }: GallerySectionProps) {
                       className={`group relative w-full ${aspectClass} ${roundingClass} overflow-hidden border border-stone-200/80 bg-white cursor-pointer transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-temple-charcoal focus-visible:ring-offset-2`}
                     >
                       <Image
-                        src={photo.imageUrl}
+                        src={optimizedUrl}
                         alt={altText}
                         fill
                         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
@@ -80,9 +87,9 @@ export function GallerySection({ initialPhotos = [] }: GallerySectionProps) {
                       />
                     </button>
 
-                    {photo.caption && (
+                    {displayCaption && (
                       <p className="text-xs font-medium text-temple-warmGrey line-clamp-2 px-1 leading-relaxed">
-                        {photo.caption}
+                        {displayCaption}
                       </p>
                     )}
                   </div>

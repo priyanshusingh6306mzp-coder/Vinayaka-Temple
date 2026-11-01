@@ -6,6 +6,7 @@ import { Footer } from "@/components/public/Footer";
 import { SectionDivider } from "@/components/public/SectionDivider";
 import { EventDateChip } from "@/components/public/EventDateChip";
 import { getUpcomingEvents } from "@/lib/events";
+import { getSiteUrl } from "@/lib/site-url";
 import {
   formatDisplayDate,
   formatDisplayTime,
@@ -42,7 +43,7 @@ const CATEGORY_CONFIG: Record<EventCategory, { label: string; badgeClass: string
 };
 
 export default async function SchedulePage() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://vinayaka-temple.vercel.app";
+  const siteUrl = getSiteUrl();
   let events: Awaited<ReturnType<typeof getUpcomingEvents>> = [];
 
   try {

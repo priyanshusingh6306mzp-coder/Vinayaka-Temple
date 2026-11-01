@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Inter, Noto_Sans_Devanagari } from "next/font/google";
 import "./globals.css";
 import { SITE_CONFIG } from "@/content/site";
+import { getSiteUrl } from "@/lib/site-url";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -25,7 +26,7 @@ const notoDevanagari = Noto_Sans_Devanagari({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+  metadataBase: new URL(getSiteUrl()),
   title: {
     default: `${SITE_CONFIG.name} (${SITE_CONFIG.nameHindi}) - Sector 62, Noida`,
     template: `%s | ${SITE_CONFIG.name}`,
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${SITE_CONFIG.name} - Noida Sector 62`,
     description: SITE_CONFIG.description,
-    url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+    url: getSiteUrl(),
     siteName: SITE_CONFIG.name,
     locale: "en_IN",
     type: "website",

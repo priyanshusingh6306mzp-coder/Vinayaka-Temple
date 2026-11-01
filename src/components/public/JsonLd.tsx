@@ -1,7 +1,8 @@
 import { SITE_CONFIG } from "@/content/site";
+import { getSiteUrl } from "@/lib/site-url";
 
 export function JsonLd() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://vinayaka-temple.vercel.app";
+  const siteUrl = getSiteUrl();
 
   const structuredData = {
     "@context": "https://schema.org",

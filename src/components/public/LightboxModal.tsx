@@ -4,6 +4,12 @@ import { useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  getPublicPhotoTitle,
+  getPublicPhotoAlt,
+  getPublicPhotoCaption,
+  getOptimizedCloudinaryUrl,
+} from "@/lib/gallery-title";
 
 export interface GalleryPhoto {
   id: string;
@@ -129,22 +135,16 @@ export function LightboxModal({
       {/* Main Image Container */}
       <div className="relative max-w-4xl max-h-[75vh] w-full h-[60vh] sm:h-[75vh] flex flex-col items-center justify-center">
         {(() => {
-          const altText =
-            current.caption?.trim() ||
-            current.eventTitle?.trim() ||
-            (current.title && !/\.(jpe?g|png|webp|gif|avif)$/i.test(current.title) ? current.title.trim() : null) ||
-            "Photograph from Shri Vinayaka Temple";
-
-          const displayTitle =
-            current.title && !/\.(jpe?g|png|webp|gif|avif)$/i.test(current.title)
-              ? current.title
-              : current.eventTitle || "";
+          const altText = getPublicPhotoAlt(current);
+          const displayTitle = getPublicPhotoTitle(current);
+          const displayCaption = getPublicPhotoCaption(current);
+          const optimizedUrl = getOptimizedCloudinaryUrl(current.imageUrl, { width: 1400 });
 
           return (
             <>
               <div className="relative w-full h-full">
                 <Image
-                  src={current.imageUrl}
+                  src={optimizedUrl}
                   alt={altText}
                   fill
                   sizes="90vw"
@@ -154,16 +154,16 @@ export function LightboxModal({
               </div>
 
               {/* Caption */}
-              {(displayTitle || current.caption) && (
+              {(displayTitle || displayCaption) && (
                 <div className="mt-4 text-center text-white max-w-xl px-4">
                   {displayTitle && (
                     <h4 className="font-serif text-lg sm:text-xl font-bold tracking-wide">
                       {displayTitle}
                     </h4>
                   )}
-                  {current.caption && (
+                  {displayCaption && (
                     <p className="text-xs sm:text-sm text-temple-sandstone/80 mt-1">
-                      {current.caption}
+                      {displayCaption}
                     </p>
                   )}
                 </div>

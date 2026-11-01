@@ -1,5 +1,6 @@
 import { SITE_CONFIG } from "@/content/site";
 import { getKolkataDateString } from "@/lib/date-utils";
+import { getSiteUrl } from "./site-url";
 
 export function escapeIcsText(str: string): string {
   return str
@@ -63,7 +64,7 @@ export function generateIcsContent(
     description?: string | null;
     [key: string]: unknown;
   },
-  origin: string = "https://vinayaka-temple.vercel.app",
+  origin: string = getSiteUrl(),
   now: Date = new Date()
 ): string {
   const dtstamp = formatUtcTimestamp(now);

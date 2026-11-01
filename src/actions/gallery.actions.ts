@@ -17,7 +17,7 @@ async function requireAdminSession() {
 const saveImageSchema = z.object({
   imageUrl: z.string().url("Valid image URL required"),
   publicId: z.string().min(1, "Cloudinary publicId required"),
-  title: z.string().trim().min(1, "Title is required").max(100),
+  title: z.string().trim().max(100).default(""),
   caption: z.string().trim().max(250).optional().or(z.literal("")),
   sortOrder: z.number().int().default(0),
   eventId: z.string().uuid("Invalid event ID").optional().nullable().or(z.literal("")),
@@ -26,7 +26,7 @@ const saveImageSchema = z.object({
 
 const updateImageDetailsSchema = z.object({
   id: z.string().uuid("Invalid image ID"),
-  title: z.string().trim().min(1, "Title is required").max(100).optional(),
+  title: z.string().trim().max(100).optional(),
   caption: z.string().trim().max(250).optional().nullable().or(z.literal("")),
   eventId: z.string().uuid("Invalid event ID").optional().nullable().or(z.literal("")),
   featured: z.boolean().optional(),

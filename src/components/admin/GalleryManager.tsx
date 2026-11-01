@@ -26,6 +26,7 @@ import {
 import { createEvent } from "@/actions/event.actions";
 import { ToastContainer, ToastMessage } from "@/components/admin/Toast";
 import { formatDisplayDate } from "@/lib/date-utils";
+import { isFilenameLike } from "@/lib/gallery-title";
 
 export interface SerializedGalleryImage {
   id: string;
@@ -193,9 +194,10 @@ export function GalleryManager({
 
         const cloudData = await cloudRes.json();
 
-        // Save record into database via server action
-        const defaultTitle = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
+        // Save record into database via server action:
+        // New uploads start with an empty title (or event title if an event is selected)
         const targetEvent = events.find((ev) => ev.id === uploadTargetEventId);
+        const defaultTitle = targetEvent ? targetEvent.title : "";
 
         const saveRes = await saveGalleryImage({
           imageUrl: cloudData.secure_url,
@@ -607,7 +609,7 @@ export function GalleryManager({
               <div className="p-3.5 space-y-3 flex-1 flex flex-col justify-between">
                 <div>
                   <p className="text-xs font-semibold text-temple-charcoal line-clamp-1">
-                    {img.title}
+                    {img.title || (img.event ? img.event.title : "Untitled photo")}
                   </p>
                   {img.caption ? (
                     <p className="text-[11px] text-temple-warmGrey line-clamp-2 mt-0.5 leading-relaxed">
@@ -616,6 +618,11 @@ export function GalleryManager({
                   ) : (
                     <p className="text-[11px] text-stone-600 italic mt-0.5">
                       No caption
+                    </p>
+                  )}
+                  {isFilenameLike(img.title) && (
+                    <p className="text-[10px] text-amber-800 bg-amber-50 border border-amber-200/80 rounded px-1.5 py-0.5 mt-1.5 inline-block font-medium">
+                      Add a short caption
                     </p>
                   )}
                 </div>

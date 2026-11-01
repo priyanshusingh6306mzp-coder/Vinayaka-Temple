@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
 import { db } from "@/lib/db";
+import { getSiteUrl } from "@/lib/site-url";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://vinayaka-temple.vercel.app";
+  const baseUrl = getSiteUrl();
 
   let albumRoutes: MetadataRoute.Sitemap = [];
   try {

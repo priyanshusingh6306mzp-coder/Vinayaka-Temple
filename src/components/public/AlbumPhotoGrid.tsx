@@ -3,6 +3,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { LightboxModal, GalleryPhoto } from "@/components/public/LightboxModal";
+import {
+  getPublicPhotoAlt,
+  getPublicPhotoCaption,
+  getOptimizedCloudinaryUrl,
+} from "@/lib/gallery-title";
 
 interface AlbumPhotoItem {
   id: string;
@@ -31,13 +36,9 @@ export function AlbumPhotoGrid({ photos }: AlbumPhotoGridProps) {
     <>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
         {photos.map((photo, idx) => {
-          const altText =
-            photo.caption?.trim() ||
-            photo.eventTitle?.trim() ||
-            (photo.title && !/\.(jpe?g|png|webp|gif|avif)$/i.test(photo.title)
-              ? photo.title.trim()
-              : null) ||
-            "Photograph from Shri Vinayaka Temple";
+          const altText = getPublicPhotoAlt(photo);
+          const displayCaption = getPublicPhotoCaption(photo);
+          const optimizedUrl = getOptimizedCloudinaryUrl(photo.imageUrl, { width: 600 });
 
           return (
             <div key={photo.id} className="flex flex-col space-y-1.5">
@@ -48,7 +49,7 @@ export function AlbumPhotoGrid({ photos }: AlbumPhotoGridProps) {
                 className="group relative aspect-[4/3] rounded-xl overflow-hidden border border-stone-200/80 bg-white cursor-pointer shadow-xs hover:shadow-md transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-temple-charcoal focus-visible:ring-offset-2"
               >
                 <Image
-                  src={photo.imageUrl}
+                  src={optimizedUrl}
                   alt={altText}
                   fill
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
@@ -57,9 +58,9 @@ export function AlbumPhotoGrid({ photos }: AlbumPhotoGridProps) {
                 />
               </button>
 
-              {photo.caption && (
+              {displayCaption && (
                 <p className="text-xs text-temple-warmGrey line-clamp-2 px-1 leading-snug">
-                  {photo.caption}
+                  {displayCaption}
                 </p>
               )}
             </div>
