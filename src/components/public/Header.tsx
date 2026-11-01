@@ -21,27 +21,27 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-[#16130F]/10 bg-temple-ivory/95 backdrop-blur-md transition-all">
       <div className="max-w-6xl mx-auto px-4 h-16 sm:h-20 flex items-center justify-between">
         {/* Brand Logo & Name */}
-        <Link href="/" className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-700 rounded-lg p-1">
-          <span className="text-2xl sm:text-3xl text-temple-goldText font-serif select-none transition-transform group-hover:scale-105" aria-hidden="true">
+        <Link href="/" className="flex items-center gap-2.5 xl:gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-700 rounded-lg p-1 shrink-0">
+          <span className="text-2xl sm:text-3xl text-temple-goldText font-serif select-none transition-transform group-hover:scale-105 shrink-0" aria-hidden="true">
             ॐ
           </span>
-          <div>
-            <span className="font-serif text-lg sm:text-2xl font-bold tracking-wide text-temple-charcoal leading-none block">
+          <div className="shrink-0">
+            <span className="font-serif text-base sm:text-lg xl:text-2xl font-bold tracking-wide text-temple-charcoal leading-none block whitespace-nowrap">
               {SITE_CONFIG.name}
             </span>
-            <span className="text-xs text-temple-goldText font-devanagari font-semibold block mt-0.5">
+            <span className="text-xs text-temple-goldText font-devanagari font-semibold block mt-0.5 whitespace-nowrap">
               {SITE_CONFIG.nameHindi}
             </span>
           </div>
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-6" aria-label="Main Navigation">
+        <nav className="hidden lg:flex items-center gap-2.5 xl:gap-5 shrink-0" aria-label="Main Navigation">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="temple-link-hover text-sm font-medium text-temple-charcoal hover:text-temple-kumkum transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-700 rounded"
+              className="temple-link-hover text-xs xl:text-sm font-medium text-temple-charcoal hover:text-temple-kumkum transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-700 rounded whitespace-nowrap"
             >
               {link.label}
             </Link>
@@ -49,19 +49,19 @@ export function Header() {
         </nav>
 
         {/* Desktop Action Buttons */}
-        <div className="hidden sm:flex items-center gap-3">
+        <div className="hidden sm:flex items-center gap-2 xl:gap-3 shrink-0">
           <a
             href={SITE_CONFIG.contact.telHref}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-temple-charcoal hover:text-temple-kumkum transition-colors h-11 px-3 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-700 active:scale-[0.985]"
+            className="inline-flex items-center gap-1.5 xl:gap-2 text-xs xl:text-sm font-semibold text-temple-charcoal hover:text-temple-kumkum transition-colors h-11 px-2.5 xl:px-3 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-700 active:scale-[0.985] whitespace-nowrap"
             aria-label={`Call temple at ${SITE_CONFIG.contact.displayPhone}`}
           >
-            <Phone className="w-4 h-4 text-temple-kumkum" />
+            <Phone className="w-3.5 h-3.5 xl:w-4 xl:h-4 text-temple-kumkum shrink-0" />
             <span>{SITE_CONFIG.contact.displayPhone}</span>
           </a>
 
-          <Button asChild variant="default" size="default" className="bg-temple-kumkum hover:bg-temple-kumkum/90 text-white font-medium shadow-sm h-11 px-5 active:scale-[0.985]">
+          <Button asChild variant="default" size="default" className="bg-temple-kumkum hover:bg-temple-kumkum/90 text-white text-xs xl:text-sm font-medium shadow-sm h-11 px-3.5 xl:px-5 active:scale-[0.985] whitespace-nowrap shrink-0">
             <Link href="/pooja">
-              <Calendar className="w-4 h-4 mr-1.5" />
+              <Calendar className="w-3.5 h-3.5 xl:w-4 xl:h-4 mr-1.5 shrink-0" />
               Request Pooja
             </Link>
           </Button>

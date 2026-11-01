@@ -8,7 +8,7 @@ export function MapEmbed() {
     process.env.NEXT_PUBLIC_MAPS_LINK || SITE_CONFIG.maps.link;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 max-w-full min-w-0">
       {/* 1. Map Image Link with visible focus outline & accessible name */}
       <a
         href={mapsLink}
@@ -23,7 +23,7 @@ export function MapEmbed() {
           width={1400}
           height={935}
           loading="lazy"
-          className="w-full h-auto object-contain transition-transform duration-200 group-hover:scale-[1.01]"
+          className="w-full max-w-full h-auto object-contain transition-transform duration-200 group-hover:scale-[1.01]"
         />
       </a>
 

@@ -137,7 +137,7 @@ export function LocationMapSection() {
         {/* 1. Changed "items-start" to "items-stretch" so both columns match heights */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5 min-w-0">
             {/* 2. Added "h-full flex flex-col" to make the white box fill the column */}
             <div className="h-full flex flex-col p-6 sm:p-8 rounded-xl border border-stone-200 bg-white shadow-sm">
               <div className="space-y-6">
@@ -200,7 +200,7 @@ export function LocationMapSection() {
             </div>
           </div>
 
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-7 min-w-0">
             {/* 4. Added "h-full flex flex-col" here as well */}
             <div className="h-full flex flex-col p-6 sm:p-8 rounded-xl border border-stone-200 bg-white shadow-sm space-y-4">
               <div className="flex items-center justify-between">
@@ -209,7 +209,7 @@ export function LocationMapSection() {
                 </h3>
                 <span className="text-xs text-temple-warmGrey">Google Maps View</span>
               </div>
-              <div className="flex-1">
+              <div className="flex-1 min-w-0">
                 <MapEmbed />
               </div>
             </div>

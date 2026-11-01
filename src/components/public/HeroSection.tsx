@@ -66,7 +66,7 @@ export function HeroSection() {
         </h1>
 
         {/* 2. Idol Photo (DOM 2nd: mobile row 2, desktop col 2 rows 1-6 vertically centered) */}
-        <div className="relative flex justify-center items-center my-1 lg:my-0 lg:col-start-2 lg:row-start-1 lg:row-span-6 lg:justify-end translate-y-[14px]">
+        <div className="relative flex justify-center items-center my-1 lg:my-0 lg:col-start-2 lg:row-start-1 lg:row-span-6 lg:justify-end translate-y-[14px] min-w-0 max-w-full">
           <Image
             src="/images/temple.jpg"
             alt="Shri Vinayaka Temple"
@@ -77,7 +77,7 @@ export function HeroSection() {
             placeholder="blur"
             blurDataURL="data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAABQBACdASoQABUAPzmEuVOvKKWisAgB4CcJagCdINiC9WWawishEYiDfMWAAP6MQkIp90hiIqVkkomrh25xQ6Gi30AbLaAREUA/WK49Qqgf+HGy81dk55vQaHhHOWcSjqDBmTRGRwSiCNvNmlvEGzaAAAA="
             sizes="(max-width: 640px) 75vw, (max-width: 1024px) 50vw, 480px"
-            className="max-h-[46vh] sm:max-h-[48vh] lg:max-h-[min(540px,calc(100svh-120px))] w-auto h-auto object-contain rounded-2xl border border-[#B8893B]/25"
+            className="max-w-full max-h-[46vh] sm:max-h-[48vh] lg:max-h-[min(540px,calc(100svh-120px))] w-auto h-auto object-contain rounded-2xl border border-[#B8893B]/25"
           />
         </div>
 
