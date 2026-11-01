@@ -80,11 +80,15 @@ const poojaOfferingsPendingPriestConfirmation: PoojaTypeOption[] = [
   },
 ];
 
+export const HERO_IMAGE_ALT =
+  "Black stone idol of Lord Ganesha at Shri Vinayaka Temple";
+
 export const SITE_CONFIG = {
   name: "Shri Vinayaka Temple",
   nameHindi: "श्री विनायक मंदिर",
   tagline: "A Sacred Haven of Peace, Devotion, and Soul",
   taglineHindi: "शांति, भक्ति और ध्यान का पावन धाम",
+  heroImageAlt: HERO_IMAGE_ALT,
   description:
     "Shri Vinayaka Temple is situated inside the campus of JSS University, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309. Built with South Indian Chola architecture, it features a black stone Ganesha idol and offers a calm, clean, and uncrowded atmosphere for prayer and meditation.",
 

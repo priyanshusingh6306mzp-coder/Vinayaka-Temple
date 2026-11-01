@@ -726,7 +726,7 @@ export function GalleryManager({
                   maxLength={200}
                   value={editCaption}
                   onChange={(e) => setEditCaption(e.target.value)}
-                  placeholder="e.g. Sanctum sanctorum decorated for Ganesha Jayanti..."
+                  placeholder="e.g. Temple decorated for Ganesha Jayanti..."
                   className="w-full p-3 rounded-lg border border-stone-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-temple-charcoal resize-none"
                 />
               </div>

@@ -9,15 +9,38 @@
  * - WhatsApp share URLs
  * - Open Graph and Twitter Card metadata
  *
- * Derives strictly from process.env.NEXT_PUBLIC_SITE_URL with a safe fallback
- * for local development (http://localhost:3000).
+ * Derivation Priority Order:
+ * 1. process.env.NEXT_PUBLIC_SITE_URL
+ * 2. https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}
+ * 3. In production (process.env.NODE_ENV === 'production'): throws an explicit, fail-fast Error
+ * 4. In development and testing: falls back safely to http://localhost:3000
  */
 
 export function getSiteUrl(): string {
-  const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
-  if (envUrl && envUrl.trim() !== "") {
-    return envUrl.trim().replace(/\/+$/, "");
+  // 1. Explicit public site URL configured in environment
+  const nextPublicSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  if (nextPublicSiteUrl && nextPublicSiteUrl.trim() !== "") {
+    return nextPublicSiteUrl.trim().replace(/\/+$/, "");
   }
+
+  // 2. Vercel project production URL
+  const vercelProdUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+  if (vercelProdUrl && vercelProdUrl.trim() !== "") {
+    const formatted = vercelProdUrl.trim().replace(/\/+$/, "");
+    return formatted.startsWith("http://") || formatted.startsWith("https://")
+      ? formatted
+      : `https://${formatted}`;
+  }
+
+  // 3. Fail fast in production instead of silently falling back to localhost
+  if (process.env.NODE_ENV === "production") {
+    throw new Error(
+      "Missing NEXT_PUBLIC_SITE_URL or VERCEL_PROJECT_PRODUCTION_URL in production environment. " +
+        "Please configure NEXT_PUBLIC_SITE_URL in your production deployment settings."
+    );
+  }
+
+  // 4. Safe fallback for local development and unit tests
   return "http://localhost:3000";
 }
 

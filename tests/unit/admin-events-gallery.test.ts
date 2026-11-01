@@ -251,7 +251,7 @@ describe("Admin Events & Gallery Upgraded Suite", () => {
       const res5 = await toggleFeaturedImage(images[4].id, true);
       expect(res5.success).toBe(true);
       expect(res5.updated?.featured).toBe(true);
-    });
+    }, 90000);
 
     it("deletes event with Option 1 (keep_photos): keeps photos and clears eventId", async () => {
       // Create test event

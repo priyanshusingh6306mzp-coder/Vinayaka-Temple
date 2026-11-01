@@ -14,7 +14,7 @@ export default function NotFound() {
             Page Not Found
           </h2>
           <p className="text-sm text-temple-warmGrey leading-relaxed">
-            The page or sacred path you are looking for does not exist or has been moved.
+            The page you are looking for does not exist or has been moved.
           </p>
         </div>
 

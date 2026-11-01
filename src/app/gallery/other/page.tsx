@@ -12,7 +12,7 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Other Photographs | Shri Vinayaka Temple",
   description:
-    "Photographs of the sanctum, deity, premises, and rituals at Shri Vinayaka Temple, Noida.",
+    "Photographs from Shri Vinayaka Temple, Noida, that are not part of a specific event.",
 };
 
 interface OtherGalleryPageProps {
@@ -24,10 +24,20 @@ export default async function OtherGalleryPage({ searchParams }: OtherGalleryPag
   const page = parseInt(resolvedSearchParams.page || "1", 10) || 1;
   const pageSize = 48;
 
-  const { images, total, totalPages, page: currentPage } = await getUnattachedPhotos(
-    page,
-    pageSize
-  );
+  let images: Awaited<ReturnType<typeof getUnattachedPhotos>>["images"] = [];
+  let total = 0;
+  let totalPages = 1;
+  let currentPage = page;
+
+  try {
+    const res = await getUnattachedPhotos(page, pageSize);
+    images = res.images;
+    total = res.total;
+    totalPages = res.totalPages;
+    currentPage = res.page;
+  } catch (err) {
+    console.error("[Other Gallery Page Fetch Error]", err);
+  }
 
   const formattedPhotos = images.map((img) => ({
     id: img.id,
@@ -68,7 +78,7 @@ export default async function OtherGalleryPage({ searchParams }: OtherGalleryPag
             </h1>
 
             <p className="text-base text-temple-warmGrey max-w-3xl leading-relaxed">
-              Photographs of the deity, rituals, and temple premises.
+              Photographs from Shri Vinayaka Temple, Noida, that are not part of a specific event.
             </p>
           </div>
 

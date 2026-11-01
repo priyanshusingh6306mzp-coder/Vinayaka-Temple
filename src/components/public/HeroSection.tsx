@@ -69,7 +69,7 @@ export function HeroSection() {
         <div className="relative flex justify-center items-center my-1 lg:my-0 lg:col-start-2 lg:row-start-1 lg:row-span-6 lg:justify-end translate-y-[14px] min-w-0 max-w-full">
           <Image
             src="/images/temple.jpg"
-            alt="Shri Vinayaka Temple"
+            alt={SITE_CONFIG.heroImageAlt}
             width={780}
             height={1040}
             priority

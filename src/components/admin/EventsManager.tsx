@@ -470,7 +470,7 @@ export function EventsManager({
                   maxLength={500}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Details of rituals, maha prasadam, sankalpa, or darshan guidelines..."
+                  placeholder="Details of timings, maha prasadam, sankalpa, or darshan guidelines..."
                   className="w-full p-3 rounded-lg border border-stone-300 text-sm focus:outline-none focus:ring-2 focus:ring-temple-charcoal resize-none"
                 />
                 {formErrors.description && (

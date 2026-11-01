@@ -27,7 +27,7 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/#about" className="temple-link-hover text-temple-charcoal hover:text-temple-kumkum transition-colors">
-                  About Temple &amp; Deity
+                  About Shri Vinayaka Temple
                 </Link>
               </li>
               <li>
@@ -127,7 +127,7 @@ export function Footer() {
         <div className="pt-8 border-t border-[#16130F]/10 flex flex-col sm:flex-row items-center justify-between text-xs text-temple-warmGrey gap-4">
           <p>© {new Date().getFullYear()} {SITE_CONFIG.name}. Dedicated to Shri Maha Ganapati.</p>
           <p className="text-center sm:text-right">
-            Zero-Budget Community Heritage Initiative • Hosted on Vercel
+            Community Initiative • Hosted on Vercel
           </p>
         </div>
       </div>

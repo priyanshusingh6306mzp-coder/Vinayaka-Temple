@@ -44,14 +44,14 @@ export function AboutSection() {
       <div className="py-14 sm:py-20 md:py-24 px-4 max-w-5xl mx-auto">
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14 space-y-2">
           <p className="text-xs uppercase font-semibold tracking-widest text-temple-goldText block">
-            Temple Architecture &amp; Heritage
+            Temple Architecture
           </p>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-temple-charcoal">
             About Shri Vinayaka Temple
           </h2>
           <SectionDivider />
           <p className="font-devanagari text-base text-temple-kumkum font-medium">
-            परम पावन श्री महागणपति दिव्य दर्शन
+            {SITE_CONFIG.nameHindi}
           </p>
         </div>
 
@@ -90,7 +90,7 @@ export function AboutSection() {
 
               <div className="p-4 rounded-lg bg-white border border-stone-200 shadow-sm">
                 <span className="text-xs uppercase font-bold text-temple-goldText block mb-1">
-                  Sacred Deity
+                  Main Deity
                 </span>
                 <span className="text-sm font-medium text-temple-charcoal">
                   Black Stone Ganesha Idol

@@ -12,9 +12,9 @@ import { formatDisplayDate } from "@/lib/date-utils";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Photo Gallery & Albums | Shri Vinayaka Temple",
+  title: "Temple Gallery | Shri Vinayaka Temple",
   description:
-    "Explore photo albums of festivals, rituals, special poojas, and sacred celebrations at Shri Vinayaka Temple.",
+    "Photographs from Shri Vinayaka Temple.",
 };
 
 interface GalleryHubPageProps {
@@ -66,10 +66,10 @@ export default async function GalleryHubPage({ searchParams }: GalleryHubPagePro
               Temple Gallery
             </span>
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-temple-charcoal">
-              Photo Gallery
+              Temple Gallery
             </h1>
             <p className="text-sm sm:text-base text-temple-warmGrey leading-relaxed">
-              Photographs of temple festivals, rituals, and occasions.
+              Photographs from Shri Vinayaka Temple.
             </p>
           </div>
 
@@ -149,7 +149,7 @@ export default async function GalleryHubPage({ searchParams }: GalleryHubPagePro
                       </h2>
 
                       <p className="text-xs text-temple-warmGrey line-clamp-2 leading-relaxed">
-                        Photographs of the sanctum, deity, rituals, and temple premises.
+                        Photographs from Shri Vinayaka Temple, Noida, that are not part of a specific event.
                       </p>
                     </div>
                   </article>
