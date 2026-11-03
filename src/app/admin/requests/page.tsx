@@ -53,7 +53,7 @@ export default async function AdminRequestsPage() {
           <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
             <Link
               href="/admin/events?quickAdd=today"
-              className="inline-flex items-center gap-1.5 min-h-[44px] px-3.5 py-2 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold shadow-sm transition-colors"
+              className="inline-flex items-center gap-1.5 min-h-[44px] px-3.5 py-2 rounded-lg bg-amber-700 hover:bg-amber-800 text-white text-xs font-semibold shadow-sm transition-colors"
             >
               <Sparkles className="w-3.5 h-3.5 text-amber-200" aria-hidden="true" />
               <span>+ Add today&apos;s event</span>

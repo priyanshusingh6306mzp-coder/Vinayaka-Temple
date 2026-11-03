@@ -302,7 +302,7 @@ export function EventsManager({
           <Button
             type="button"
             onClick={openCreateTodayForm}
-            className="min-h-[44px] px-4 bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs sm:text-sm shadow-sm inline-flex items-center justify-center gap-2"
+            className="min-h-[44px] px-4 bg-amber-700 hover:bg-amber-800 text-white font-semibold text-xs sm:text-sm shadow-sm inline-flex items-center justify-center gap-2"
           >
             <Sparkles className="w-4 h-4 text-amber-200" aria-hidden="true" />
             <span>+ Add today&apos;s event</span>
