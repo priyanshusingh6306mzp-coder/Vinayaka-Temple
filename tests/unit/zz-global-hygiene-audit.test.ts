@@ -82,4 +82,15 @@ describe("Global Database Hygiene Teardown Check", () => {
     );
     expect(leftoverUsers).toBe(0);
   });
+
+  it("ensures zero test site settings remain in database", async () => {
+    const leftoverSettings = await retry(() =>
+      db.siteSetting.count({
+        where: {
+          key: { startsWith: "zz-test" },
+        },
+      })
+    );
+    expect(leftoverSettings).toBe(0);
+  });
 });

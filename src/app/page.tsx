@@ -1,5 +1,6 @@
 import { getNextEvent } from "@/lib/events";
 import { getFeaturedImages } from "@/lib/gallery";
+import { getDarshanTimings } from "@/lib/darshan-timings";
 import { Header } from "@/components/public/Header";
 import { HeroSection } from "@/components/public/HeroSection";
 import { AboutSection } from "@/components/public/AboutSection";
@@ -15,6 +16,7 @@ export const revalidate = 60;
 export default async function HomePage() {
   let initialPhotos: GalleryPhoto[] = [];
   let nextEvent = null;
+  const timings = await getDarshanTimings();
 
   try {
     nextEvent = await getNextEvent();
@@ -37,16 +39,16 @@ export default async function HomePage() {
 
   return (
     <>
-      <JsonLd />
+      <JsonLd timings={timings} />
       <Header />
       <main className="flex-1 bg-temple-ivory text-temple-charcoal">
-        <HeroSection />
+        <HeroSection timings={timings} />
         <AboutSection />
-        <TimingsAmenitiesSection nextEvent={nextEvent} />
+        <TimingsAmenitiesSection nextEvent={nextEvent} timings={timings} />
         <GallerySection initialPhotos={initialPhotos} />
         <LocationMapSection />
       </main>
-      <Footer />
+      <Footer timings={timings} />
       <StickyCallBar />
     </>
   );

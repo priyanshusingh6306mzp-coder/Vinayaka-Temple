@@ -2,8 +2,13 @@ import Link from "next/link";
 import { Phone, MapPin, Clock, Lock, ExternalLink } from "lucide-react";
 import { SITE_CONFIG } from "@/content/site";
 import { templeDisplayPhone, templeTelHref, templeWhatsAppLink } from "@/lib/phone";
+import type { FormattedDarshanTimings } from "@/lib/darshan-timings";
 
-export function Footer() {
+interface FooterProps {
+  timings?: FormattedDarshanTimings;
+}
+
+export function Footer({ timings }: FooterProps) {
   return (
     <footer className="bg-temple-ivory text-temple-charcoal border-t border-[#16130F]/10 pt-14 pb-24 sm:pb-16 px-4">
       <div className="max-w-5xl mx-auto space-y-12">
@@ -72,8 +77,8 @@ export function Footer() {
               <div className="flex items-start gap-2.5">
                 <Clock className="w-4 h-4 text-temple-kumkum shrink-0 mt-1" aria-hidden="true" />
                 <span>
-                  Morning: {SITE_CONFIG.darshanSessions.morning.time}<br />
-                  Evening: {SITE_CONFIG.darshanSessions.evening.time} (Daily)
+                  Morning: {timings ? timings.morning.formatted : SITE_CONFIG.darshanSessions.morning.time}<br />
+                  Evening: {timings ? timings.evening.formatted : SITE_CONFIG.darshanSessions.evening.time} (Daily)
                 </span>
               </div>
             </div>

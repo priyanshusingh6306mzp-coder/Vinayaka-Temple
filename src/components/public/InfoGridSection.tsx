@@ -8,6 +8,7 @@ import { formatDisplayDate, formatDisplayTime } from "@/lib/date-utils";
 import { EVENT_CATEGORY_LABELS, EventCategoryType } from "@/schemas/events";
 import { LiveDarshanTimingsCard } from "@/components/public/LiveDarshanTimingsCard";
 import { EventDateChip } from "@/components/public/EventDateChip";
+import type { FormattedDarshanTimings } from "@/lib/darshan-timings";
 
 interface NextEventProp {
   id: string;
@@ -18,7 +19,13 @@ interface NextEventProp {
   description?: string | null;
 }
 
-export function TimingsAmenitiesSection({ nextEvent }: { nextEvent?: NextEventProp | null }) {
+export function TimingsAmenitiesSection({
+  nextEvent,
+  timings,
+}: {
+  nextEvent?: NextEventProp | null;
+  timings?: FormattedDarshanTimings;
+}) {
   const categoryLabel = nextEvent
     ? EVENT_CATEGORY_LABELS[nextEvent.category as EventCategoryType] || nextEvent.category
     : "";
@@ -42,7 +49,7 @@ export function TimingsAmenitiesSection({ nextEvent }: { nextEvent?: NextEventPr
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
           {/* Card 1: Daily Darshan Timings (Client Live Status Card) */}
-          <LiveDarshanTimingsCard />
+          <LiveDarshanTimingsCard timings={timings} />
 
           {/* Card 2: Upcoming Events & Schedule (Interactive Card with Stretched Link) */}
           <article className="group relative rounded-xl border border-stone-200 bg-white p-6 sm:p-8 shadow-sm space-y-6 flex flex-col transition-all hover:shadow-md hover:border-temple-goldText/60 hover:-translate-y-0.5 focus-within:ring-2 focus-within:ring-temple-charcoal active:scale-[0.985] motion-reduce:transform-none motion-reduce:transition-none cursor-pointer">

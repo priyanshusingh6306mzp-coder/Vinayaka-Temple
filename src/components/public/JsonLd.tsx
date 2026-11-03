@@ -1,8 +1,9 @@
 import { SITE_CONFIG } from "@/content/site";
 import { getSiteUrl } from "@/lib/site-url";
 import { templeJsonLdPhone } from "@/lib/phone";
+import type { FormattedDarshanTimings } from "@/lib/darshan-timings";
 
-export function JsonLd() {
+export function JsonLd({ timings }: { timings?: FormattedDarshanTimings }) {
   const siteUrl = getSiteUrl();
 
   const structuredData = {
@@ -41,8 +42,8 @@ export function JsonLd() {
           "Saturday",
           "Sunday",
         ],
-        opens: SITE_CONFIG.darshanSessions.morning.opens,
-        closes: SITE_CONFIG.darshanSessions.morning.closes,
+        opens: timings ? timings.morning.start : SITE_CONFIG.darshanSessions.morning.opens,
+        closes: timings ? timings.morning.end : SITE_CONFIG.darshanSessions.morning.closes,
       },
       {
         "@type": "OpeningHoursSpecification",
@@ -55,8 +56,8 @@ export function JsonLd() {
           "Saturday",
           "Sunday",
         ],
-        opens: SITE_CONFIG.darshanSessions.evening.opens,
-        closes: SITE_CONFIG.darshanSessions.evening.closes,
+        opens: timings ? timings.evening.start : SITE_CONFIG.darshanSessions.evening.opens,
+        closes: timings ? timings.evening.end : SITE_CONFIG.darshanSessions.evening.closes,
       },
     ],
     amenityFeature: SITE_CONFIG.amenities.map((amenity) => ({

@@ -2,26 +2,34 @@
 
 import React, { useState, useEffect } from "react";
 import { Clock, Sparkles } from "lucide-react";
-import { SITE_CONFIG } from "@/content/site";
 import { getDarshanStatus, DarshanStatus } from "@/lib/darshan-status";
+import {
+  FormattedDarshanTimings,
+  formatDarshanTimings,
+  DEFAULT_DARSHAN_TIMINGS,
+} from "@/lib/darshan-timings";
 
-export function LiveDarshanTimingsCard() {
+interface LiveDarshanTimingsCardProps {
+  timings?: FormattedDarshanTimings;
+}
+
+export function LiveDarshanTimingsCard({ timings }: LiveDarshanTimingsCardProps) {
+  const effectiveTimings = timings || formatDarshanTimings(DEFAULT_DARSHAN_TIMINGS);
   const [status, setStatus] = useState<DarshanStatus | null>(null);
 
   useEffect(() => {
     // Initial client evaluation
-    setStatus(getDarshanStatus());
+    setStatus(getDarshanStatus(new Date(), effectiveTimings));
 
     // Refresh every 60 seconds
     const interval = setInterval(() => {
-      setStatus(getDarshanStatus());
+      setStatus(getDarshanStatus(new Date(), effectiveTimings));
     }, 60000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [effectiveTimings]);
 
   // Determine active session
-  // morning: 06:00 - 10:30, evening: 17:30 - 20:30
   const isMorningActive =
     status?.state === "open_morning" ||
     status?.state === "closed_morning" ||
@@ -30,6 +38,9 @@ export function LiveDarshanTimingsCard() {
   const isEveningActive =
     status?.state === "open_evening" ||
     status?.state === "between_sessions";
+
+  const morningFormatted = effectiveTimings.morning.formatted;
+  const eveningFormatted = effectiveTimings.evening.formatted;
 
   return (
     <div className="p-6 sm:p-8 rounded-xl border border-stone-200 bg-white shadow-sm space-y-6 flex flex-col transition-all hover:shadow-md">
@@ -83,33 +94,45 @@ export function LiveDarshanTimingsCard() {
 
       {/* Sessions List */}
       <div className="space-y-4 divide-y divide-stone-100">
-        {SITE_CONFIG.timings.map((t, idx) => {
-          const isMorning = idx === 0;
-          const isHighlighted = isMorning ? isMorningActive : isEveningActive;
+        <div
+          className={`transition-all ${
+            isMorningActive
+              ? "border-l-4 border-temple-goldText pl-3 py-1 bg-amber-50/30 rounded-r-lg"
+              : "pl-1"
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <span className="font-semibold text-base text-temple-charcoal">
+              Morning Darshan (प्रातःकालीन दर्शन)
+            </span>
+            <span className="font-serif font-bold text-base text-temple-kumkum px-2.5 py-0.5 rounded bg-red-50 border border-red-100">
+              {morningFormatted}
+            </span>
+          </div>
+          <p className="text-xs sm:text-sm text-temple-warmGrey mt-0.5">
+            Daily morning darshan and prayer
+          </p>
+        </div>
 
-          return (
-            <div
-              key={idx}
-              className={`transition-all ${idx > 0 ? "pt-4" : ""} ${
-                isHighlighted
-                  ? "border-l-4 border-temple-goldText pl-3 py-1 bg-amber-50/30 rounded-r-lg"
-                  : "pl-1"
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <span className="font-semibold text-base text-temple-charcoal">
-                  {t.session} ({t.sessionHindi})
-                </span>
-                <span className="font-serif font-bold text-base text-temple-kumkum px-2.5 py-0.5 rounded bg-red-50 border border-red-100">
-                  {t.time}
-                </span>
-              </div>
-              <p className="text-xs sm:text-sm text-temple-warmGrey mt-0.5">
-                {t.description}
-              </p>
-            </div>
-          );
-        })}
+        <div
+          className={`transition-all pt-4 ${
+            isEveningActive
+              ? "border-l-4 border-temple-goldText pl-3 py-1 bg-amber-50/30 rounded-r-lg"
+              : "pl-1"
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <span className="font-semibold text-base text-temple-charcoal">
+              Evening Darshan (सायंकालीन दर्शन)
+            </span>
+            <span className="font-serif font-bold text-base text-temple-kumkum px-2.5 py-0.5 rounded bg-red-50 border border-red-100">
+              {eveningFormatted}
+            </span>
+          </div>
+          <p className="text-xs sm:text-sm text-temple-warmGrey mt-0.5">
+            Daily evening darshan and prayer
+          </p>
+        </div>
       </div>
 
       {/* Welcome note */}

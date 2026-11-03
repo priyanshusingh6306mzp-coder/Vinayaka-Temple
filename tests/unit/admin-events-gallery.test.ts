@@ -170,13 +170,14 @@ describe("Admin Events & Gallery Upgraded Suite", () => {
     const createdEventIds: string[] = [];
     const createdImageIds: string[] = [];
 
-    async function retryDb<T>(fn: () => Promise<T>, retries = 5, delay = 1500): Promise<T> {
+    async function retryDb<T>(fn: () => Promise<T>, retries = 6, delay = 1500): Promise<T> {
       let attempt = 0;
       while (true) {
         try {
           return await fn();
         } catch (err) {
           attempt++;
+          await db.$disconnect().catch(() => {});
           if (attempt >= retries) throw err;
           await new Promise((r) => setTimeout(r, delay));
         }

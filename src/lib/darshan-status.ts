@@ -1,11 +1,18 @@
-import { SITE_CONFIG } from "@/content/site";
+import {
+  FormattedDarshanTimings,
+  formatDarshanTimings,
+  DEFAULT_DARSHAN_TIMINGS,
+} from "@/lib/darshan-timings";
 
 /**
  * Asia/Kolkata Darshan Status Helper
  *
- * Computes live temple open/closed status dynamically derived from official timings in site.ts:
- * - Morning Darshan: 06:00 to 10:30
- * - Evening Darshan: 17:30 to 20:30
+ * Computes live temple open/closed status dynamically derived from official timings:
+ * - Before morning session: Opens at [Morning Open]
+ * - Morning darshan: Open now · Morning darshan until [Morning Close]
+ * - Between sessions: Opens at [Evening Open]
+ * - Evening darshan: Open now · Evening darshan until [Evening Close]
+ * - After evening session: Opens tomorrow at [Morning Open]
  */
 
 export interface DarshanStatus {
@@ -25,15 +32,19 @@ function parseTimeToMinutes(timeStr: string): number {
 }
 
 /**
- * Returns the current darshan status in Asia/Kolkata for a given Date.
+ * Returns the current darshan status in Asia/Kolkata for a given Date and timings configuration.
  */
-export function getDarshanStatus(date: Date = new Date()): DarshanStatus {
-  const { morning, evening } = SITE_CONFIG.darshanSessions;
+export function getDarshanStatus(
+  date: Date = new Date(),
+  timings?: FormattedDarshanTimings
+): DarshanStatus {
+  const currentTimings = timings || formatDarshanTimings(DEFAULT_DARSHAN_TIMINGS);
+  const { morning, evening } = currentTimings;
 
-  const morningOpenMin = parseTimeToMinutes(morning.opens);
-  const morningCloseMin = parseTimeToMinutes(morning.closes);
-  const eveningOpenMin = parseTimeToMinutes(evening.opens);
-  const eveningCloseMin = parseTimeToMinutes(evening.closes);
+  const morningOpenMin = parseTimeToMinutes(morning.start);
+  const morningCloseMin = parseTimeToMinutes(morning.end);
+  const eveningOpenMin = parseTimeToMinutes(evening.start);
+  const eveningCloseMin = parseTimeToMinutes(evening.end);
 
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: "Asia/Kolkata",

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { Calendar, CalendarDays, Images, LogOut, KeyRound } from "lucide-react";
+import { Calendar, CalendarDays, Images, LogOut, KeyRound, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface AdminNavProps {
@@ -100,6 +100,26 @@ export function AdminNav({ pendingCount = 0 }: AdminNavProps) {
             >
               <Images className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-temple-goldText" aria-hidden="true" />
               <span className="hidden xs:inline">Gallery</span>
+            </Link>
+          </Button>
+
+          <Button
+            asChild
+            variant={pathname.startsWith("/admin/timings") ? "default" : "ghost"}
+            size="sm"
+            className={
+              pathname.startsWith("/admin/timings")
+                ? "h-9 sm:h-10 px-2 sm:px-4 bg-temple-charcoal text-white hover:bg-temple-charcoalCard text-xs font-semibold"
+                : "h-9 sm:h-10 px-2 sm:px-4 text-xs font-semibold text-temple-charcoal hover:bg-temple-sandstone/40"
+            }
+          >
+            <Link
+              href="/admin/timings"
+              aria-label="Darshan Timings Management"
+              className="inline-flex items-center gap-1 sm:gap-1.5"
+            >
+              <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-temple-goldText" aria-hidden="true" />
+              <span className="hidden xs:inline">Timings</span>
             </Link>
           </Button>
 

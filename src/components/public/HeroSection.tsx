@@ -1,8 +1,13 @@
 import Image from "next/image";
 import { SITE_CONFIG } from "@/content/site";
 import { DarshanStatusBadge } from "./DarshanStatusBadge";
+import type { FormattedDarshanTimings } from "@/lib/darshan-timings";
 
-export function HeroSection() {
+interface HeroSectionProps {
+  timings?: FormattedDarshanTimings;
+}
+
+export function HeroSection({ timings }: HeroSectionProps) {
   return (
     <section className="relative w-full bg-temple-ivory text-temple-charcoal flex flex-col items-center justify-center py-4 sm:py-6 lg:py-8 px-4 lg:px-12 overflow-hidden">
       {/* Single subtle traditional South Indian Chola toran motif along top edge (watermark gold #B8893B, opacity 20%, purely visual, desktop-only) */}
@@ -96,7 +101,7 @@ export function HeroSection() {
 
         {/* 5. Open-Now Badge (DOM 5th: mobile row 5, desktop col 1 row 5) */}
         <div className="pt-1 lg:col-start-1 lg:row-start-5 flex justify-center lg:justify-start">
-          <DarshanStatusBadge />
+          <DarshanStatusBadge timings={timings} />
         </div>
       </div>
     </section>

@@ -106,3 +106,12 @@ model RateLimit {
 
   @@map("rate_limits")
 }
+
+// Site settings key-value store (e.g. darshan timings)
+model SiteSetting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt
+
+  @@map("site_settings")
+}

@@ -2,21 +2,26 @@
 
 import { useEffect, useState } from "react";
 import { getDarshanStatus, FALLBACK_DARSHAN_STATUS, DarshanStatus } from "@/lib/darshan-status";
+import type { FormattedDarshanTimings } from "@/lib/darshan-timings";
 
-export function DarshanStatusBadge() {
+interface DarshanStatusBadgeProps {
+  timings?: FormattedDarshanTimings;
+}
+
+export function DarshanStatusBadge({ timings }: DarshanStatusBadgeProps) {
   const [status, setStatus] = useState<DarshanStatus | null>(null);
 
   useEffect(() => {
     // Initial mount calculation
-    setStatus(getDarshanStatus());
+    setStatus(getDarshanStatus(new Date(), timings));
 
     // Update every minute
     const interval = setInterval(() => {
-      setStatus(getDarshanStatus());
+      setStatus(getDarshanStatus(new Date(), timings));
     }, 60000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [timings]);
 
   return (
     <div
