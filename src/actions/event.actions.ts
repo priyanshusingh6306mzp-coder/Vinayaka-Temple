@@ -171,3 +171,37 @@ export async function deleteEvent(id: string, option: "keep_photos" | "delete_ph
     failedAssets: failedAssets.length > 0 ? failedAssets : undefined,
   };
 }
+
+export async function toggleEventPublished(id: string) {
+  await requireAdminSession();
+
+  const idParsed = z.string().uuid("Invalid event ID").safeParse(id);
+  if (!idParsed.success) {
+    return { success: false, error: "Invalid event ID" };
+  }
+
+  const existing = await db.templeEvent.findUnique({
+    where: { id },
+    select: { published: true },
+  });
+
+  if (!existing) {
+    return { success: false, error: "Event not found" };
+  }
+
+  const updated = await db.templeEvent.update({
+    where: { id },
+    data: { published: !existing.published },
+  });
+
+  try {
+    revalidatePath("/");
+    revalidatePath("/schedule");
+    revalidatePath("/gallery");
+    revalidatePath(`/gallery/${id}`);
+    revalidatePath("/admin/events");
+    revalidatePath("/admin/gallery");
+  } catch {}
+
+  return { success: true, event: updated };
+}

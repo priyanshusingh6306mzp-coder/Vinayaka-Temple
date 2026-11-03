@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import {
   CalendarDays,
@@ -12,9 +12,12 @@ import {
   AlertTriangle,
   Loader2,
   X,
+  Sparkles,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { createEvent, updateEvent, deleteEvent } from "@/actions/event.actions";
+import { createEvent, updateEvent, deleteEvent, toggleEventPublished } from "@/actions/event.actions";
 import { ToastContainer, ToastMessage } from "@/components/admin/Toast";
 import { formatDisplayDate, formatDisplayTime, getRelativeDateChip } from "@/lib/date-utils";
 import { EVENT_CATEGORY_LABELS, EventCategoryType } from "@/schemas/events";
@@ -43,6 +46,7 @@ export function EventsManager({
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState<SerializedEvent | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const titleInputRef = useRef<HTMLInputElement>(null);
 
   // Form inputs
   const [title, setTitle] = useState("");
@@ -52,6 +56,9 @@ export function EventsManager({
   const [description, setDescription] = useState("");
   const [published, setPublished] = useState(true);
   const [formErrors, setFormErrors] = useState<Record<string, string[]>>({});
+
+  // Quick toggle state
+  const [togglingEventId, setTogglingEventId] = useState<string | null>(null);
 
   // Delete modal state
   const [deleteEventTarget, setDeleteEventTarget] = useState<SerializedEvent | null>(null);
@@ -93,7 +100,35 @@ export function EventsManager({
     setPublished(true);
     setFormErrors({});
     setIsFormOpen(true);
+    setTimeout(() => {
+      titleInputRef.current?.focus();
+    }, 50);
   };
+
+  const openCreateTodayForm = () => {
+    setEditingEvent(null);
+    setTitle("");
+    setCategory("SPECIAL_POOJA");
+    setEventDate(todayStr);
+    setStartTime("");
+    setDescription("");
+    setPublished(true);
+    setFormErrors({});
+    setIsFormOpen(true);
+    setTimeout(() => {
+      titleInputRef.current?.focus();
+    }, 50);
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("quickAdd") === "today") {
+        openCreateTodayForm();
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const openEditForm = (evt: SerializedEvent) => {
     setEditingEvent(evt);
@@ -105,6 +140,35 @@ export function EventsManager({
     setPublished(evt.published);
     setFormErrors({});
     setIsFormOpen(true);
+    setTimeout(() => {
+      titleInputRef.current?.focus();
+    }, 50);
+  };
+
+  const handleTogglePublish = async (evt: SerializedEvent) => {
+    setTogglingEventId(evt.id);
+    try {
+      const res = await toggleEventPublished(evt.id);
+      if (!res.success) {
+        addToast("error", res.error || "Failed to update visibility.");
+        return;
+      }
+      const newStatus = !evt.published;
+      setEvents((prev) =>
+        prev.map((e) => (e.id === evt.id ? { ...e, published: newStatus } : e))
+      );
+      addToast(
+        "success",
+        newStatus
+          ? `"${evt.title}" is now visible to visitors.`
+          : `"${evt.title}" is now hidden from visitors.`
+      );
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to toggle status";
+      addToast("error", msg);
+    } finally {
+      setTogglingEventId(null);
+    }
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -233,14 +297,27 @@ export function EventsManager({
           </Button>
         </div>
 
-        <Button
-          type="button"
-          onClick={openCreateForm}
-          className="min-h-[44px] px-5 bg-temple-kumkum hover:bg-temple-kumkumHover text-white font-semibold text-sm shadow-sm inline-flex items-center justify-center gap-2"
-        >
-          <Plus className="w-4 h-4" />
-          <span>Add New Event</span>
-        </Button>
+        <div className="flex flex-wrap items-center gap-2.5">
+          {/* Quick-Add Today's Event Button for Priest */}
+          <Button
+            type="button"
+            onClick={openCreateTodayForm}
+            className="min-h-[44px] px-4 bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs sm:text-sm shadow-sm inline-flex items-center justify-center gap-2"
+          >
+            <Sparkles className="w-4 h-4 text-amber-200" aria-hidden="true" />
+            <span>+ Add today&apos;s event</span>
+          </Button>
+
+          <Button
+            type="button"
+            onClick={openCreateForm}
+            variant="outline"
+            className="min-h-[44px] px-4 border-stone-300 text-temple-charcoal hover:bg-stone-50 font-semibold text-xs sm:text-sm shadow-sm inline-flex items-center justify-center gap-2"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Add other event</span>
+          </Button>
+        </div>
       </div>
 
       {/* Events List */}
@@ -254,18 +331,23 @@ export function EventsManager({
           </h3>
           <p className="text-xs sm:text-sm text-temple-warmGrey max-w-md mx-auto">
             {activeTab === "upcoming"
-              ? "Tap 'Add New Event' to post Sankashti Chaturthi, festivals, or special pooja ceremonies."
+              ? "Tap '+ Add today\'s event' or 'Add other event' to post Sankashti Chaturthi, festivals, or special pooja ceremonies."
               : "Past events will appear here automatically after their scheduled date."}
           </p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {displayedEvents.map((evt) => {
+            const isToday = evt.eventDate === todayStr;
             const chip = getRelativeDateChip(evt.eventDate);
             return (
               <div
                 key={evt.id}
-                className="p-5 rounded-xl border border-stone-200 bg-white shadow-sm flex flex-col justify-between space-y-4 hover:border-temple-goldText/40 transition-colors"
+                className={`p-5 rounded-xl border bg-white shadow-sm flex flex-col justify-between space-y-4 transition-colors ${
+                  isToday
+                    ? "border-amber-400/80 bg-amber-50/20"
+                    : "border-stone-200 hover:border-temple-goldText/40"
+                }`}
               >
                 <div className="space-y-2">
                   <div className="flex items-center justify-between gap-2">
@@ -273,20 +355,50 @@ export function EventsManager({
                       {EVENT_CATEGORY_LABELS[evt.category]}
                     </span>
                     <div className="flex items-center gap-1.5">
-                      {chip && (
+                      {isToday ? (
+                        <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1">
+                          <Sparkles className="w-3 h-3 text-amber-700" />
+                          <span>Today</span>
+                        </span>
+                      ) : chip ? (
                         <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-temple-goldText border border-amber-200/60">
                           {chip}
                         </span>
-                      )}
-                      <span
-                        className={`text-[11px] font-medium px-2 py-0.5 rounded-full ${
+                      ) : null}
+
+                      {/* One-tap quick publish/unpublish toggle */}
+                      <button
+                        type="button"
+                        onClick={() => handleTogglePublish(evt)}
+                        disabled={togglingEventId === evt.id}
+                        className={`min-h-[30px] px-2.5 py-0.5 rounded-full text-[11px] font-semibold inline-flex items-center gap-1.5 transition-colors border ${
                           evt.published
-                            ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                            : "bg-stone-100 text-stone-600 border border-stone-200"
+                            ? "bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100"
+                            : "bg-stone-100 text-stone-700 border-stone-300 hover:bg-stone-200"
                         }`}
+                        title={
+                          evt.published
+                            ? "Click to hide from website visitors"
+                            : "Click to publish immediately to website visitors"
+                        }
                       >
-                        {evt.published ? "Published" : "Draft"}
-                      </span>
+                        {togglingEventId === evt.id ? (
+                          <Loader2 className="w-3 h-3 animate-spin" />
+                        ) : evt.published ? (
+                          <Eye className="w-3 h-3 text-emerald-600" />
+                        ) : (
+                          <EyeOff className="w-3 h-3 text-stone-500" />
+                        )}
+                        <span>
+                          {isToday
+                            ? evt.published
+                              ? "Visible today"
+                              : "Hidden today"
+                            : evt.published
+                            ? "Published"
+                            : "Draft"}
+                        </span>
+                      </button>
                     </div>
                   </div>
 
@@ -371,7 +483,7 @@ export function EventsManager({
           <div className="bg-white rounded-2xl max-w-lg w-full p-6 space-y-5 border border-stone-200 shadow-xl my-8">
             <div className="flex items-center justify-between pb-3 border-b border-stone-100">
               <h2 className="font-serif text-xl font-bold text-temple-charcoal">
-                {editingEvent ? "Edit Temple Event" : "Add New Temple Event"}
+                {editingEvent ? "Edit Temple Event" : eventDate === todayStr ? "Add Today's Event" : "Add New Temple Event"}
               </h2>
               <button
                 type="button"
@@ -390,11 +502,12 @@ export function EventsManager({
                   Event Title <span className="text-red-500">*</span>
                 </label>
                 <input
+                  ref={titleInputRef}
                   type="text"
                   required
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  placeholder="e.g. Angarika Sankashti Chaturthi or Maha Shivaratri"
+                  placeholder="e.g. Special Sankashti Abhishekam or Maha Aarti"
                   className="w-full min-h-[44px] px-3.5 rounded-lg border border-stone-300 text-sm focus:outline-none focus:ring-2 focus:ring-temple-charcoal"
                 />
                 {formErrors.title && (
@@ -535,7 +648,7 @@ export function EventsManager({
         </div>
       )}
 
-      {/* Delete Event Confirmation Modal with 2 Choices (Requirement 2.3) */}
+      {/* Delete Event Confirmation Modal with 2 Choices */}
       {deleteEventTarget && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6 space-y-5 border border-stone-200 shadow-xl">

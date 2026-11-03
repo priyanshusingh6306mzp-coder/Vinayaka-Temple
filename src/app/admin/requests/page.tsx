@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
+import { Sparkles } from "lucide-react";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { AdminNav } from "@/components/admin/AdminNav";
@@ -48,9 +50,18 @@ export default async function AdminRequestsPage() {
               Review and manage incoming pooja bookings from devotees. Tap call or message to reach out.
             </p>
           </div>
-          <div className="inline-flex items-center gap-2 self-start sm:self-auto bg-white px-3 py-1.5 rounded-lg border border-temple-stoneBorder shadow-sm text-xs font-semibold">
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse" />
-            <span>{pendingCount} Pending Requests</span>
+          <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
+            <Link
+              href="/admin/events?quickAdd=today"
+              className="inline-flex items-center gap-1.5 min-h-[44px] px-3.5 py-2 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold shadow-sm transition-colors"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-200" aria-hidden="true" />
+              <span>+ Add today&apos;s event</span>
+            </Link>
+            <div className="inline-flex items-center gap-2 min-h-[44px] px-3 py-2 rounded-lg bg-white border border-temple-stoneBorder shadow-sm text-xs font-semibold">
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse" />
+              <span>{pendingCount} Pending</span>
+            </div>
           </div>
         </div>
 

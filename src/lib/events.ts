@@ -2,6 +2,50 @@ import { db } from "@/lib/db";
 import { getKolkataToday } from "@/lib/date-utils";
 
 /**
+ * Resilience helper for database calls against serverless Postgres (Neon).
+ */
+async function retryDb<T>(fn: () => Promise<T>, retries = 3, delay = 1000): Promise<T> {
+  let lastErr;
+  for (let i = 0; i < retries; i++) {
+    try {
+      return await fn();
+    } catch (err) {
+      lastErr = err;
+      await db.$disconnect().catch(() => {});
+      if (i < retries - 1) {
+        await new Promise((r) => setTimeout(r, delay));
+      }
+    }
+  }
+  throw lastErr;
+}
+
+/**
+ * Returns all published events occurring today in Asia/Kolkata,
+ * ordered by startTime ascending, then title ascending.
+ */
+export async function getTodayEvents(date: Date = new Date()) {
+  const today = getKolkataToday(date);
+  try {
+    return await retryDb(async () => {
+      return db.templeEvent.findMany({
+        where: {
+          published: true,
+          eventDate: today,
+        },
+        orderBy: [
+          { startTime: "asc" },
+          { title: "asc" },
+        ],
+      });
+    });
+  } catch (err) {
+    console.error("[getTodayEvents Error]", err);
+    return [];
+  }
+}
+
+/**
  * Returns the nearest upcoming published event (eventDate today or later in Asia/Kolkata).
  */
 export async function getNextEvent() {

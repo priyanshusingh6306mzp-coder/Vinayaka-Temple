@@ -1,13 +1,16 @@
 import Image from "next/image";
 import { SITE_CONFIG } from "@/content/site";
 import { DarshanStatusBadge } from "./DarshanStatusBadge";
+import { TodayEventCard, TodayEventItem } from "./TodayEventCard";
 import type { FormattedDarshanTimings } from "@/lib/darshan-timings";
 
 interface HeroSectionProps {
   timings?: FormattedDarshanTimings;
+  todayEvents?: TodayEventItem[];
+  serverDateStr?: string;
 }
 
-export function HeroSection({ timings }: HeroSectionProps) {
+export function HeroSection({ timings, todayEvents = [], serverDateStr }: HeroSectionProps) {
   return (
     <section className="relative w-full bg-temple-ivory text-temple-charcoal flex flex-col items-center justify-center py-4 sm:py-6 lg:py-8 px-4 lg:px-12 overflow-hidden">
       {/* Single subtle traditional South Indian Chola toran motif along top edge (watermark gold #B8893B, opacity 20%, purely visual, desktop-only) */}
@@ -64,14 +67,14 @@ export function HeroSection({ timings }: HeroSectionProps) {
         </svg>
       </div>
 
-      <div className="w-full max-w-3xl lg:max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-[1fr_auto_auto_auto_auto_1fr] gap-2.5 sm:gap-3.5 lg:gap-x-12 lg:gap-y-3.5 items-center text-center lg:text-left">
+      <div className="w-full max-w-3xl lg:max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-[1fr_auto_auto_auto_auto_auto_1fr] gap-2.5 sm:gap-3.5 lg:gap-x-12 lg:gap-y-3.5 items-center text-center lg:text-left">
         {/* 1. H1 Heading (DOM 1st: mobile row 1, desktop col 1 row 2) */}
         <h1 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-temple-charcoal leading-tight lg:col-start-1 lg:row-start-2 lg:text-left m-0">
           {SITE_CONFIG.name}
         </h1>
 
-        {/* 2. Idol Photo (DOM 2nd: mobile row 2, desktop col 2 rows 1-6 vertically centered) */}
-        <div className="relative flex justify-center items-center my-1 lg:my-0 lg:col-start-2 lg:row-start-1 lg:row-span-6 lg:justify-end translate-y-[14px] min-w-0 max-w-full">
+        {/* 2. Idol Photo (DOM 2nd: mobile row 2, desktop col 2 rows 1-7 vertically centered) */}
+        <div className="relative flex justify-center items-center my-1 lg:my-0 lg:col-start-2 lg:row-start-1 lg:row-span-7 lg:justify-end translate-y-[14px] min-w-0 max-w-full">
           <Image
             src="/images/temple.jpg"
             alt={SITE_CONFIG.heroImageAlt}
@@ -103,6 +106,13 @@ export function HeroSection({ timings }: HeroSectionProps) {
         <div className="pt-1 lg:col-start-1 lg:row-start-5 flex justify-center lg:justify-start">
           <DarshanStatusBadge timings={timings} />
         </div>
+
+        {/* 6. Today's Event Card (DOM 6th: mobile row 6, desktop col 1 row 6) */}
+        {todayEvents && todayEvents.length > 0 && (
+          <div className="w-full pt-1.5 lg:col-start-1 lg:row-start-6 flex justify-center lg:justify-start">
+            <TodayEventCard events={todayEvents} serverDateStr={serverDateStr} />
+          </div>
+        )}
       </div>
     </section>
   );
