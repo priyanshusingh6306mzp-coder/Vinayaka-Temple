@@ -1,5 +1,6 @@
 import { SITE_CONFIG } from "@/content/site";
 import { getSiteUrl } from "@/lib/site-url";
+import { templeJsonLdPhone } from "@/lib/phone";
 
 export function JsonLd() {
   const siteUrl = getSiteUrl();
@@ -13,7 +14,7 @@ export function JsonLd() {
     description: SITE_CONFIG.description,
     url: siteUrl,
     hasMap: SITE_CONFIG.maps.link,
-    telephone: SITE_CONFIG.contact.telHref.replace("tel:", ""),
+    telephone: templeJsonLdPhone,
     image: `${siteUrl}/images/temple.jpg`,
     address: {
       "@type": "PostalAddress",

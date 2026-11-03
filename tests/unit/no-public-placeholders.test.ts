@@ -20,7 +20,7 @@ describe("Public Website - No Placeholders Rendered Guard", () => {
       SITE_CONFIG.location.streetAddress,
       SITE_CONFIG.location.fullAddress,
       SITE_CONFIG.location.campusEntryInstructions,
-      SITE_CONFIG.contact.displayPhone,
+      SITE_CONFIG.contact.phone,
       SITE_CONFIG.transit.nearestMetro,
       ...SITE_CONFIG.timings.map((t) => `${t.session} ${t.sessionHindi} ${t.time} ${t.description}`),
       ...SITE_CONFIG.amenities.map((a) => `${a.title} ${a.titleHindi} ${a.description}`),

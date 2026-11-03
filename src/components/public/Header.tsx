@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Phone, Menu, X, Calendar } from "lucide-react";
 import { SITE_CONFIG } from "@/content/site";
+import { templeDisplayPhone, templeTelHref } from "@/lib/phone";
 import { Button } from "@/components/ui/button";
 
 export function Header() {
@@ -51,12 +52,12 @@ export function Header() {
         {/* Desktop Action Buttons */}
         <div className="hidden sm:flex items-center gap-2 xl:gap-3 shrink-0">
           <a
-            href={SITE_CONFIG.contact.telHref}
+            href={templeTelHref}
             className="inline-flex items-center gap-1.5 xl:gap-2 text-xs xl:text-sm font-semibold text-temple-charcoal hover:text-temple-kumkum transition-colors h-11 px-2.5 xl:px-3 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-700 active:scale-[0.985] whitespace-nowrap"
-            aria-label={`Call temple at ${SITE_CONFIG.contact.displayPhone}`}
+            aria-label={`Call temple at ${templeDisplayPhone}`}
           >
             <Phone className="w-3.5 h-3.5 xl:w-4 xl:h-4 text-temple-kumkum shrink-0" />
-            <span>{SITE_CONFIG.contact.displayPhone}</span>
+            <span>{templeDisplayPhone}</span>
           </a>
 
           <Button asChild variant="default" size="default" className="bg-temple-kumkum hover:bg-temple-kumkum/90 text-white text-xs xl:text-sm font-medium shadow-sm h-11 px-3.5 xl:px-5 active:scale-[0.985] whitespace-nowrap shrink-0">
@@ -100,11 +101,11 @@ export function Header() {
 
           <div className="pt-2 border-t border-[#16130F]/10 space-y-2">
             <a
-              href={SITE_CONFIG.contact.telHref}
+              href={templeTelHref}
               className="flex items-center gap-3 w-full h-12 px-3 rounded-lg bg-stone-100 font-medium text-sm text-temple-charcoal"
             >
               <Phone className="w-4 h-4 text-temple-kumkum" />
-              <span>Call: {SITE_CONFIG.contact.displayPhone}</span>
+              <span>Call: {templeDisplayPhone}</span>
             </a>
 
             <Button asChild variant="default" className="w-full h-12 text-base bg-temple-kumkum hover:bg-temple-kumkum/90 text-white font-medium">

@@ -19,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { updatePoojaStatus, updatePoojaNotes } from "@/actions/pooja.actions";
 import { ToastContainer, ToastMessage } from "@/components/admin/Toast";
+import { getDevoteeTelHref, getDevoteeWhatsAppLink } from "@/lib/phone";
 
 export interface SerializedPoojaRequest {
   id: string;
@@ -131,10 +132,8 @@ export function RequestsManager({
   const getWhatsAppLink = (phone: string, devoteeName: string, poojaType: string) => {
     let clean = getCleanPhone(phone);
     if (clean.length === 10) clean = `91${clean}`;
-    const msg = encodeURIComponent(
-      `Namaste ${devoteeName} ji, with regards to your pooja request for "${poojaType}" at Shri Vinayaka Temple, Noida:`
-    );
-    return `https://wa.me/${clean}?text=${msg}`;
+    const msg = `Namaste ${devoteeName} ji, with regards to your pooja request for "${poojaType}" at Shri Vinayaka Temple, Noida:`;
+    return getDevoteeWhatsAppLink(clean, msg);
   };
 
   const getStatusBadge = (status: PoojaStatus) => {
@@ -256,7 +255,7 @@ export function RequestsManager({
                   variant="outline"
                   className="flex-1 h-11 text-xs font-semibold border-temple-stoneBorder text-temple-charcoal hover:bg-green-50 hover:text-green-800 hover:border-green-300"
                 >
-                  <a href={`tel:${req.phone}`} className="inline-flex items-center justify-center gap-1.5">
+                  <a href={getDevoteeTelHref(req.phone)} className="inline-flex items-center justify-center gap-1.5">
                     <Phone className="w-4 h-4 text-green-600" />
                     <span>Call ({req.phone})</span>
                   </a>
@@ -423,7 +422,7 @@ export function RequestsManager({
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-1.5">
                         <Button asChild variant="outline" size="sm" className="h-8 px-2 text-xs">
-                          <a href={`tel:${req.phone}`} className="inline-flex items-center gap-1">
+                          <a href={getDevoteeTelHref(req.phone)} className="inline-flex items-center gap-1">
                             <Phone className="w-3.5 h-3.5 text-green-600" />
                             <span>{req.phone}</span>
                           </a>

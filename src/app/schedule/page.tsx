@@ -12,7 +12,8 @@ import {
   formatDisplayTime,
   formatMonthYear,
 } from "@/lib/date-utils";
-import { SITE_CONFIG } from "@/content/site";
+
+import { templeDisplayPhone, templeTelHref, getWhatsAppShareUrl } from "@/lib/phone";
 import { EventCategory } from "@prisma/client";
 
 export const revalidate = 60;
@@ -108,7 +109,7 @@ export default async function SchedulePage() {
                       const whatsappText = `${event.title} at Shri Vinayaka Temple, ${displayDate}${
                         displayTime ? ` at ${displayTime}` : ""
                       }. ${siteUrl}/schedule`;
-                      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(whatsappText)}`;
+                      const whatsappUrl = getWhatsAppShareUrl(whatsappText);
 
                       return (
                         <article
@@ -199,11 +200,11 @@ export default async function SchedulePage() {
               </p>
               <div>
                 <a
-                  href={SITE_CONFIG.contact.telHref}
+                  href={templeTelHref}
                   className="inline-flex items-center gap-2 text-sm font-semibold text-temple-kumkum hover:underline px-3 py-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-temple-charcoal"
                 >
                   <Phone className="w-4 h-4" aria-hidden="true" />
-                  <span>Call {SITE_CONFIG.contact.displayPhone}</span>
+                  <span>Call {templeDisplayPhone}</span>
                 </a>
               </div>
             </div>

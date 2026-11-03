@@ -108,11 +108,8 @@ export const SITE_CONFIG = {
   },
 
   contact: {
-    displayPhone: "6306213986",
-    telHref: "tel:+916306213986",
-    whatsappNumber: "6306213986",
-    whatsappLink:
-      "https://wa.me/916306213986?text=Namaste%2C%20I%20would%20like%20to%20enquire%20about%20a%20pooja.",
+    // CHANGE THE TEMPLE PHONE NUMBER HERE ONLY
+    phone: "6306213986",
     email: "priest@vinayaka.example.com",
   },
 

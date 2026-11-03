@@ -13,6 +13,7 @@ import {
   PoojaRequestFormState,
 } from "@/schemas/poojaRequest.schema";
 import { SITE_CONFIG } from "@/content/site";
+import { templeDisplayPhone, getDevoteeTelHref } from "@/lib/phone";
 
 // Helper to strip HTML tags to prevent XSS in stored text
 function sanitizeText(str?: string | null): string {
@@ -40,7 +41,7 @@ export async function submitPoojaRequest(
       success: false,
       rateLimited: true,
       message:
-        `Submission limit reached (maximum 5 requests per hour from this connection). If urgent, please call the temple directly at ${SITE_CONFIG.contact.displayPhone}.`,
+        `Submission limit reached (maximum 5 requests per hour from this connection). If urgent, please call the temple directly at ${templeDisplayPhone}.`,
     };
   }
 
@@ -139,7 +140,7 @@ export async function submitPoojaRequest(
             <p><strong>New Pooja Request Received</strong></p>
             <table style="width: 100%; border-collapse: collapse; margin-top: 16px;">
               <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Devotee Name:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${cleanName}</td></tr>
-              <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Phone Number:</strong></td><td style="padding: 8px; border: 1px solid #ddd;"><a href="tel:${phone}">${phone}</a></td></tr>
+              <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Phone Number:</strong></td><td style="padding: 8px; border: 1px solid #ddd;"><a href="${getDevoteeTelHref(phone)}">${phone}</a></td></tr>
               ${cleanEmail ? `<tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Email:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${cleanEmail}</td></tr>` : ""}
               <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Pooja Type:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${poojaType}</td></tr>
               <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Preferred Date:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${dateRequested}</td></tr>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Phone, MapPin, Clock, Lock, ExternalLink } from "lucide-react";
 import { SITE_CONFIG } from "@/content/site";
+import { templeDisplayPhone, templeTelHref, templeWhatsAppLink } from "@/lib/phone";
 
 export function Footer() {
   return (
@@ -90,17 +91,17 @@ export function Footer() {
 
               <div className="pt-1">
                 <a
-                  href={SITE_CONFIG.contact.telHref}
+                  href={templeTelHref}
                   className="inline-flex items-center gap-2 text-base font-bold text-temple-charcoal hover:text-temple-kumkum transition-colors"
                 >
                   <Phone className="w-4 h-4 text-temple-kumkum" aria-hidden="true" />
-                  <span>{SITE_CONFIG.contact.displayPhone}</span>
+                  <span>{templeDisplayPhone}</span>
                 </a>
               </div>
 
               <div>
                 <a
-                  href={SITE_CONFIG.contact.whatsappLink}
+                  href={templeWhatsAppLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-xs text-emerald-800 hover:text-emerald-900 font-semibold"

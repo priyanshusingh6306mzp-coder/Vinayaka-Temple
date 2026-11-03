@@ -47,7 +47,7 @@ Copy `.env.example` to `.env` to configure your environment. **Never commit `.en
 
 Before announcing or launching the public website, complete this essential verification checklist:
 
-- [ ] **Temple Phone Number:** Replace the test phone number in `src/content/site.ts` (`displayPhone`, `telHref`, `whatsappNumber`, `whatsappLink`) with the temple's number.
+- [ ] **Temple Phone Number:** Update the single `phone` field in `src/content/site.ts` (line 112: `contact.phone = "6306213986"`). See [How to change the phone number](#how-to-change-the-phone-number) below.
 - [ ] **Admin Account:** Replace the test admin account (`priest@vinayaka.example.com`) with the priest/admin's verified real email address in the database or via initial seed, and guide them through forced password change.
 
 - [ ] **Pooja Offerings Confirmation:** Confirm the pooja list, suggested timings, and descriptions with the priest/client in `src/content/site.ts`.
@@ -57,6 +57,13 @@ Before announcing or launching the public website, complete this essential verif
 - [ ] **Google Maps Verification:** Verify the live Google Maps directions link in `src/content/site.ts` (or override via `NEXT_PUBLIC_MAPS_LINK`).
 - [ ] **Production Canonical Site URL (`NEXT_PUBLIC_SITE_URL`):** Configure `NEXT_PUBLIC_SITE_URL` in Vercel to your live canonical production domain (e.g. `https://vinayakatemple.org` or `https://vinayaka-temple.vercel.app`). All canonical links, Open Graph tags, sitemap.xml, robots.txt, Schema.org JSON-LD, calendar (.ics) files, and WhatsApp share URLs automatically derive their host from this single environment variable with zero hardcoded hosts in application code. In production builds, `getSiteUrl()` strictly requires `NEXT_PUBLIC_SITE_URL` or `VERCEL_PROJECT_PRODUCTION_URL` and will fail with an explicit build error rather than silently defaulting to localhost.
 - [ ] **Production Environment Variables:** Set `NEXT_PUBLIC_SITE_URL`, `AUTH_URL`, `AUTH_SECRET`, and `AUTH_TRUST_HOST="true"` on Vercel.
+
+### How to change the phone number
+To update the temple's official phone number:
+1. Open `src/content/site.ts` and locate line 112 directly below the comment `// CHANGE THE TEMPLE PHONE NUMBER HERE ONLY`.
+2. Edit the `phone` string (a 10-digit Indian mobile number, e.g. `"6306213986"`, without spaces or `+91`).
+3. Commit and push: `git commit -am "chore: update temple phone number" && git push`. Vercel automatically builds and redeploys.
+4. All contact touchpoints (header desktop call button, mobile menu call link, sticky mobile call bar, location section, campus entry instructions, footer, pooja request form, WhatsApp chat links, and Schema.org JSON-LD structured data) automatically derive from this single field.
 
 ---
 

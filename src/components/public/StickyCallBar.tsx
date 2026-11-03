@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Phone, Calendar } from "lucide-react";
-import { SITE_CONFIG } from "@/content/site";
+import { templeTelHref } from "@/lib/phone";
 
 export function StickyCallBar() {
   return (
@@ -10,7 +10,7 @@ export function StickyCallBar() {
     >
       {/* Tap-to-Call Link */}
       <a
-        href={SITE_CONFIG.contact.telHref}
+        href={templeTelHref}
         className="flex-1 h-12 flex items-center justify-center gap-2 rounded-lg border border-temple-charcoal bg-white/70 text-temple-charcoal font-medium text-sm hover:bg-stone-100 active:scale-95 transition-all select-none focus:outline-none focus:ring-2 focus:ring-stone-700"
       >
         <Phone className="w-4 h-4 text-temple-kumkum" />

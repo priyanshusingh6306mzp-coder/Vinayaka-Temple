@@ -1,6 +1,7 @@
 import { MapPin, Navigation, Calendar, Phone, ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { SITE_CONFIG } from "@/content/site";
+import { templeDisplayPhone, templeTelHref } from "@/lib/phone";
 import { MapEmbed } from "@/components/public/MapEmbed";
 import { SectionDivider } from "./SectionDivider";
 import { formatDisplayDate, formatDisplayTime } from "@/lib/date-utils";
@@ -96,11 +97,11 @@ export function TimingsAmenitiesSection({ nextEvent }: { nextEvent?: NextEventPr
                 <p className="text-xs text-temple-warmGrey">
                   For upcoming festival and Sankashti timings:{" "}
                   <a
-                    href={SITE_CONFIG.contact.telHref}
+                    href={templeTelHref}
                     className="relative z-10 font-bold text-temple-kumkum hover:underline inline-flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-temple-charcoal rounded"
                   >
                     <Phone className="w-3 h-3 inline-block" />
-                    <span>{SITE_CONFIG.contact.displayPhone}</span>
+                    <span>{templeDisplayPhone}</span>
                   </a>
                 </p>
               </div>
@@ -188,11 +189,11 @@ export function LocationMapSection() {
                   <p className="text-xs text-temple-charcoal leading-relaxed">
                     Please call the temple for campus entry instructions:{" "}
                     <a
-                      href={SITE_CONFIG.contact.telHref}
+                      href={templeTelHref}
                       className="font-bold text-temple-kumkum hover:underline inline-flex items-center gap-1"
                     >
                       <Phone className="w-3 h-3 inline-block" />
-                      <span>{SITE_CONFIG.contact.displayPhone}</span>
+                      <span>{templeDisplayPhone}</span>
                     </a>
                   </p>
                 </div>

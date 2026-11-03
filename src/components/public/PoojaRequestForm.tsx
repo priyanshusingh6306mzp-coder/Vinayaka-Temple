@@ -7,6 +7,12 @@ import { Calendar, User, Phone, Mail, FileText, CheckCircle2, AlertCircle, Loade
 import { poojaRequestSchema, PoojaRequestInput } from "@/schemas/poojaRequest.schema";
 import { submitPoojaRequest } from "@/actions/pooja.actions";
 import { SITE_CONFIG } from "@/content/site";
+import {
+  templeDisplayPhone,
+  templeTelHref,
+  templeWhatsAppLink,
+  COUNTRY_CODE_PREFIX,
+} from "@/lib/phone";
 import { Button } from "@/components/ui/button";
 import { SectionDivider } from "./SectionDivider";
 
@@ -72,7 +78,7 @@ export function PoojaRequestForm({ isStandalonePage = true }: PoojaRequestFormPr
     } catch (err: unknown) {
       console.error("[Pooja Submission Network Error]:", err);
       setServerError(
-        `An unexpected network error occurred. Please call the temple directly at ${SITE_CONFIG.contact.displayPhone}.`
+        `An unexpected network error occurred. Please call the temple directly at ${templeDisplayPhone}.`
       );
     } finally {
       setIsSubmitting(false);
@@ -114,14 +120,14 @@ export function PoojaRequestForm({ isStandalonePage = true }: PoojaRequestFormPr
             </div>
             <div className="pt-2 flex flex-wrap gap-3">
               <a
-                href={SITE_CONFIG.contact.telHref}
+                href={templeTelHref}
                 className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-md bg-green-100 hover:bg-green-200 text-green-900 transition-colors"
               >
                 <Phone className="w-3.5 h-3.5" />
-                <span>Call Temple: {SITE_CONFIG.contact.displayPhone}</span>
+                <span>Call Temple: {templeDisplayPhone}</span>
               </a>
               <a
-                href={SITE_CONFIG.contact.whatsappLink}
+                href={templeWhatsAppLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-md bg-green-700 hover:bg-green-800 text-white transition-colors"
@@ -190,7 +196,7 @@ export function PoojaRequestForm({ isStandalonePage = true }: PoojaRequestFormPr
               </label>
               <div className="relative">
                 <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-semibold text-temple-warmGrey select-none">
-                  +91
+                  {COUNTRY_CODE_PREFIX}
                 </span>
                 <input
                   id="phone"
@@ -339,7 +345,7 @@ export function PoojaRequestForm({ isStandalonePage = true }: PoojaRequestFormPr
               className="w-full sm:w-auto h-12 px-5 text-sm font-semibold border border-temple-charcoal hover:bg-stone-100 text-temple-charcoal focus-visible:ring-2 focus-visible:ring-stone-700"
             >
               <a
-                href={SITE_CONFIG.contact.whatsappLink}
+                href={templeWhatsAppLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2"
