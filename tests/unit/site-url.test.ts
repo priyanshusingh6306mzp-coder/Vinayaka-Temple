@@ -40,12 +40,27 @@ describe("Canonical Site URL Safety Suite", () => {
     expect(getSiteUrl()).toBe("https://vinayaka-temple.vercel.app");
   });
 
-  it("fails with an explicit error in production when neither URL is configured", () => {
+  it("fails with an explicit error naming NEXT_PUBLIC_SITE_URL in production when neither URL is configured", () => {
     setNodeEnv("production");
 
     expect(() => getSiteUrl()).toThrowError(
       /Missing NEXT_PUBLIC_SITE_URL or VERCEL_PROJECT_PRODUCTION_URL in production environment/
     );
+  });
+
+  it("succeeds in production when NEXT_PUBLIC_SITE_URL is set (local npm run build with non-localhost value does not fail)", () => {
+    setNodeEnv("production");
+    process.env.NEXT_PUBLIC_SITE_URL = "https://vinayaka-temple.vercel.app";
+
+    expect(getSiteUrl()).toBe("https://vinayaka-temple.vercel.app");
+    expect(getAbsoluteUrl("/")).toBe("https://vinayaka-temple.vercel.app/");
+  });
+
+  it("succeeds in production when VERCEL_PROJECT_PRODUCTION_URL is set", () => {
+    setNodeEnv("production");
+    process.env.VERCEL_PROJECT_PRODUCTION_URL = "vinayaka-temple.vercel.app";
+
+    expect(getSiteUrl()).toBe("https://vinayaka-temple.vercel.app");
   });
 
   it("falls back safely to localhost:3000 in development / test when unset", () => {

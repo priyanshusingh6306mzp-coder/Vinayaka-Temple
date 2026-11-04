@@ -5,9 +5,9 @@ import { Footer } from "@/components/public/Footer";
 import { StickyCallBar } from "@/components/public/StickyCallBar";
 
 export const metadata: Metadata = {
-  title: "Request a Sacred Pooja | Shri Vinayaka Temple",
+  title: "Request a Pooja | Shri Vinayaka Temple",
   description:
-    "Submit an online pooja request for Sankashti Ganapathi Homam, Sahasranama Archana, or Vahana Blessing at Shri Vinayaka Temple, Noida.",
+    "Submit a pooja request to Shri Vinayaka Temple inside JSS University campus, Sector 62, Noida.",
 };
 
 export default function PoojaPage() {

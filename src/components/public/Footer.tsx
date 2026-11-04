@@ -12,7 +12,7 @@ export function Footer({ timings }: FooterProps) {
   return (
     <footer className="bg-temple-ivory text-temple-charcoal border-t border-[#16130F]/10 pt-14 pb-24 sm:pb-16 px-4">
       <div className="max-w-5xl mx-auto space-y-12">
-        {/* Sacred Mantra Header Strip */}
+        {/* Mantra Header Strip */}
         <div className="text-center space-y-2 border-b border-[#16130F]/10 pb-8">
           <span className="text-2xl text-temple-goldText font-serif select-none" aria-hidden="true">ॐ</span>
           <p className="font-devanagari text-lg sm:text-xl text-temple-charcoal font-medium tracking-wide">
@@ -140,3 +140,4 @@ export function Footer({ timings }: FooterProps) {
     </footer>
   );
 }
+

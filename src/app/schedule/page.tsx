@@ -87,128 +87,130 @@ export default async function SchedulePage() {
           <SectionDivider />
 
           {/* Events Content */}
-          {monthKeys.length > 0 ? (
-            <div className="space-y-12">
-              {monthKeys.map((month) => (
-                <section key={month} aria-labelledby={`month-${month.replace(/\s+/g, "-")}`} className="space-y-4">
-                  <h2
-                    id={`month-${month.replace(/\s+/g, "-")}`}
-                    className="font-serif text-xl sm:text-2xl font-bold text-temple-charcoal border-b border-[#16130F]/10 pb-2 flex items-center gap-2"
-                  >
-                    <Calendar className="w-5 h-5 text-temple-kumkum" aria-hidden="true" />
-                    <span>{month}</span>
-                  </h2>
+          <div id="events" className="scroll-mt-8 space-y-12">
+            {monthKeys.length > 0 ? (
+              <div className="space-y-12">
+                {monthKeys.map((month) => (
+                  <section key={month} aria-labelledby={`month-${month.replace(/\s+/g, "-")}`} className="space-y-4">
+                    <h2
+                      id={`month-${month.replace(/\s+/g, "-")}`}
+                      className="font-serif text-xl sm:text-2xl font-bold text-temple-charcoal border-b border-[#16130F]/10 pb-2 flex items-center gap-2"
+                    >
+                      <Calendar className="w-5 h-5 text-temple-kumkum" aria-hidden="true" />
+                      <span>{month}</span>
+                    </h2>
 
-                  <div className="space-y-4">
-                    {groupedByMonth[month].map((event) => {
-                      const displayDate = formatDisplayDate(event.eventDate);
-                      const displayTime = formatDisplayTime(event.startTime);
-                      const catInfo = CATEGORY_CONFIG[event.category] || CATEGORY_CONFIG.OTHER;
-                      const isSankashti = event.category === "SANKASHTI";
+                    <div className="space-y-4">
+                      {groupedByMonth[month].map((event) => {
+                        const displayDate = formatDisplayDate(event.eventDate);
+                        const displayTime = formatDisplayTime(event.startTime);
+                        const catInfo = CATEGORY_CONFIG[event.category] || CATEGORY_CONFIG.OTHER;
+                        const isSankashti = event.category === "SANKASHTI";
 
-                      const whatsappText = `${event.title} at Shri Vinayaka Temple, ${displayDate}${
-                        displayTime ? ` at ${displayTime}` : ""
-                      }. ${siteUrl}/schedule`;
-                      const whatsappUrl = getWhatsAppShareUrl(whatsappText);
+                        const whatsappText = `${event.title} at Shri Vinayaka Temple, ${displayDate}${
+                          displayTime ? ` at ${displayTime}` : ""
+                        }. ${siteUrl}/schedule`;
+                        const whatsappUrl = getWhatsAppShareUrl(whatsappText);
 
-                      return (
-                        <article
-                          key={event.id}
-                          className={`relative rounded-xl border p-5 sm:p-6 bg-white/85 shadow-xs transition-all hover:shadow-md hover:border-temple-goldText/60 hover:-translate-y-0.5 active:scale-[0.985] motion-reduce:transform-none motion-reduce:transition-none ${
-                            isSankashti
-                              ? "border-amber-300/80 bg-linear-to-r from-amber-50/40 via-white to-white"
-                              : "border-[#16130F]/10"
-                          }`}
-                        >
-                          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                            <div className="space-y-2 flex-1">
-                              <div className="flex flex-wrap items-center gap-2">
-                                <span
-                                  className={`inline-flex items-center text-xs px-2.5 py-0.5 rounded-full border ${catInfo.badgeClass}`}
-                                >
-                                  {isSankashti && <Sparkles className="w-3 h-3 mr-1 text-amber-700" aria-hidden="true" />}
-                                  {catInfo.label}
-                                </span>
-
-                                <EventDateChip eventDate={event.eventDate} />
-                              </div>
-
-                              <h3 className="font-serif text-lg sm:text-xl font-bold text-temple-charcoal tracking-wide">
-                                {event.title}
-                              </h3>
-
-                              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs sm:text-sm text-temple-warmGrey font-medium">
-                                <span className="flex items-center gap-1.5 text-temple-charcoal">
-                                  <Calendar className="w-4 h-4 text-temple-kumkum" aria-hidden="true" />
-                                  <span>{displayDate}</span>
-                                </span>
-
-                                {displayTime && (
-                                  <span className="flex items-center gap-1.5">
-                                    <Clock className="w-4 h-4 text-temple-goldText" aria-hidden="true" />
-                                    <span>{displayTime}</span>
+                        return (
+                          <article
+                            key={event.id}
+                            className={`relative rounded-xl border p-5 sm:p-6 bg-white/85 shadow-xs transition-all hover:shadow-md hover:border-temple-goldText/60 hover:-translate-y-0.5 active:scale-[0.985] motion-reduce:transform-none motion-reduce:transition-none ${
+                              isSankashti
+                                ? "border-amber-300/80 bg-linear-to-r from-amber-50/40 via-white to-white"
+                                : "border-[#16130F]/10"
+                            }`}
+                          >
+                            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                              <div className="space-y-2 flex-1">
+                                <div className="flex flex-wrap items-center gap-2">
+                                  <span
+                                    className={`inline-flex items-center text-xs px-2.5 py-0.5 rounded-full border ${catInfo.badgeClass}`}
+                                  >
+                                    {isSankashti && <Sparkles className="w-3 h-3 mr-1 text-amber-700" aria-hidden="true" />}
+                                    {catInfo.label}
                                   </span>
+
+                                  <EventDateChip eventDate={event.eventDate} />
+                                </div>
+
+                                <h3 className="font-serif text-lg sm:text-xl font-bold text-temple-charcoal tracking-wide">
+                                  {event.title}
+                                </h3>
+
+                                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs sm:text-sm text-temple-warmGrey font-medium">
+                                  <span className="flex items-center gap-1.5 text-temple-charcoal">
+                                    <Calendar className="w-4 h-4 text-temple-kumkum" aria-hidden="true" />
+                                    <span>{displayDate}</span>
+                                  </span>
+
+                                  {displayTime && (
+                                    <span className="flex items-center gap-1.5">
+                                      <Clock className="w-4 h-4 text-temple-goldText" aria-hidden="true" />
+                                      <span>{displayTime}</span>
+                                    </span>
+                                  )}
+                                </div>
+
+                                {event.description && (
+                                  <p className="text-sm text-temple-warmGrey leading-relaxed pt-1">
+                                    {event.description}
+                                  </p>
                                 )}
                               </div>
 
-                              {event.description && (
-                                <p className="text-sm text-temple-warmGrey leading-relaxed pt-1">
-                                  {event.description}
-                                </p>
-                              )}
-                            </div>
+                              {/* Action Buttons: Calendar & WhatsApp */}
+                              <div className="relative z-10 flex items-center gap-2 pt-2 sm:pt-0 sm:flex-col sm:items-end">
+                                <a
+                                  href={`/api/events/${event.id}/calendar`}
+                                  download={`event-${event.id}.ics`}
+                                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md border border-stone-300 bg-white hover:bg-stone-50 text-temple-charcoal transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-temple-charcoal"
+                                  title="Add event to your calendar (.ics)"
+                                  aria-label={`Add ${event.title} to calendar`}
+                                >
+                                  <CalendarPlus className="w-3.5 h-3.5 text-temple-kumkum" aria-hidden="true" />
+                                  <span>Add to Calendar</span>
+                                </a>
 
-                            {/* Action Buttons: Calendar & WhatsApp */}
-                            <div className="relative z-10 flex items-center gap-2 pt-2 sm:pt-0 sm:flex-col sm:items-end">
-                              <a
-                                href={`/api/events/${event.id}/calendar`}
-                                download={`event-${event.id}.ics`}
-                                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md border border-stone-300 bg-white hover:bg-stone-50 text-temple-charcoal transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-temple-charcoal"
-                                title="Add event to your calendar (.ics)"
-                                aria-label={`Add ${event.title} to calendar`}
-                              >
-                                <CalendarPlus className="w-3.5 h-3.5 text-temple-kumkum" aria-hidden="true" />
-                                <span>Add to Calendar</span>
-                              </a>
-
-                              <a
-                                href={whatsappUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md border border-emerald-300/80 bg-emerald-50/60 hover:bg-emerald-100 text-emerald-900 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700"
-                                title="Share event on WhatsApp"
-                                aria-label={`Share ${event.title} on WhatsApp`}
-                              >
-                                <Share2 className="w-3.5 h-3.5 text-emerald-700" aria-hidden="true" />
-                                <span>Share</span>
-                              </a>
+                                <a
+                                  href={whatsappUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md border border-emerald-300/80 bg-emerald-50/60 hover:bg-emerald-100 text-emerald-900 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700"
+                                  title="Share event on WhatsApp"
+                                  aria-label={`Share ${event.title} on WhatsApp`}
+                                >
+                                  <Share2 className="w-3.5 h-3.5 text-emerald-700" aria-hidden="true" />
+                                  <span>Share</span>
+                                </a>
+                              </div>
                             </div>
-                          </div>
-                        </article>
-                      );
-                    })}
-                  </div>
-                </section>
-              ))}
-            </div>
-          ) : (
-            /* Calm Empty State */
-            <div className="text-center py-16 px-4 space-y-4 max-w-md mx-auto">
-              <Calendar className="w-12 h-12 text-temple-goldText mx-auto" aria-hidden="true" />
-              <p className="text-base sm:text-lg font-medium text-temple-charcoal">
-                Dates will be announced soon. Please call the temple.
-              </p>
-              <div>
-                <a
-                  href={templeTelHref}
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-temple-kumkum hover:underline px-3 py-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-temple-charcoal"
-                >
-                  <Phone className="w-4 h-4" aria-hidden="true" />
-                  <span>Call {templeDisplayPhone}</span>
-                </a>
+                          </article>
+                        );
+                      })}
+                    </div>
+                  </section>
+                ))}
               </div>
-            </div>
-          )}
+            ) : (
+              /* Calm Empty State */
+              <div className="text-center py-16 px-4 space-y-4 max-w-md mx-auto">
+                <Calendar className="w-12 h-12 text-temple-goldText mx-auto" aria-hidden="true" />
+                <p className="text-base sm:text-lg font-medium text-temple-charcoal">
+                  Dates will be announced soon. Please call the temple.
+                </p>
+                <div>
+                  <a
+                    href={templeTelHref}
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-temple-kumkum hover:underline px-3 py-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-temple-charcoal"
+                  >
+                    <Phone className="w-4 h-4" aria-hidden="true" />
+                    <span>Call {templeDisplayPhone}</span>
+                  </a>
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* Devotee Assistance Note */}
           <div className="text-center pt-8 border-t border-[#16130F]/10 space-y-2">

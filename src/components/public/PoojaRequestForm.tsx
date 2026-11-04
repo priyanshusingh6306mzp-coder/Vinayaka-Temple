@@ -95,11 +95,11 @@ export function PoojaRequestForm({ isStandalonePage = true }: PoojaRequestFormPr
           </p>
           {isStandalonePage ? (
             <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-temple-charcoal">
-              Request a Sacred Pooja
+              Request a Pooja
             </h1>
           ) : (
             <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-temple-charcoal">
-              Request a Sacred Pooja
+              Request a Pooja
             </h2>
           )}
           <SectionDivider />
@@ -364,3 +364,4 @@ export function PoojaRequestForm({ isStandalonePage = true }: PoojaRequestFormPr
     </section>
   );
 }
+

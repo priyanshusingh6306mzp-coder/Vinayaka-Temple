@@ -90,7 +90,7 @@ export function AboutSection() {
 
               <div className="p-4 rounded-lg bg-white border border-stone-200 shadow-sm">
                 <span className="text-xs uppercase font-bold text-temple-goldText block mb-1">
-                  Main Deity
+                  Main Idol
                 </span>
                 <span className="text-sm font-medium text-temple-charcoal">
                   Black Stone Ganesha Idol
