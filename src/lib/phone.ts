@@ -28,7 +28,7 @@ export const DEFAULT_WHATSAPP_TEXT =
   "Namaste, I would like to enquire about a pooja.";
 
 /**
- * Derives display text in the format "63062 13986" (5 digits, space, 5 digits).
+ * Derives display text in the format "70905 85186" (5 digits, space, 5 digits).
  */
 export function formatTemplePhone(
   phone: string = SITE_CONFIG.contact.phone
@@ -38,7 +38,7 @@ export function formatTemplePhone(
 }
 
 /**
- * Derives tel: href in the format "tel:+916306213986".
+ * Derives tel: href in the format "tel:+917090585186".
  */
 export function getTempleTelHref(
   phone: string = SITE_CONFIG.contact.phone
@@ -48,7 +48,7 @@ export function getTempleTelHref(
 }
 
 /**
- * Derives WhatsApp number in the format "916306213986".
+ * Derives WhatsApp number in the format "917090585186".
  */
 export function getTempleWhatsAppNumber(
   phone: string = SITE_CONFIG.contact.phone
@@ -59,7 +59,7 @@ export function getTempleWhatsAppNumber(
 
 /**
  * Derives WhatsApp link in the format:
- * https://wa.me/916306213986?text=<URL-encoded text>
+ * https://wa.me/917090585186?text=<URL-encoded text>
  * Default text: "Namaste, I would like to enquire about a pooja."
  */
 export function getTempleWhatsAppLink(
@@ -71,7 +71,7 @@ export function getTempleWhatsAppLink(
 }
 
 /**
- * Derives JSON-LD telephone in +91 form ("+916306213986").
+ * Derives JSON-LD telephone in +91 form ("+917090585186").
  */
 export function getTempleJsonLdPhone(
   phone: string = SITE_CONFIG.contact.phone

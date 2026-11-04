@@ -109,7 +109,7 @@ export const SITE_CONFIG = {
 
   contact: {
     // CHANGE THE TEMPLE PHONE NUMBER HERE ONLY
-    phone: "6306213986",
+    phone: "7090585186",
     email: "priest@vinayaka.example.com",
   },
 

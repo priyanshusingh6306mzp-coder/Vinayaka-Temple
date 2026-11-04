@@ -47,7 +47,7 @@ Copy `.env.example` to `.env` to configure your environment. **Never commit `.en
 
 Before announcing or launching the public website, complete this essential verification checklist:
 
-- [ ] **Temple Phone Number:** Update the single `phone` field in `src/content/site.ts` (line 112: `contact.phone = "6306213986"`). See [How to change the phone number](#how-to-change-the-phone-number) below.
+- [ ] **Temple Phone Number:** Update the single `phone` field in `src/content/site.ts` (line 112: `contact.phone = "7090585186"`). See [How to change the phone number](#how-to-change-the-phone-number) below.
 - [ ] **Admin Account:** Replace the test admin account (`priest@vinayaka.example.com`) with the priest/admin's verified real email address in the database or via initial seed, and guide them through forced password change.
 
 - [ ] **Pooja Offerings Confirmation:** Confirm the pooja list, suggested timings, and descriptions with the priest/client in `src/content/site.ts`.
@@ -61,7 +61,7 @@ Before announcing or launching the public website, complete this essential verif
 ### How to change the phone number
 To update the temple's official phone number:
 1. Open `src/content/site.ts` and locate line 112 directly below the comment `// CHANGE THE TEMPLE PHONE NUMBER HERE ONLY`.
-2. Edit the `phone` string (a 10-digit Indian mobile number, e.g. `"6306213986"`, without spaces or `+91`).
+2. Edit the `phone` string (a 10-digit Indian mobile number, e.g. `"7090585186"`, without spaces or `+91`).
 3. Commit and push: `git commit -am "chore: update temple phone number" && git push`. Vercel automatically builds and redeploys.
 4. All contact touchpoints (header desktop call button, mobile menu call link, sticky mobile call bar, location section, campus entry instructions, footer, pooja request form, WhatsApp chat links, and Schema.org JSON-LD structured data) automatically derive from this single field.
 

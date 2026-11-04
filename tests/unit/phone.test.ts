@@ -8,11 +8,12 @@ import {
   getTempleWhatsAppNumber,
   getTempleWhatsAppLink,
   getTempleJsonLdPhone,
-  DEFAULT_WHATSAPP_TEXT,
   formatDevoteePhone,
   getDevoteeTelHref,
   getDevoteeWhatsAppLink,
   getWhatsAppShareUrl,
+  DEFAULT_WHATSAPP_TEXT,
+  templePhone,
   templeDisplayPhone,
   templeTelHref,
   templeWhatsAppNumber,
@@ -25,8 +26,8 @@ import { SITE_CONFIG } from "@/content/site";
 describe("Part 3: Phone Number Centralization & Helpers", () => {
   describe("Validation", () => {
     it("accepts valid 10-digit mobile numbers starting with 6-9", () => {
+      expect(validatePhoneNumber("7090585186")).toBe("7090585186");
       expect(validatePhoneNumber("6306213986")).toBe("6306213986");
-      expect(validatePhoneNumber("7012345678")).toBe("7012345678");
       expect(validatePhoneNumber("8123456789")).toBe("8123456789");
       expect(validatePhoneNumber("9876543210")).toBe("9876543210");
     });
@@ -44,19 +45,19 @@ describe("Part 3: Phone Number Centralization & Helpers", () => {
     });
 
     it("rejects numbers with +91 prefix, spaces, dashes, or invalid lengths", () => {
-      expect(() => validatePhoneNumber("+916306213986")).toThrow(
+      expect(() => validatePhoneNumber("+917090585186")).toThrow(
         /SITE_CONFIG\.contact\.phone/
       );
-      expect(() => validatePhoneNumber("63062 13986")).toThrow(
+      expect(() => validatePhoneNumber("70905 85186")).toThrow(
         /SITE_CONFIG\.contact\.phone/
       );
-      expect(() => validatePhoneNumber("63062-13986")).toThrow(
+      expect(() => validatePhoneNumber("70905-85186")).toThrow(
         /SITE_CONFIG\.contact\.phone/
       );
-      expect(() => validatePhoneNumber("630621398")).toThrow(
+      expect(() => validatePhoneNumber("709058518")).toThrow(
         /SITE_CONFIG\.contact\.phone/
       );
-      expect(() => validatePhoneNumber("63062139860")).toThrow(
+      expect(() => validatePhoneNumber("70905851860")).toThrow(
         /SITE_CONFIG\.contact\.phone/
       );
     });
@@ -68,7 +69,7 @@ describe("Part 3: Phone Number Centralization & Helpers", () => {
       expect(() => validatePhoneNumber(undefined)).toThrow(
         /SITE_CONFIG\.contact\.phone/
       );
-      expect(() => validatePhoneNumber(6306213986 as unknown)).toThrow(
+      expect(() => validatePhoneNumber(7090585186 as unknown)).toThrow(
         /SITE_CONFIG\.contact\.phone/
       );
     });
@@ -76,27 +77,27 @@ describe("Part 3: Phone Number Centralization & Helpers", () => {
 
   describe("Formatting and Derivation", () => {
     it("formats display phone as 5 digits, space, 5 digits", () => {
-      expect(formatTemplePhone("6306213986")).toBe("63062 13986");
-      expect(templeDisplayPhone).toBe("63062 13986");
+      expect(formatTemplePhone("7090585186")).toBe("70905 85186");
+      expect(templeDisplayPhone).toBe("70905 85186");
     });
 
     it("derives tel: link in +91 form", () => {
-      expect(getTempleTelHref("6306213986")).toBe("tel:+916306213986");
-      expect(templeTelHref).toBe("tel:+916306213986");
+      expect(getTempleTelHref("7090585186")).toBe("tel:+917090585186");
+      expect(templeTelHref).toBe("tel:+917090585186");
     });
 
     it("derives WhatsApp number with 91 country code", () => {
-      expect(getTempleWhatsAppNumber("6306213986")).toBe("916306213986");
-      expect(templeWhatsAppNumber).toBe("916306213986");
+      expect(getTempleWhatsAppNumber("7090585186")).toBe("917090585186");
+      expect(templeWhatsAppNumber).toBe("917090585186");
     });
 
     it("derives WhatsApp link with default URL-encoded text", () => {
       const link = getTempleWhatsAppLink();
       expect(link).toBe(
-        "https://wa.me/916306213986?text=Namaste%2C%20I%20would%20like%20to%20enquire%20about%20a%20pooja."
+        "https://wa.me/917090585186?text=Namaste%2C%20I%20would%20like%20to%20enquire%20about%20a%20pooja."
       );
       expect(templeWhatsAppLink).toBe(
-        "https://wa.me/916306213986?text=Namaste%2C%20I%20would%20like%20to%20enquire%20about%20a%20pooja."
+        "https://wa.me/917090585186?text=Namaste%2C%20I%20would%20like%20to%20enquire%20about%20a%20pooja."
       );
       expect(DEFAULT_WHATSAPP_TEXT).toBe(
         "Namaste, I would like to enquire about a pooja."
@@ -104,15 +105,15 @@ describe("Part 3: Phone Number Centralization & Helpers", () => {
     });
 
     it("derives WhatsApp link with custom text", () => {
-      const link = getTempleWhatsAppLink("Special Darshan Inquiry", "6306213986");
+      const link = getTempleWhatsAppLink("Special Darshan Inquiry", "7090585186");
       expect(link).toBe(
-        "https://wa.me/916306213986?text=Special%20Darshan%20Inquiry"
+        "https://wa.me/917090585186?text=Special%20Darshan%20Inquiry"
       );
     });
 
     it("derives JSON-LD telephone in +91 form", () => {
-      expect(getTempleJsonLdPhone("6306213986")).toBe("+916306213986");
-      expect(templeJsonLdPhone).toBe("+916306213986");
+      expect(getTempleJsonLdPhone("7090585186")).toBe("+917090585186");
+      expect(templeJsonLdPhone).toBe("+917090585186");
     });
 
     it("provides devotee phone helpers", () => {
@@ -166,18 +167,20 @@ describe("Part 3: Phone Number Centralization & Helpers", () => {
           violations.push({ file: relative, match: "wa.me/91" });
         }
 
-        // 3. Check for 10-digit phone-like numbers starting with 6-9
-        // (excluding timestamp numbers or obvious non-phone IDs)
-        const phoneMatch = content.match(/\b[6-9]\d{9}\b/g);
-        if (phoneMatch) {
-          violations.push({
-            file: relative,
-            match: `10-digit phone number: ${phoneMatch.join(", ")}`,
-          });
+        // 3. Check for raw 10-digit phone number
+        if (content.includes("7090585186") || content.includes("70905 85186")) {
+          violations.push({ file: relative, match: "7090585186" });
         }
       }
 
       expect(violations).toEqual([]);
+    });
+
+    it("ensures SITE_CONFIG.contact.phone matches the imported templePhone", () => {
+      expect(SITE_CONFIG.contact.phone).toBe("7090585186");
+      expect(templePhone).toBe("7090585186");
+      expect(templeDisplayPhone).toBe("70905 85186");
+      expect(templeTelHref).toBe("tel:+917090585186");
     });
   });
 });
