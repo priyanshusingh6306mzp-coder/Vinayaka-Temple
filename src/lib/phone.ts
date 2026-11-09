@@ -1,17 +1,27 @@
 import { SITE_CONFIG } from "@/content/site";
 
 /**
- * Validates a 10-digit Indian mobile number.
+ * Validates a 10-digit Indian mobile number when provided.
  * Must be exactly 10 digits starting with 6, 7, 8, or 9.
+ * Returns null if the phone is null, undefined, or empty (intentionally unconfigured).
+ * Throws an Error if a non-empty, invalid phone number is provided.
  */
-export function validatePhoneNumber(phone: unknown): string {
+export function validatePhoneNumber(phone: unknown): string | null {
+  if (phone === null || phone === undefined || phone === "") {
+    return null;
+  }
+
   if (typeof phone !== "string") {
     throw new Error(
-      `Invalid SITE_CONFIG.contact.phone: expected string but received ${typeof phone}.`
+      `Invalid SITE_CONFIG.contact.phone: expected string or null but received ${typeof phone}.`
     );
   }
 
   const trimmed = phone.trim();
+  if (trimmed === "") {
+    return null;
+  }
+
   if (!/^[6-9]\d{9}$/.test(trimmed)) {
     throw new Error(
       `Invalid SITE_CONFIG.contact.phone: "${phone}". Expected exactly 10 digits starting with 6, 7, 8, or 9 without spaces or +91 prefix.`
@@ -21,72 +31,83 @@ export function validatePhoneNumber(phone: unknown): string {
   return trimmed;
 }
 
-// Validate temple phone at build and start time
+// Validate temple phone at build and start time (validates when present; succeeds cleanly when null/empty)
 validatePhoneNumber(SITE_CONFIG.contact.phone);
 
 export const DEFAULT_WHATSAPP_TEXT =
   "Namaste, I would like to enquire about a pooja.";
 
 /**
- * Derives display text in the format "70905 85186" (5 digits, space, 5 digits).
+ * Derives display text in the format "98765 43210" (5 digits, space, 5 digits).
+ * Returns null if no temple phone is configured.
  */
 export function formatTemplePhone(
-  phone: string = SITE_CONFIG.contact.phone
-): string {
+  phone: string | null | undefined = SITE_CONFIG.contact.phone
+): string | null {
   const valid = validatePhoneNumber(phone);
+  if (!valid) return null;
   return `${valid.slice(0, 5)} ${valid.slice(5)}`;
 }
 
 /**
- * Derives tel: href in the format "tel:+917090585186".
+ * Derives tel: href in the format "tel:+919876543210".
+ * Returns null if no temple phone is configured.
  */
 export function getTempleTelHref(
-  phone: string = SITE_CONFIG.contact.phone
-): string {
+  phone: string | null | undefined = SITE_CONFIG.contact.phone
+): string | null {
   const valid = validatePhoneNumber(phone);
+  if (!valid) return null;
   return `tel:+91${valid}`;
 }
 
 /**
- * Derives WhatsApp number in the format "917090585186".
+ * Derives WhatsApp number in the format "919876543210".
+ * Returns null if no temple phone is configured.
  */
 export function getTempleWhatsAppNumber(
-  phone: string = SITE_CONFIG.contact.phone
-): string {
+  phone: string | null | undefined = SITE_CONFIG.contact.phone
+): string | null {
   const valid = validatePhoneNumber(phone);
+  if (!valid) return null;
   return `91${valid}`;
 }
 
 /**
  * Derives WhatsApp link in the format:
- * https://wa.me/917090585186?text=<URL-encoded text>
- * Default text: "Namaste, I would like to enquire about a pooja."
+ * https://wa.me/919876543210?text=<URL-encoded text>
+ * Returns null if no temple phone is configured.
  */
 export function getTempleWhatsAppLink(
   text: string = DEFAULT_WHATSAPP_TEXT,
-  phone: string = SITE_CONFIG.contact.phone
-): string {
+  phone: string | null | undefined = SITE_CONFIG.contact.phone
+): string | null {
   const valid = validatePhoneNumber(phone);
+  if (!valid) return null;
   return `https://wa.me/91${valid}?text=${encodeURIComponent(text)}`;
 }
 
 /**
- * Derives JSON-LD telephone in +91 form ("+917090585186").
+ * Derives JSON-LD telephone in +91 form ("+919876543210").
+ * Returns null if no temple phone is configured.
  */
 export function getTempleJsonLdPhone(
-  phone: string = SITE_CONFIG.contact.phone
-): string {
+  phone: string | null | undefined = SITE_CONFIG.contact.phone
+): string | null {
   const valid = validatePhoneNumber(phone);
+  if (!valid) return null;
   return `+91${valid}`;
 }
 
-// Named property exports for convenience
-export const templePhone = SITE_CONFIG.contact.phone;
-export const templeDisplayPhone = formatTemplePhone();
-export const templeTelHref = getTempleTelHref();
-export const templeWhatsAppNumber = getTempleWhatsAppNumber();
-export const templeWhatsAppLink = getTempleWhatsAppLink();
-export const templeJsonLdPhone = getTempleJsonLdPhone();
+// Named property exports (null when unconfigured)
+export const templePhone: string | null = SITE_CONFIG.contact.phone
+  ? validatePhoneNumber(SITE_CONFIG.contact.phone)
+  : null;
+export const templeDisplayPhone: string | null = formatTemplePhone();
+export const templeTelHref: string | null = getTempleTelHref();
+export const templeWhatsAppNumber: string | null = getTempleWhatsAppNumber();
+export const templeWhatsAppLink: string | null = getTempleWhatsAppLink();
+export const templeJsonLdPhone: string | null = getTempleJsonLdPhone();
 
 // Generic / Devotee phone helpers
 export const COUNTRY_CODE_PREFIX = "+91";
@@ -121,7 +142,7 @@ export function getDevoteeWhatsAppLink(phone: string, text: string): string {
 }
 
 /**
- * Creates generic WhatsApp share URL.
+ * Creates generic WhatsApp share URL (no telephone number included).
  */
 export function getWhatsAppShareUrl(text: string): string {
   return `https://wa.me/?text=${encodeURIComponent(text)}`;

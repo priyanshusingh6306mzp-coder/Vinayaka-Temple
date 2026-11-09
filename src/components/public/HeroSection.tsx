@@ -12,7 +12,7 @@ interface HeroSectionProps {
 
 export function HeroSection({ timings, todayEvents = [], serverDateStr }: HeroSectionProps) {
   return (
-    <section className="relative w-full bg-temple-ivory text-temple-charcoal flex flex-col items-center justify-center py-4 sm:py-6 lg:py-8 px-4 lg:px-12 overflow-hidden">
+    <section id="hero" className="relative w-full bg-temple-ivory text-temple-charcoal flex flex-col items-center justify-center py-4 sm:py-6 lg:py-8 px-4 lg:px-12 overflow-hidden">
       {/* Single subtle traditional South Indian Chola toran motif along top edge (watermark gold #B8893B, opacity 20%, purely visual, desktop-only) */}
       <div
         className="absolute top-0 inset-x-0 hidden lg:block pointer-events-none overflow-hidden h-9 opacity-20 text-[#B8893B]"

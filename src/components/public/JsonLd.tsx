@@ -15,7 +15,7 @@ export function JsonLd({ timings }: { timings?: FormattedDarshanTimings }) {
     description: SITE_CONFIG.description,
     url: siteUrl,
     hasMap: SITE_CONFIG.maps.link,
-    telephone: templeJsonLdPhone,
+    ...(templeJsonLdPhone ? { telephone: templeJsonLdPhone } : {}),
     image: `${siteUrl}/images/temple.jpg`,
     address: {
       "@type": "PostalAddress",

@@ -72,9 +72,9 @@ const poojaOfferingsPendingPriestConfirmation: PoojaTypeOption[] = [
     durationApprox: "30 mins",
   },
   {
-    id: "other_or_call",
-    name: "Other / not sure, I will call",
-    nameHindi: "अन्य / परामर्श हेतु संपर्क करेंगे",
+    id: "other_general_enquiry",
+    name: "Other / general enquiry",
+    nameHindi: "अन्य / सामान्य पूछताछ",
     description: "The temple will contact you to confirm the pooja and date.",
     durationApprox: "To be confirmed",
   },
@@ -104,12 +104,13 @@ export const SITE_CONFIG = {
       "Inside the campus of JSS University, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309",
     fullAddress:
       "Inside the campus of JSS University, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309",
-    campusEntryInstructions: "Please call the temple for campus entry instructions",
+    campusEntryInstructions:
+      "Please send a request through the form and the temple will contact you with campus entry instructions.",
   },
 
   contact: {
-    // CHANGE THE TEMPLE PHONE NUMBER HERE ONLY
-    phone: "7090585186",
+    // The temple has chosen NOT to publish a phone number. All visitor contact happens through the pooja request form. To show a number later, set it here (10 digits): call buttons, WhatsApp buttons and the JSON-LD telephone then appear automatically.
+    phone: null as string | null,
     email: "priest@vinayaka.example.com",
   },
 

@@ -31,8 +31,10 @@ describe("Public Website - No Placeholders Rendered Guard", () => {
     ];
 
     for (const val of publicSections) {
-      expect(val).not.toContain("[PLACEHOLDER]");
-      expect(val).not.toContain("example.com");
+      if (val != null) {
+        expect(val).not.toContain("[PLACEHOLDER]");
+        expect(val).not.toContain("example.com");
+      }
     }
   });
 

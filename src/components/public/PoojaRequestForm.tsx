@@ -78,7 +78,7 @@ export function PoojaRequestForm({ isStandalonePage = true }: PoojaRequestFormPr
     } catch (err: unknown) {
       console.error("[Pooja Submission Network Error]:", err);
       setServerError(
-        `An unexpected network error occurred. Please call the temple directly at ${templeDisplayPhone}.`
+        templeDisplayPhone ? `An unexpected network error occurred. Please call the temple directly at ${templeDisplayPhone}.` : "An unexpected network error occurred. Please try submitting again in a few moments."
       );
     } finally {
       setIsSubmitting(false);
@@ -104,7 +104,7 @@ export function PoojaRequestForm({ isStandalonePage = true }: PoojaRequestFormPr
           )}
           <SectionDivider />
           <p className="text-sm sm:text-base text-temple-warmGrey max-w-xl mx-auto">
-            Submit your pooja request below. The temple will contact you to confirm the pooja and date.
+            To reach the temple, send a request here. The temple will contact you on the mobile number you enter.
           </p>
         </div>
 
@@ -118,23 +118,27 @@ export function PoojaRequestForm({ isStandalonePage = true }: PoojaRequestFormPr
                 <p className="text-sm mt-1 leading-relaxed text-green-800">{serverSuccess}</p>
               </div>
             </div>
-            <div className="pt-2 flex flex-wrap gap-3">
-              <a
-                href={templeTelHref}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-md bg-green-100 hover:bg-green-200 text-green-900 transition-colors"
-              >
-                <Phone className="w-3.5 h-3.5" />
-                <span>Call Temple: {templeDisplayPhone}</span>
-              </a>
-              <a
-                href={templeWhatsAppLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-md bg-green-700 hover:bg-green-800 text-white transition-colors"
-              >
-                <span>WhatsApp Temple</span>
-              </a>
-            </div>
+            {templeTelHref && templeDisplayPhone && (
+              <div className="pt-2 flex flex-wrap gap-3">
+                <a
+                  href={templeTelHref}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-md bg-green-100 hover:bg-green-200 text-green-900 transition-colors"
+                >
+                  <Phone className="w-3.5 h-3.5" />
+                  <span>Call Temple: {templeDisplayPhone}</span>
+                </a>
+                {templeWhatsAppLink && (
+                  <a
+                    href={templeWhatsAppLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-md bg-green-700 hover:bg-green-800 text-white transition-colors"
+                  >
+                    <span>WhatsApp Temple</span>
+                  </a>
+                )}
+              </div>
+            )}
           </div>
         )}
 
@@ -291,7 +295,7 @@ export function PoojaRequestForm({ isStandalonePage = true }: PoojaRequestFormPr
 
             {/* Clearly visible note that temple confirms pooja and date */}
             <div className="p-3 rounded-lg bg-stone-50 border border-stone-200 text-xs text-temple-charcoal flex items-start gap-2.5">
-              <Phone className="w-4 h-4 text-temple-kumkum shrink-0 mt-0.5" />
+              <CheckCircle2 className="w-4 h-4 text-temple-kumkum shrink-0 mt-0.5" />
               <p className="leading-relaxed">
                 The temple will contact you to confirm the pooja and date.
               </p>
@@ -326,7 +330,7 @@ export function PoojaRequestForm({ isStandalonePage = true }: PoojaRequestFormPr
               type="submit"
               disabled={isSubmitting}
               variant="default"
-              className="w-full sm:flex-1 h-12 text-base font-bold shadow-md hover:shadow-lg bg-temple-kumkum hover:bg-temple-kumkum/90 text-white focus-visible:ring-2 focus-visible:ring-stone-700"
+              className={`h-12 text-base font-bold shadow-md hover:shadow-lg bg-temple-kumkum hover:bg-temple-kumkum/90 text-white focus-visible:ring-2 focus-visible:ring-stone-700 ${templeWhatsAppLink ? "w-full sm:flex-1" : "w-full"}`}
             >
               {isSubmitting ? (
                 <span className="flex items-center justify-center gap-2">
@@ -338,22 +342,24 @@ export function PoojaRequestForm({ isStandalonePage = true }: PoojaRequestFormPr
               )}
             </Button>
 
-            <Button
-              asChild
-              type="button"
-              variant="outline"
-              className="w-full sm:w-auto h-12 px-5 text-sm font-semibold border border-temple-charcoal hover:bg-stone-100 text-temple-charcoal focus-visible:ring-2 focus-visible:ring-stone-700"
-            >
-              <a
-                href={templeWhatsAppLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2"
+            {templeWhatsAppLink && (
+              <Button
+                asChild
+                type="button"
+                variant="outline"
+                className="w-full sm:w-auto h-12 px-5 text-sm font-semibold border border-temple-charcoal hover:bg-stone-100 text-temple-charcoal focus-visible:ring-2 focus-visible:ring-stone-700"
               >
-                <MessageCircle className="w-4 h-4 text-emerald-800" aria-hidden="true" />
-                <span>Message on WhatsApp</span>
-              </a>
-            </Button>
+                <a
+                  href={templeWhatsAppLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2"
+                >
+                  <MessageCircle className="w-4 h-4 text-emerald-800" aria-hidden="true" />
+                  <span>Message on WhatsApp</span>
+                </a>
+              </Button>
+            )}
           </div>
 
           <p className="text-xs text-center text-temple-warmGrey">

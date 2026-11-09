@@ -197,17 +197,19 @@ export default async function SchedulePage() {
               <div className="text-center py-16 px-4 space-y-4 max-w-md mx-auto">
                 <Calendar className="w-12 h-12 text-temple-goldText mx-auto" aria-hidden="true" />
                 <p className="text-base sm:text-lg font-medium text-temple-charcoal">
-                  Dates will be announced soon. Please call the temple.
+                  Dates will be announced soon. You can send a request through the form and the temple will get back to you.
                 </p>
-                <div>
-                  <a
-                    href={templeTelHref}
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-temple-kumkum hover:underline px-3 py-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-temple-charcoal"
-                  >
-                    <Phone className="w-4 h-4" aria-hidden="true" />
-                    <span>Call {templeDisplayPhone}</span>
-                  </a>
-                </div>
+                {templeTelHref && templeDisplayPhone && (
+                  <div>
+                    <a
+                      href={templeTelHref}
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-temple-kumkum hover:underline px-3 py-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-temple-charcoal"
+                    >
+                      <Phone className="w-4 h-4" aria-hidden="true" />
+                      <span>Call {templeDisplayPhone}</span>
+                    </a>
+                  </div>
+                )}
               </div>
             )}
           </div>

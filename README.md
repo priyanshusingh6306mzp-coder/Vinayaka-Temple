@@ -47,7 +47,7 @@ Copy `.env.example` to `.env` to configure your environment. **Never commit `.en
 
 Before announcing or launching the public website, complete this essential verification checklist:
 
-- [ ] **Temple Phone Number:** Update the single `phone` field in `src/content/site.ts` (line 112: `contact.phone = "7090585186"`). See [How to change the phone number](#how-to-change-the-phone-number) below.
+- [ ] **Monitor Incoming Requests:** Monitor new devotee pooja requests via email alerts (`NOTIFICATION_RECIPIENT_EMAIL`) and the admin portal (`/admin/requests`). As the public phone number is intentionally hidden, all visitor enquiries arrive through the online form.
 - [ ] **Admin Account:** Replace the test admin account (`priest@vinayaka.example.com`) with the priest/admin's verified real email address in the database or via initial seed, and guide them through forced password change.
 
 - [ ] **Pooja Offerings Confirmation:** Confirm the pooja list, suggested timings, and descriptions with the priest/client in `src/content/site.ts`.
@@ -58,12 +58,18 @@ Before announcing or launching the public website, complete this essential verif
 - [ ] **Production Canonical Site URL (`NEXT_PUBLIC_SITE_URL`):** Configure `NEXT_PUBLIC_SITE_URL` in Vercel to your live canonical production domain (e.g. `https://vinayakatemple.org` or `https://vinayaka-temple.vercel.app`). All canonical links, Open Graph tags, sitemap.xml, robots.txt, Schema.org JSON-LD, calendar (.ics) files, and WhatsApp share URLs automatically derive their host from this single environment variable with zero hardcoded hosts in application code. In production builds, `getSiteUrl()` strictly requires `NEXT_PUBLIC_SITE_URL` or `VERCEL_PROJECT_PRODUCTION_URL` and will fail with an explicit build error rather than silently defaulting to localhost.
 - [ ] **Production Environment Variables:** Set `NEXT_PUBLIC_SITE_URL`, `AUTH_URL`, `AUTH_SECRET`, and `AUTH_TRUST_HOST="true"` on Vercel.
 
-### How to change the phone number
-To update the temple's official phone number:
-1. Open `src/content/site.ts` and locate line 112 directly below the comment `// CHANGE THE TEMPLE PHONE NUMBER HERE ONLY`.
-2. Edit the `phone` string (a 10-digit Indian mobile number, e.g. `"7090585186"`, without spaces or `+91`).
-3. Commit and push: `git commit -am "chore: update temple phone number" && git push`. Vercel automatically builds and redeploys.
-4. All contact touchpoints (header desktop call button, mobile menu call link, sticky mobile call bar, location section, campus entry instructions, footer, pooja request form, WhatsApp chat links, and Schema.org JSON-LD structured data) automatically derive from this single field.
+### Phone number (intentionally hidden)
+By client decision, the temple does **not** publish a telephone number anywhere on the public website. Visitors contact the temple exclusively by submitting the pooja request form, and the temple priest/administrator then contacts them back directly on their submitted mobile number.
+
+New pooja requests should be actively monitored via:
+1. **Email Alerts:** Configured via `NOTIFICATION_RECIPIENT_EMAIL` with automated SMTP notifications sent upon submission.
+2. **Admin Dashboard:** Real-time devotee requests at `/admin/requests` with one-tap Call and WhatsApp actions using the requester's number.
+
+**How to re-enable a public phone number later:**
+If the temple decides to display a public phone number in the future:
+1. Open `src/content/site.ts` and locate `contact.phone`.
+2. Set it to a 10-digit Indian mobile number (e.g. `"9876543210"`, starting 6–9, without spaces or `+91`).
+3. Commit and redeploy. All public touchpoints (header desktop call button, mobile menu call link, sticky mobile call bar, location section, pooja form phone/WhatsApp CTAs, and Schema.org JSON-LD `telephone`) will reappear automatically. Setting it back to `null` or `""` cleanly hides all public phone elements again.
 
 ---
 
@@ -173,7 +179,7 @@ The admin portal provides two dedicated sections for the priest to maintain the 
 | Route | Purpose | Features & SEO |
 | :--- | :--- | :--- |
 | `/` | Homepage | Hero, About, Darshan Timings & Schedule card, 4-photo featured gallery glimpse, static Google Maps card with 0 third-party cookies |
-| `/schedule` | Sacred Calendar | Upcoming festivals & Sankashti dates grouped by month, `.ics` calendar export, WhatsApp share, tap-to-call |
+| `/schedule` | Sacred Calendar | Upcoming festivals & Sankashti dates grouped by month, `.ics` calendar export, WhatsApp share, pooja request |
 | `/gallery` | Photo Gallery Hub | Album cards with photo counts, dynamic preview collages (1, 2, 3, or 4 images), unattached photos card, pagination |
 | `/gallery/[id]` | Album Detail | Full-page photo grid for a specific event with interactive accessible Lightbox modal and dynamic metadata |
 | `/gallery/other` | Other Photographs | Grid of standalone temple photographs with accessible Lightbox modal |
@@ -206,7 +212,7 @@ All public facts, address details, timings, and content placeholders are central
 - **Temple Name & Taglines:** `SITE_CONFIG.name`, `SITE_CONFIG.tagline`
 - **Location & Address:** `SITE_CONFIG.location.fullAddress` ("Inside the campus of JSS University, C-20/1, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309"), `SITE_CONFIG.location.campusEntryInstructions`
 - **Timings:** `SITE_CONFIG.darshanSessions` / `SITE_CONFIG.timings` (Morning: 6:00 AM – 10:30 AM, Evening: 5:30 PM – 8:30 PM)
-- **Contact & Phone:** `SITE_CONFIG.contact.displayPhone`, `SITE_CONFIG.contact.telHref`
+- **Contact Configuration:** `SITE_CONFIG.contact.phone` (null by default; visitor contact exclusively via form)
 - **Pooja Offerings:** `SITE_CONFIG.poojaTypes`
 
 ---

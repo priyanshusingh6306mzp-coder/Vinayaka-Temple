@@ -30,7 +30,7 @@ export default function ErrorPage({
             Something went wrong
           </h1>
           <p className="text-sm text-temple-warmGrey leading-relaxed">
-            An unexpected error occurred while loading this page. Please try refreshing or contact the temple.
+            An unexpected error occurred while loading this page. Please try refreshing or return to the homepage.
           </p>
         </div>
 
@@ -44,13 +44,15 @@ export default function ErrorPage({
             <span>Try Again</span>
           </Button>
 
-          <a
-            href={templeTelHref}
-            className="flex items-center justify-center gap-2 text-xs font-semibold text-temple-warmGrey hover:text-temple-charcoal py-2"
-          >
-            <Phone className="w-3.5 h-3.5 text-temple-kumkum" />
-            <span>Call Temple: {templeDisplayPhone}</span>
-          </a>
+          {templeTelHref && templeDisplayPhone && (
+            <a
+              href={templeTelHref}
+              className="flex items-center justify-center gap-2 text-xs font-semibold text-temple-warmGrey hover:text-temple-charcoal py-2"
+            >
+              <Phone className="w-3.5 h-3.5 text-temple-kumkum" />
+              <span>Call Temple: {templeDisplayPhone}</span>
+            </a>
+          )}
 
           <div>
             <Link href="/" className="text-xs text-temple-gold underline">

@@ -99,18 +99,20 @@ export function TimingsAmenitiesSection({
             ) : (
               <div className="space-y-3 flex-1 flex flex-col justify-center py-2">
                 <p className="text-sm text-temple-charcoal font-medium">
-                  Dates will be announced soon. Please call the temple.
+                  Dates will be announced soon. You can send a request through the form and the temple will get back to you.
                 </p>
-                <p className="text-xs text-temple-warmGrey">
-                  For upcoming festival and Sankashti timings:{" "}
-                  <a
-                    href={templeTelHref}
-                    className="relative z-10 font-bold text-temple-kumkum hover:underline inline-flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-temple-charcoal rounded"
-                  >
-                    <Phone className="w-3 h-3 inline-block" />
-                    <span>{templeDisplayPhone}</span>
-                  </a>
-                </p>
+                {templeTelHref && templeDisplayPhone && (
+                  <p className="text-xs text-temple-warmGrey">
+                    For upcoming festival and Sankashti timings:{" "}
+                    <a
+                      href={templeTelHref}
+                      className="relative z-10 font-bold text-temple-kumkum hover:underline inline-flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-temple-charcoal rounded"
+                    >
+                      <Phone className="w-3 h-3 inline-block" />
+                      <span>{templeDisplayPhone}</span>
+                    </a>
+                  </p>
+                )}
               </div>
             )}
 
@@ -194,14 +196,22 @@ export function LocationMapSection() {
                     Campus Entry Instructions
                   </span>
                   <p className="text-xs text-temple-charcoal leading-relaxed">
-                    Please call the temple for campus entry instructions:{" "}
-                    <a
-                      href={templeTelHref}
-                      className="font-bold text-temple-kumkum hover:underline inline-flex items-center gap-1"
-                    >
-                      <Phone className="w-3 h-3 inline-block" />
-                      <span>{templeDisplayPhone}</span>
-                    </a>
+                    {templeTelHref && templeDisplayPhone ? (
+                      <>
+                        Please call the temple for campus entry instructions:{" "}
+                        <a
+                          href={templeTelHref}
+                          className="font-bold text-temple-kumkum hover:underline inline-flex items-center gap-1"
+                        >
+                          <Phone className="w-3 h-3 inline-block" />
+                          <span>{templeDisplayPhone}</span>
+                        </a>
+                      </>
+                    ) : (
+                      <>
+                        Please send a request through the form and the temple will contact you with campus entry instructions.
+                      </>
+                    )}
                   </p>
                 </div>
               </div>

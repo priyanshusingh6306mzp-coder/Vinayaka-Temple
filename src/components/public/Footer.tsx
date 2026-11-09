@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { Phone, MapPin, Clock, Lock, ExternalLink } from "lucide-react";
+import { Phone, MapPin, Clock, Lock, ExternalLink, Calendar } from "lucide-react";
 import { SITE_CONFIG } from "@/content/site";
 import { templeDisplayPhone, templeTelHref, templeWhatsAppLink } from "@/lib/phone";
+import { Button } from "@/components/ui/button";
 import type { FormattedDarshanTimings } from "@/lib/darshan-timings";
 
 interface FooterProps {
@@ -84,37 +85,55 @@ export function Footer({ timings }: FooterProps) {
             </div>
           </div>
 
-          {/* Column 3: Contact & Support */}
+          {/* Column 3: Contact */}
           <div className="space-y-4">
             <h2 className="font-serif text-lg font-bold text-temple-charcoal tracking-wide border-b border-[#16130F]/10 pb-2">
-              Contact &amp; Support
+              Contact
             </h2>
             <div className="space-y-3 text-sm">
               <p className="text-xs text-temple-warmGrey">
                 For Pooja inquiries, Sankalpa, and special darshan bookings:
               </p>
 
-              <div className="pt-1">
-                <a
-                  href={templeTelHref}
-                  className="inline-flex items-center gap-2 text-base font-bold text-temple-charcoal hover:text-temple-kumkum transition-colors"
-                >
-                  <Phone className="w-4 h-4 text-temple-kumkum" aria-hidden="true" />
-                  <span>{templeDisplayPhone}</span>
-                </a>
+              <div>
+                <Button asChild variant="default" size="sm" className="bg-temple-kumkum hover:bg-temple-kumkum/90 text-white text-xs font-medium shadow-sm h-11 px-4">
+                  <Link href="/pooja" className="inline-flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5" aria-hidden="true" />
+                    <span>Request a Pooja</span>
+                  </Link>
+                </Button>
               </div>
 
-              <div>
-                <a
-                  href={templeWhatsAppLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs text-emerald-800 hover:text-emerald-900 font-semibold"
-                >
-                  <span>Inquire via WhatsApp</span>
-                  <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
-                </a>
+              <div className="flex items-start gap-2.5 text-xs text-temple-charcoal leading-relaxed pt-1">
+                <MapPin className="w-3.5 h-3.5 text-temple-kumkum shrink-0 mt-0.5" aria-hidden="true" />
+                <span>{SITE_CONFIG.location.fullAddress}</span>
               </div>
+
+              {templeTelHref && templeDisplayPhone && (
+                <div className="pt-1">
+                  <a
+                    href={templeTelHref}
+                    className="inline-flex items-center gap-2 text-base font-bold text-temple-charcoal hover:text-temple-kumkum transition-colors"
+                  >
+                    <Phone className="w-4 h-4 text-temple-kumkum" aria-hidden="true" />
+                    <span>{templeDisplayPhone}</span>
+                  </a>
+                </div>
+              )}
+
+              {templeWhatsAppLink && (
+                <div>
+                  <a
+                    href={templeWhatsAppLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs text-emerald-800 hover:text-emerald-900 font-semibold"
+                  >
+                    <span>Inquire via WhatsApp</span>
+                    <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
+                  </a>
+                </div>
+              )}
 
               <div className="pt-3 border-t border-[#16130F]/10">
                 <Link
